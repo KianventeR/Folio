@@ -16,6 +16,8 @@ public class Folio extends javax.swing.JFrame {
 //    public static Output output = new Output();
     
 //    public static boolean sound = true;
+
+// d9587d86
     
     public Folio() {
         mainFrame.setSize(1080, 720);
