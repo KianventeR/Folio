@@ -19,12 +19,19 @@ public class FIFO extends PageReplacementAlgorithm{
             if(pageCount == frameCount - 1){
                 removeTop(pageFrames);
             }
-            // then insert it to topmost frame
-            pageFrames[pageCount] = pages[iter];
-            pageCount++;
+            // if page is found in the pageFrames array don't insert
+            if(foundPage(pages[iter])){
+                hits[iter] = true;
+            }else{
+                // else insert it to topmost frame
+                pageFrames[pageCount] = pages[iter];
+                pageCount++;
+                hits[iter] = false;
+            }
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter][i] = pageFrames[i];
+                hitMatrix[iter][i] = hits[i];
             }
         }
     }

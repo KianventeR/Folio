@@ -4,12 +4,12 @@ public class PageReplacementAlgorithm{
    int frameCount;
    int hitCount;
    int missCount;
-   Boolean[] hits;
+   boolean[] hits;
    
    PageReplacementAlgorithm(int frames){
       frameCount = frames;
       pageFrames = new int[frames];
-      hits = new Boolean[frames];
+      hits = new boolean[frames];
    }
    
    public int[] getPageFrames(){
@@ -28,7 +28,7 @@ public class PageReplacementAlgorithm{
        return missCount;
    }
    
-   public Boolean[] getHits(){
+   public boolean[] getHits(){
        return hits;
    }
 
