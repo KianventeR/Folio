@@ -1,6 +1,6 @@
-public class SC extends PageReplacementAlgorithm{
+public class ESC extends PageReplacementAlgorithm{
 
-    // this class implements the second chance algorithm
+    // this class implements the enhanced second chance algorithm
     // input: pages to get from storage
     // output: the hit / miss status
     //         the 2-dimensional hit/miss matrix for each page requested
@@ -8,9 +8,9 @@ public class SC extends PageReplacementAlgorithm{
     //         other outputs inherited from the PageReplacementAlgorithm class 
     boolean[][] hitMatrix;
     int[][] framesMatrix;
-    // circular linked list needed to easily perform SC
+    // circular linked list needed to easily perform ESC
 
-    public SC(int[] pages, int numOfPages, int frameSize){
+    public ESC(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages][frameSize];

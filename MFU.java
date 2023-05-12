@@ -1,6 +1,6 @@
 public class MFU extends PageReplacementAlgorithm{
 
-    // this class implements the second chance algorithm
+    // this class implements the most frequently used algorithm
     // input: pages to get from storage
     // output: the hit / miss status
     //         the 2-dimensional hit/miss matrix for each page requested
