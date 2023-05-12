@@ -4,7 +4,8 @@ public class FIFO extends PageReplacementAlgorithm{
     // input: pages to get from storage
     // output: the hit / miss status
     //         the 2-dimensional hit/miss matrix for each page requested
-    //         the 2-dimensional page frame matrix showing the page contents 
+    //         the 2-dimensional page frame matrix showing the page contents
+    //         other outputs inherited from the PageReplacementAlgorithm class 
     int[][] hitMatrix;
     int[][] framesMatrix;
 
