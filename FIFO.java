@@ -38,7 +38,15 @@ public class FIFO extends PageReplacementAlgorithm{
     }
     // for first in first out functionality
     public void removeTop(int[] frames){
-
+        int[] tempArray = frames.clone();
+        for(int i = 0; i < frames.length - 1; i++){
+            if(i == frames.length - 1){
+                // set zero as the temporary empty value
+                frames[i] = 0;
+            }else{
+                frames[i] = tempArray[i+1];
+            }
+        }
     }
 
 }
