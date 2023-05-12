@@ -510,7 +510,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     private void io_speed_minusActionPerformed(java.awt.event.ActionEvent evt) {
-        
+        //
     }
 
     private void io_speed_addMouseEntered(java.awt.event.MouseEvent evt) {
