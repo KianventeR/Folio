@@ -37,7 +37,7 @@ public class FIFO extends PageReplacementAlgorithm{
         }
     }
 
-    public int[][] getHitMatrix() {
+    public boolean[][] getHitMatrix() {
         return hitMatrix;
     }
 
