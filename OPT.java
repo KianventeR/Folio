@@ -8,7 +8,7 @@ public class OPT extends PageReplacementAlgorithm{
     //         other outputs inherited from the PageReplacementAlgorithm class 
     boolean[][] hitMatrix;
     int[][] framesMatrix;
-    // doubly linked list needed to easily perform LRU
+    // doubly linked list needed to easily perform OPT
 
     public OPT(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
