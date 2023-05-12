@@ -8,13 +8,23 @@ public class FIFO extends PageReplacementAlgorithm{
     int[][] hitMatrix;
     int[][] framesMatrix;
 
-    public FIFO(int[] pages, int pageCount){
-        super(pageCount);
+    public FIFO(int[] pages, int numOfPages, int frameSize){
+        super(frameSize);
+        hitMatrix = new int[numOfPages][frameSize];
         // execute the algorithm
-        int count = 0;    // count for the array
-        for(int iter = 0; iter < pageCount; iter++){
+        for(int iter = 0; iter < numOfPages; iter++){
             // check if array is full 
-            
+            // if array is full, removeTop first
+            if(pageCount == frameCount - 1){
+                removeTop(pageFrames);
+            }
+            // then insert it to topmost frame
+            pageFrames[pageCount] = pages[iter];
+            pageCount++;
+            // then save it to the matrix for the iteration
+            for(int i = 0; i < frameSize; i++){
+                framesMatrix[iter][i] = pageFrames[i];
+            }
         }
     }
 
