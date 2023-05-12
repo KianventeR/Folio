@@ -6,12 +6,13 @@ public class FIFO extends PageReplacementAlgorithm{
     //         the 2-dimensional hit/miss matrix for each page requested
     //         the 2-dimensional page frame matrix showing the page contents
     //         other outputs inherited from the PageReplacementAlgorithm class 
-    int[][] hitMatrix;
+    boolean[][] hitMatrix;
     int[][] framesMatrix;
 
     public FIFO(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
-        hitMatrix = new int[numOfPages][frameSize];
+        framesMatrix = new int[numOfPages][frameSize];
+        hitMatrix = new boolean[numOfPages][frameSize];
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // check if array is full 
