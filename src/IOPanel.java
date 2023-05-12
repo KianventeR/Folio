@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.Random;
+
 import javax.swing.JComboBox;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
@@ -42,6 +45,13 @@ public class IOPanel extends javax.swing.JPanel {
     
 
     private void initComponents() {
+        length_upper = 40;
+        length_lower = 10;
+        lower_value = 0;
+        upper_value = 20;
+        frame_lower = 3;
+        frame_upper = 10;
+        
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         io_save = new javax.swing.JButton();
@@ -496,7 +506,44 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     private void io_randomActionPerformed(java.awt.event.ActionEvent evt) {
+
         
+        seed = (int) System.currentTimeMillis();
+        Random rand = new Random(seed);
+
+
+        int random_length = rand.nextInt(length_upper-length_lower) + length_lower;
+        int random_frame = rand.nextInt(frame_upper-frame_lower) + frame_lower;
+        int random_value = rand.nextInt(upper_value-lower_value) + lower_value;
+
+        System.out.println(random_length + " Length");
+        System.out.println(random_frame + " frame");
+        System.out.println(random_value + " value");
+
+        random_Array = new int[random_length];
+
+        for(int i = 0; i < random_length; i++){
+            random_Array[i] = random_value;
+            random_value = rand.nextInt(upper_value-lower_value) + lower_value;
+            
+        }
+        String array_string ="";
+       for(int i = 0; i < random_Array.length; i++){
+        if(i+1 < random_Array.length){
+            array_string = array_string + String.valueOf(random_Array[i]) + " ";
+        }
+        else{
+            array_string = array_string + String.valueOf(random_Array[i]) + "";
+        }
+       }
+       
+       System.out.println(array_string);
+
+       
+
+
+    
+
     }
 
     private void io_importMouseEntered(java.awt.event.MouseEvent evt) {
@@ -628,6 +675,8 @@ public class IOPanel extends javax.swing.JPanel {
     
     int default_frames = 3;
     int current_frames = default_frames;
+    int length_upper, length_lower, seed, frame_lower, frame_upper, lower_value, upper_value;
+        
     private javax.swing.JButton exit;
     private javax.swing.JLabel io_algorithm_bg;
     private javax.swing.JLabel io_algorithm_label;
@@ -657,4 +706,6 @@ public class IOPanel extends javax.swing.JPanel {
     private javax.swing.JLabel io_timer_bg;
     private javax.swing.JLabel io_timer_label;
     private javax.swing.JButton minimize;
+
+    public int[] random_Array;
 }
