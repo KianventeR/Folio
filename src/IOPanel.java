@@ -550,6 +550,13 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     private void io_speed_minusActionPerformed(java.awt.event.ActionEvent evt) {
+        if(current_speed > 0.5){
+            current_speed = current_speed - 0.5;
+            io_speed_value.setText(String.valueOf(current_speed)+"x");
+        }
+        else{
+            System.out.println("cannot subtract more than 0.5");
+        }
         
     }
 
