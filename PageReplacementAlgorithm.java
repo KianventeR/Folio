@@ -1,5 +1,6 @@
 public class PageReplacementAlgorithm{
    int[] pageFrames;
+   int pageCount;
    int frameCount;
    int hitCount;
    int missCount;
