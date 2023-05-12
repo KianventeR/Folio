@@ -539,7 +539,7 @@ public class IOPanel extends javax.swing.JPanel {
        
        System.out.println(array_string);
 
-       
+       io_reference_input.setText(array_string);
 
 
     
