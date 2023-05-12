@@ -1,18 +1,44 @@
-## Getting Started
+# Folio: A Page Replacement Algorithm Simulator
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This program is a Page Replacement Algorithm Simulator developed by 3 third-year Computer Science students (FMS STUDIOS) as a group project for CMSC 125. It is also built using Java language and the GUI is constructed using Netbeans IDE.
+## Acknowledgements
 
-## Folder Structure
+ - [Soundtrack Music](https://open.spotify.com/) by [---](https://open.spotify.com/)
 
-The workspace contains two folders by default, where:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Deployment
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+1. (Preferably) Install the latest version of Java SDK and Java JRE. 
+2. In your console of choice, change directory to the folder where the `.jar` file or `.exe` file named Folio is located. 
+3. Run the the program using the commands listed below depending if you use the `.jar` file or the `.exe` file (Windows).
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+### Jar File Execution
+1. For other OS with Java installed, type the following: `java -jar Folio.jar`
 
-## Dependency Management
+### Exe File (Windows users only)
+1. Simply type the following: `start Folio.exe`
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+###
+You can also run the jar and/or exe files by simply opening either of the files.
+
+
+## Test Case File Format
+
+1. You can import a `.txt` file to extract inputs for the different CPU Scheduling Algorithms
+2. format should be the following: where the `Number of Processes` is the number of rows and `Number of Resources` is the number of columns shown below. The requesting process would be which process is to be selected based on ID (in our example, we want `Process 2` which is the 2nd rows).
+```
+
+```
+
+## Authors
+
+- [@FrancisEspina](https://github.com/FrancisEspina)
+- [@shannaurelle](https://github.com/shannaurelle)
+- [@KianventeR](https://github.com/KianventeR)
+
+
+## Dependencies
+
+The program requires:
+
+- Atleast [JDK 16.0.1](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html)
