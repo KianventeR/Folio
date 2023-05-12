@@ -31,4 +31,15 @@ public class PageReplacementAlgorithm{
    public Boolean[] getHits(){
        return hits;
    }
+
+   public boolean foundPage(int page){
+        boolean found = false;
+        for(int i = 0; i < pageFrames.length; i++){
+            if(pageFrames[i] == page){
+                found = true;
+                break;
+            }
+        }
+        return found;
+   }
 }
