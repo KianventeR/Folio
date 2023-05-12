@@ -1,7 +1,14 @@
+import javax.swing.JComboBox;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class IOPanel extends javax.swing.JPanel {
+    private String Selected;
+    public double default_speed = 1;
+    public double current_speed = default_speed;
     public IOPanel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -11,6 +18,28 @@ public class IOPanel extends javax.swing.JPanel {
         }
         initComponents();
     }
+
+    public void reset(){
+        default_speed = 1; 
+        current_speed = default_speed;
+        default_frames = 3;
+        current_frames = default_frames;
+        removeAll();
+        initComponents();
+        Folio.fullOutput.reset();
+    }
+    private void adjustScrollBar(javax.swing.JComboBox<String> box) {
+        if (box.getItemCount() == 0) return;
+        Object comp = box.getUI().getAccessibleChild(box, 0);
+        if (!(comp instanceof JPopupMenu)) {
+            return;
+        }
+        JPopupMenu popup = (JPopupMenu) comp;
+        JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+        scrollPane.setHorizontalScrollBar(new JScrollBar(JScrollBar.HORIZONTAL));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    }
+    
 
     private void initComponents() {
         exit = new javax.swing.JButton();
@@ -42,6 +71,8 @@ public class IOPanel extends javax.swing.JPanel {
         io_frames_bg = new javax.swing.JLabel();
         io_output_bg = new javax.swing.JLabel();
         io_bg = new javax.swing.JLabel();
+
+        
 
         setPreferredSize(new java.awt.Dimension(1080, 720));
         setLayout(null);
@@ -317,7 +348,7 @@ public class IOPanel extends javax.swing.JPanel {
 
         io_speed_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_speed_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        io_speed_value.setText("1");
+        io_speed_value.setText(String.valueOf(current_speed) + "x");
         add(io_speed_value);
         io_speed_value.setBounds(178, 190, 40, 30);
 
@@ -353,11 +384,13 @@ public class IOPanel extends javax.swing.JPanel {
         add(io_reference_bg);
         io_reference_bg.setBounds(40, 130, 920, 50);
 
-        io_algorithm_select.setFont(new java.awt.Font("Poppins ExtraBold", 0, 14)); 
-        io_algorithm_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        io_algorithm_select.setFont(new java.awt.Font("Poppins Regular", 0, 12)); 
+        io_algorithm_select.setAutoscrolls(getAutoscrolls());
+        io_algorithm_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"First In First Out", "Least Recently Used", "Optimal Page Replacement", "Second Chance Algorithm", "Enhanced Second Chance Algorithm", "Least Frequently Used", "Most Frequently Used" }));
         io_algorithm_select.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         io_algorithm_select.setFocusable(false);
         io_algorithm_select.setOpaque(false);
+        adjustScrollBar(io_algorithm_select);
         add(io_algorithm_select);
         io_algorithm_select.setBounds(326, 90, 160, 30);
 
@@ -375,7 +408,7 @@ public class IOPanel extends javax.swing.JPanel {
 
         io_frames_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_frames_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        io_frames_value.setText("3");
+        io_frames_value.setText(String.valueOf(default_frames));
         add(io_frames_value);
         io_frames_value.setBounds(620, 90, 50, 30);
 
@@ -438,6 +471,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     private void io_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        reset();
         Folio.card.show(Folio.mainPanel, "2");
     }
 
@@ -474,6 +508,8 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     private void io_importActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("importing");
+
         
     }
 
@@ -498,6 +534,10 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     private void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
+        Selected = io_algorithm_select.getSelectedItem().toString();
+
+        System.out.println(Selected);
+        
         
     }
 
@@ -523,6 +563,14 @@ public class IOPanel extends javax.swing.JPanel {
 
     private void io_speed_addActionPerformed(java.awt.event.ActionEvent evt) {
         
+        if(current_speed < 2.0){
+            current_speed = current_speed + 0.5;
+            io_speed_value.setText(String.valueOf(current_speed)+"x");
+        }
+        else{
+            System.out.println("cannot add more than 2");
+        }
+        
     }
 
     private void io_frames_addMouseEntered(java.awt.event.MouseEvent evt) {
@@ -534,6 +582,16 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     private void io_frames_addActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("adding frames");
+        if(current_frames >= 3 && current_frames < 10){
+            current_frames++;
+            io_frames_value.setText(String.valueOf(current_frames));
+            System.out.println(current_frames);
+        }
+        else{
+            System.out.println("cannot add more than 10");
+            System.out.println(current_frames);
+        }
         
     }
 
@@ -546,9 +604,23 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     private void io_frames_minusActionPerformed(java.awt.event.ActionEvent evt) {
+
+        if(current_frames <= 3){
+            System.out.println("removing frames");
+            System.out.println("cannot subtract less than 3");
+        }
+        else{
+            current_frames--;
+            io_frames_value.setText(String.valueOf(current_frames));
+            System.out.println(current_frames);
+           
+        }
         
     }
-
+    
+    
+    int default_frames = 3;
+    int current_frames = default_frames;
     private javax.swing.JButton exit;
     private javax.swing.JLabel io_algorithm_bg;
     private javax.swing.JLabel io_algorithm_label;

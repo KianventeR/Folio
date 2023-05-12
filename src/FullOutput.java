@@ -3,6 +3,11 @@ public class FullOutput extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void reset() {
+        removeAll();
+        initComponents();
+    }
+
     private void initComponents() {
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
@@ -163,6 +168,7 @@ public class FullOutput extends javax.swing.JPanel {
     }
 
     private void io_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        reset();
         Folio.card.show(Folio.mainPanel, "2");
     }
 
@@ -187,4 +193,5 @@ public class FullOutput extends javax.swing.JPanel {
     private javax.swing.JLabel io_timer_bg;
     private javax.swing.JLabel io_timer_label;
     private javax.swing.JButton minimize;
+   
 }
