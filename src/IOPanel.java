@@ -1,7 +1,11 @@
+import java.io.File;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -9,7 +13,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class IOPanel extends javax.swing.JPanel {
-    private String Selected;
+    public String Selected;
     public double default_speed = 1;
     public double current_speed = default_speed;
     public IOPanel() {
@@ -31,7 +35,7 @@ public class IOPanel extends javax.swing.JPanel {
         initComponents();
         Folio.fullOutput.reset();
     }
-    private void adjustScrollBar(javax.swing.JComboBox<String> box) {
+    public void adjustScrollBar(javax.swing.JComboBox<String> box) {
         if (box.getItemCount() == 0) return;
         Object comp = box.getUI().getAccessibleChild(box, 0);
         if (!(comp instanceof JPopupMenu)) {
@@ -44,7 +48,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
     
 
-    private void initComponents() {
+    public void initComponents() {
         length_upper = 40;
         length_lower = 10;
         lower_value = 0;
@@ -462,64 +466,64 @@ public class IOPanel extends javax.swing.JPanel {
         io_bg.setBounds(0, 0, 1080, 720);
     }
 
-    private void exitMouseEntered(java.awt.event.MouseEvent evt) {
+    public void exitMouseEntered(java.awt.event.MouseEvent evt) {
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_hover.png")));
     }
 
-    private void exitMouseExited(java.awt.event.MouseEvent evt) {
+    public void exitMouseExited(java.awt.event.MouseEvent evt) {
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close.png")));
     }
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+    public void exitActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
     }
 
-    private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {
+    public void minimizeMouseEntered(java.awt.event.MouseEvent evt) {
         minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_hover.png")));
     }
 
-    private void minimizeMouseExited(java.awt.event.MouseEvent evt) {
+    public void minimizeMouseExited(java.awt.event.MouseEvent evt) {
         minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min.png")));
     }
 
-    private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+    public void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
         Folio.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 
-    private void io_returnMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_returnMouseEntered(java.awt.event.MouseEvent evt) {
         io_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_hover.png")));
     }
 
-    private void io_returnMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_returnMouseExited(java.awt.event.MouseEvent evt) {
         io_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return.png")));
     }
 
-    private void io_returnActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_returnActionPerformed(java.awt.event.ActionEvent evt) {
         reset();
         Folio.card.show(Folio.mainPanel, "2");
     }
 
-    private void io_saveMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_saveMouseEntered(java.awt.event.MouseEvent evt) {
         io_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/save_hover.png")));
     }
 
-    private void io_saveMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_saveMouseExited(java.awt.event.MouseEvent evt) {
         io_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/save.png")));
     }
 
-    private void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
         
     }
 
-    private void io_randomMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_randomMouseEntered(java.awt.event.MouseEvent evt) {
         io_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/random_hover.png")));
     }
 
-    private void io_randomMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_randomMouseExited(java.awt.event.MouseEvent evt) {
         io_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/random.png")));
     }
 
-    private void io_randomActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_randomActionPerformed(java.awt.event.ActionEvent evt) {
 
         
         seed = (int) System.currentTimeMillis();
@@ -548,73 +552,144 @@ public class IOPanel extends javax.swing.JPanel {
         String array_string ="";
        for(int i = 0; i < random_Array.length; i++){
         if(i+1 < random_Array.length){
-            array_string = array_string + String.valueOf(random_Array[i]) + ",";
+            array_string = array_string + String.valueOf(random_Array[i]) + " ";
         }
         else{
             array_string = array_string + String.valueOf(random_Array[i]) + "";
         }
        }
        
-       System.out.println(array_string);
+    //    System.out.println(array_string);
 
        io_reference_input.setText(array_string);
 
+       main_Array = new int[random_Array.length];
+       main_Array = random_Array.clone();
 
-    
 
     }
 
-    private void io_importMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_importMouseEntered(java.awt.event.MouseEvent evt) {
         io_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/import_hover.png")));
     }
 
-    private void io_importMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_importMouseExited(java.awt.event.MouseEvent evt) {
         io_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/import.png")));
     }
 
-    private void io_importActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_importActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("importing");
 
+        final JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+        File file = fc.getSelectedFile();
+
+        
+     try (Scanner read = new Scanner(file)){
+        String frames = " ";
+        String algo = " ";
+        String page_reference = "";
+     
+    
+
+            for(int i = 0; i < 4; i++){
+                
+                if(i < 2){
+                    frames = read.next();
+                }
+                else{
+                    algo = read.next();
+                }
+            }
+            read.next();
+            import_ArrayList = new ArrayList<Integer>();
+            while(read.hasNext()){
+                import_ArrayList.add(read.nextInt());  
+            }
+          
+            System.out.println(import_ArrayList);
+
+            main_Array = new int [import_ArrayList.size()];
+
+            for(int i = 0; i < import_ArrayList.size(); i++){
+                main_Array[i] = import_ArrayList.get(i);
+            }
+
+
+
+            current_frames = Integer.parseInt(frames);
+            
+            Selected = checkSelected(algo);
+            System.out.println(Selected);
+            
+            io_random.setEnabled(false);
+            io_frames_add.setEnabled(false);
+            io_frames_minus.setEnabled(false);
+            io_algorithm_select.setEnabled(false);
+            io_reference_input.setEditable(false);
+
+
+       
+        
+     } catch (Exception e) {
+        System.out.println("errpr");
+        // TODO: handle exception
+     }
         
     }
 
-    private void io_simulateAllMouseEntered(java.awt.event.MouseEvent evt) {
+    
+
+    private String checkSelected(String algo) {
+        String selected = "";
+        if(algo.equals("FIFO")){
+            selected = "First In First Out";
+        }
+        return selected;
+    }
+
+    public void io_simulateAllMouseEntered(java.awt.event.MouseEvent evt) {
         io_simulateAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulateAll_hover.png")));
     }
 
-    private void io_simulateAllMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_simulateAllMouseExited(java.awt.event.MouseEvent evt) {
         io_simulateAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulateAll.png")));
     }
 
-    private void io_simulateAllActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_simulateAllActionPerformed(java.awt.event.ActionEvent evt) {
         Folio.card.show(Folio.mainPanel, "6");
     }
 
-    private void io_simulateMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_simulateMouseEntered(java.awt.event.MouseEvent evt) {
         io_simulate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulate_hover.png")));
     }
 
-    private void io_simulateMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_simulateMouseExited(java.awt.event.MouseEvent evt) {
         io_simulate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulate.png")));
     }
 
-    private void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
         Selected = io_algorithm_select.getSelectedItem().toString();
+        
+        //variables
+        //current_frames;
+        //main_Array;
+        //current_speed
 
-        System.out.println(Selected);
+        
         
         
     }
 
-    private void io_speed_minusMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_speed_minusMouseEntered(java.awt.event.MouseEvent evt) {
         io_speed_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus_hover.png")));
     }
 
-    private void io_speed_minusMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_speed_minusMouseExited(java.awt.event.MouseEvent evt) {
         io_speed_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus.png")));
     }
 
-    private void io_speed_minusActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_speed_minusActionPerformed(java.awt.event.ActionEvent evt) {
         if(current_speed > 0.5){
             current_speed = current_speed - 0.5;
             io_speed_value.setText(String.valueOf(current_speed)+"x");
@@ -625,15 +700,15 @@ public class IOPanel extends javax.swing.JPanel {
         
     }
 
-    private void io_speed_addMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_speed_addMouseEntered(java.awt.event.MouseEvent evt) {
         io_speed_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add_hover.png")));
     }
 
-    private void io_speed_addMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_speed_addMouseExited(java.awt.event.MouseEvent evt) {
         io_speed_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add.png")));
     }
 
-    private void io_speed_addActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_speed_addActionPerformed(java.awt.event.ActionEvent evt) {
         
         if(current_speed < 2.0){
             current_speed = current_speed + 0.5;
@@ -645,15 +720,15 @@ public class IOPanel extends javax.swing.JPanel {
         
     }
 
-    private void io_frames_addMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_frames_addMouseEntered(java.awt.event.MouseEvent evt) {
         io_frames_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add_hover.png")));
     }
 
-    private void io_frames_addMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_frames_addMouseExited(java.awt.event.MouseEvent evt) {
         io_frames_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add.png")));
     }
 
-    private void io_frames_addActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_frames_addActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("adding frames");
         if(current_frames >= 3 && current_frames < 10){
             current_frames++;
@@ -667,15 +742,15 @@ public class IOPanel extends javax.swing.JPanel {
         
     }
 
-    private void io_frames_minusMouseEntered(java.awt.event.MouseEvent evt) {
+    public void io_frames_minusMouseEntered(java.awt.event.MouseEvent evt) {
         io_frames_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus_hover.png")));
     }
 
-    private void io_frames_minusMouseExited(java.awt.event.MouseEvent evt) {
+    public void io_frames_minusMouseExited(java.awt.event.MouseEvent evt) {
         io_frames_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus.png")));
     }
 
-    private void io_frames_minusActionPerformed(java.awt.event.ActionEvent evt) {
+    public void io_frames_minusActionPerformed(java.awt.event.ActionEvent evt) {
 
         if(current_frames <= 3){
             System.out.println("removing frames");
@@ -695,37 +770,39 @@ public class IOPanel extends javax.swing.JPanel {
     int current_frames = default_frames;
     int length_upper, length_lower, seed, frame_lower, frame_upper, lower_value, upper_value;
         
-    private javax.swing.JButton exit;
-    private javax.swing.JLabel io_algorithm_bg;
-    private javax.swing.JLabel io_algorithm_label;
-    private javax.swing.JComboBox<String> io_algorithm_select;
-    private javax.swing.JLabel io_bg;
-    private javax.swing.JButton io_frames_add;
-    private javax.swing.JLabel io_frames_bg;
-    private javax.swing.JLabel io_frames_label;
-    private javax.swing.JButton io_frames_minus;
-    private javax.swing.JLabel io_frames_value;
-    private javax.swing.JButton io_import;
-    private javax.swing.JLabel io_output_bg;
-    private javax.swing.JScrollPane io_output_scroll;
-    private javax.swing.JLabel io_page_bg;
-    private javax.swing.JLabel io_page_label;
-    private javax.swing.JButton io_random;
-    private javax.swing.JLabel io_reference_bg;
-    private javax.swing.JTextField io_reference_input;
-    private javax.swing.JLabel io_reference_label;
-    private javax.swing.JButton io_return;
-    private javax.swing.JButton io_save;
-    private javax.swing.JButton io_simulate;
-    private javax.swing.JButton io_simulateAll;
-    private javax.swing.JButton io_speed_add;
-    private javax.swing.JLabel io_speed_bg;
-    private javax.swing.JLabel io_speed_label;
-    private javax.swing.JButton io_speed_minus;
-    private javax.swing.JLabel io_speed_value;
-    private javax.swing.JLabel io_timer_bg;
-    private javax.swing.JLabel io_timer_label;
-    private javax.swing.JButton minimize;
+    public javax.swing.JButton exit;
+    public javax.swing.JLabel io_algorithm_bg;
+    public javax.swing.JLabel io_algorithm_label;
+    public javax.swing.JComboBox<String> io_algorithm_select;
+    public javax.swing.JLabel io_bg;
+    public javax.swing.JButton io_frames_add;
+    public javax.swing.JLabel io_frames_bg;
+    public javax.swing.JLabel io_frames_label;
+    public javax.swing.JButton io_frames_minus;
+    public javax.swing.JLabel io_frames_value;
+    public javax.swing.JButton io_import;
+    public javax.swing.JLabel io_output_bg;
+    public javax.swing.JScrollPane io_output_scroll;
+    public javax.swing.JLabel io_page_bg;
+    public javax.swing.JLabel io_page_label;
+    public javax.swing.JButton io_random;
+    public javax.swing.JLabel io_reference_bg;
+    public javax.swing.JTextField io_reference_input;
+    public javax.swing.JLabel io_reference_label;
+    public javax.swing.JButton io_return;
+    public javax.swing.JButton io_save;
+    public javax.swing.JButton io_simulate;
+    public javax.swing.JButton io_simulateAll;
+    public javax.swing.JButton io_speed_add;
+    public javax.swing.JLabel io_speed_bg;
+    public javax.swing.JLabel io_speed_label;
+    public javax.swing.JButton io_speed_minus;
+    public javax.swing.JLabel io_speed_value;
+    public javax.swing.JLabel io_timer_bg;
+    public javax.swing.JLabel io_timer_label;
+    public javax.swing.JButton minimize;
 
     public int[] random_Array;
+    public int[] main_Array;
+    public ArrayList<Integer> import_ArrayList;
 }
