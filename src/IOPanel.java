@@ -520,6 +520,10 @@ public class IOPanel extends javax.swing.JPanel {
         System.out.println(random_frame + " frame");
         System.out.println(random_value + " value");
 
+        current_frames = random_frame;
+
+        io_frames_value.setText(String.valueOf(current_frames));
+
         random_Array = new int[random_length];
 
         for(int i = 0; i < random_length; i++){
@@ -530,7 +534,7 @@ public class IOPanel extends javax.swing.JPanel {
         String array_string ="";
        for(int i = 0; i < random_Array.length; i++){
         if(i+1 < random_Array.length){
-            array_string = array_string + String.valueOf(random_Array[i]) + " ";
+            array_string = array_string + String.valueOf(random_Array[i]) + ",";
         }
         else{
             array_string = array_string + String.valueOf(random_Array[i]) + "";
