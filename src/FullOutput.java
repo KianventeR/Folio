@@ -13,6 +13,8 @@ public class FullOutput extends javax.swing.JPanel {
         minimize = new javax.swing.JButton();
         io_save = new javax.swing.JButton();
         io_return = new javax.swing.JButton();
+        io_page_label = new javax.swing.JLabel();
+        io_page_bg = new javax.swing.JLabel();
         io_timer_label = new javax.swing.JLabel();
         io_timer_bg = new javax.swing.JLabel();
         io_output_scroll = new javax.swing.JScrollPane();
@@ -105,6 +107,18 @@ public class FullOutput extends javax.swing.JPanel {
         add(io_return);
         io_return.setBounds(990, 630, 80, 80);
 
+        io_page_label.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); // NOI18N
+        io_page_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        io_page_label.setText("0");
+        add(io_page_label);
+        io_page_label.setBounds(240, 40, 60, 30);
+
+        io_page_bg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        io_page_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/page_highlight.png"))); // NOI18N
+        io_page_bg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(io_page_bg);
+        io_page_bg.setBounds(170, 30, 150, 50);
+
         io_timer_label.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_timer_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         io_timer_label.setText("0");
@@ -188,6 +202,8 @@ public class FullOutput extends javax.swing.JPanel {
     private javax.swing.JLabel io_bg;
     private javax.swing.JLabel io_output_bg;
     private javax.swing.JScrollPane io_output_scroll;
+    private javax.swing.JLabel io_page_bg;
+    private javax.swing.JLabel io_page_label;
     private javax.swing.JButton io_return;
     private javax.swing.JButton io_save;
     private javax.swing.JLabel io_timer_bg;
