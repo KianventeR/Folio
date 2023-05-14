@@ -1,3 +1,5 @@
+import java.util.PriorityQueue;
+
 public class LFU extends PageReplacementAlgorithm{
 
     // this class implements the least frequently used algorithm
@@ -8,7 +10,8 @@ public class LFU extends PageReplacementAlgorithm{
     //         other outputs inherited from the PageReplacementAlgorithm class 
     boolean[][] hitMatrix;
     int[][] framesMatrix;
-    // priority queue (reversed) needed to easily perform LFU
+    // priority queue needed to easily perform LFU
+    PriorityQueue<Integer> queue = new PriorityQueue<>();
 
     public LFU(int[] pages, int numOfPages, int frameSize){
         super(frameSize);

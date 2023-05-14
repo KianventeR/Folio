@@ -11,6 +11,7 @@ public class MFU extends PageReplacementAlgorithm{
     boolean[][] hitMatrix;
     int[][] framesMatrix;
     // priority queue needed to easily perform MFU
+    PriorityQueue<Integer> queue = new PriorityQueue<>(10, (x,y) -> Integer.compare(y,x));
 
     public MFU(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
