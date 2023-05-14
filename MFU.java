@@ -1,3 +1,5 @@
+import java.util.PriorityQueue;
+
 public class MFU extends PageReplacementAlgorithm{
 
     // this class implements the most frequently used algorithm
