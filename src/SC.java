@@ -27,24 +27,30 @@ public class SC extends PageReplacementAlgorithm{
                 for(int i = 0; i < pageCount; i++){
                     if(pages[iter] == pageFrames[i]){
                         index = i;
-                        refBits[i] = 1; // second chance
+                        refBits[i] = 1; // second chance creation
                         break;
                     }
                 }
             }else{
                 // search for the page to be replaced
+                // start at head
+                int index = head;
                 for(int i = 0; i < pageCount; i++){
-                    // use the second chance 
-                    if(refBits[i] == 1){
-                        refBits[i] -= 1;
+                    // remove first page with refBit = 0
+                    if(refBits[index+i] == 0){
+                        pageFrames[index+i] = 0;
+                        refBits[index+i] = 0;
                     }
-                    moveHead(i);
-
+                    // use the second chance for the rest of pages
+                    if(refBits[i] == 1){
+                        refBits[i] = 0;
+                    }
                 }
                 // else insert it to topmost frame
                 pageFrames[pageCount] = pages[iter];
                 pageCount++;
                 hits[iter] = false;
+                moveHead();
             }
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
