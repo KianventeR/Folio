@@ -38,6 +38,7 @@ public class SC extends PageReplacementAlgorithm{
                     if(refBits[i] == 1){
                         refBits[i] -= 1;
                     }
+                    moveHead(i);
 
                 }
                 // else insert it to topmost frame
@@ -62,8 +63,8 @@ public class SC extends PageReplacementAlgorithm{
     }
 
     // moves the circular queue head per iteration
-    public void moveHead(int offset){
-        head = (head + offset + 1) % frameSize;
+    public void moveHead(){
+        head = (head + 1) % frameSize;
     }
 
 }
