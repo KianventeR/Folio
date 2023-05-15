@@ -32,7 +32,7 @@ public class LFU extends PageReplacementAlgorithm{
                     }
                 }
             }
-            // if page is found in the linked list don't insert
+            // if page is found in the priority queue don't insert
             Integer pageNum = Integer.valueOf(pages[iter]);
             Boolean isFound = false;
             Iterator values = queue.iterator();
