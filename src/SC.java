@@ -1,6 +1,7 @@
-public class OPT extends PageReplacementAlgorithm{
+package src;
+public class SC extends PageReplacementAlgorithm{
 
-    // this class implements the optimal replacement algorithm
+    // this class implements the second chance algorithm
     // input: pages to get from storage
     // output: the hit / miss status
     //         the 2-dimensional hit/miss matrix for each page requested
@@ -8,9 +9,9 @@ public class OPT extends PageReplacementAlgorithm{
     //         other outputs inherited from the PageReplacementAlgorithm class 
     boolean[][] hitMatrix;
     int[][] framesMatrix;
-    // doubly linked list needed to easily perform OPT
+    // circular linked list needed to easily perform SC
 
-    public OPT(int[] pages, int numOfPages, int frameSize){
+    public SC(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages][frameSize];

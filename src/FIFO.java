@@ -1,3 +1,4 @@
+package src;
 public class FIFO extends PageReplacementAlgorithm{
 
     // this class implements the first in first out algorithm

@@ -1,6 +1,7 @@
-public class ESC extends PageReplacementAlgorithm{
+package src;
+public class OPT extends PageReplacementAlgorithm{
 
-    // this class implements the enhanced second chance algorithm
+    // this class implements the optimal replacement algorithm
     // input: pages to get from storage
     // output: the hit / miss status
     //         the 2-dimensional hit/miss matrix for each page requested
@@ -8,9 +9,9 @@ public class ESC extends PageReplacementAlgorithm{
     //         other outputs inherited from the PageReplacementAlgorithm class 
     boolean[][] hitMatrix;
     int[][] framesMatrix;
-    // circular linked list needed to easily perform ESC
+    // doubly linked list needed to easily perform OPT
 
-    public ESC(int[] pages, int numOfPages, int frameSize){
+    public OPT(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages][frameSize];

@@ -1,9 +1,10 @@
-import java.util.PriorityQueue;
+package src;
 import java.util.Iterator;
+import java.util.PriorityQueue;
 
-public class MFU extends PageReplacementAlgorithm{
+public class LFU extends PageReplacementAlgorithm{
 
-    // this class implements the most frequently used algorithm
+    // this class implements the least frequently used algorithm
     // input: pages to get from storage
     // output: the hit / miss status
     //         the 2-dimensional hit/miss matrix for each page requested
@@ -11,23 +12,23 @@ public class MFU extends PageReplacementAlgorithm{
     //         other outputs inherited from the PageReplacementAlgorithm class 
     boolean[][] hitMatrix;
     int[][] framesMatrix;
-    // priority queue needed to easily perform MFU
-    PriorityQueue<IntegerEntry> queue = new PriorityQueue<>(10, (x,y) -> Integer.compare(y.getFreq(),x.getFreq()));
+    // priority queue needed to easily perform LFU
+    PriorityQueue<IntegerEntry> queue = new PriorityQueue<>();
 
-    public MFU(int[] pages, int numOfPages, int frameSize){
+    public LFU(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages][frameSize];
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // check if array is full 
-            // if array is full, remove most frequently used page first
+            // if array is full, remove least frequently used page first
             if(pageCount == frameCount - 1){
-                int maxVal = queue.poll().getKey();
-                // remove the page with most frequent use
+                int minVal = queue.poll().getKey();
+                // remove the page with least frequency of use
                 int index = 0;
                 for (int i = 0; i < pageCount; i++){
-                    if(pageFrames[i] == maxVal){
+                    if(pageFrames[i] == minVal){
                         pageFrames[i] = 0;
                         index = i;
                         break;
@@ -41,6 +42,7 @@ public class MFU extends PageReplacementAlgorithm{
                         pageFrames[i+1] = 0;
                     }
                 }
+                
             }
             // if page is found in the priority queue don't insert
             int pageNum = pages[iter];

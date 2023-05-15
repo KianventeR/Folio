@@ -1,3 +1,4 @@
+package src;
 public class PageReplacementAlgorithm{
    int[] pageFrames;
    int pageCount;
