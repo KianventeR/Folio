@@ -25,11 +25,17 @@ public class LFU extends PageReplacementAlgorithm{
             if(pageCount == frameCount - 1){
                 int minVal = queue.poll().getKey();
                 // remove the page with least frequency of use
+                int index = 0;
                 for (int i = 0; i < pageCount; i++){
                     if(pageFrames[i] == minVal){
                         pageFrames[i] = 0;
+                        index = i;
                         break;
                     }
+                }
+                // move the elements to make space for other values
+                for (int i = index; i < frameSize - 1; i++){
+                    pageFrames[i] = pageFrames[i+1];
                 }
             }
             // if page is found in the priority queue don't insert
