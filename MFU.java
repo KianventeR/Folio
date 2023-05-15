@@ -12,7 +12,7 @@ public class MFU extends PageReplacementAlgorithm{
     boolean[][] hitMatrix;
     int[][] framesMatrix;
     // priority queue needed to easily perform MFU
-    PriorityQueue<IntegerEntry> queue = new PriorityQueue<>(10, (x,y) -> Integer.compare(y.getValue(),x.getValue()));
+    PriorityQueue<IntegerEntry> queue = new PriorityQueue<>(10, (x,y) -> Integer.compare(y.getFreq(),x.getFreq()));
 
     public MFU(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
@@ -50,7 +50,7 @@ public class MFU extends PageReplacementAlgorithm{
                     // remove the element from queue
                     queue.remove(value);
                     // increment the frequency
-                    value.setValue(value.getValue() + 1);
+                    value.setFreq(value.getFreq() + 1);
                     // insert to priority queue
                     queue.add(value);
                     break;

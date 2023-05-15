@@ -1,26 +1,26 @@
 public class IntegerEntry {
     private int key;
-    private int value;
+    private int freq;
 
     IntegerEntry(int k, int v){
         key = k;
-        value = v;
+        freq = v;
     }
 
     public void setKey(int key) {
         this.key = key;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setFreq(int value) {
+        this.freq = value;
     }
 
     public int getKey() {
         return key;
     }
 
-    public int getValue() {
-        return value;
+    public int getFreq() {
+        return freq;
     }
-    
+
 }

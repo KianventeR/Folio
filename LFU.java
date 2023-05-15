@@ -50,7 +50,7 @@ public class LFU extends PageReplacementAlgorithm{
                     // remove the element from queue
                     queue.remove(value);
                     // increment the frequency
-                    value.setValue(value.getValue() + 1);
+                    value.setFreq(value.getFreq() + 1);
                     // insert to priority queue
                     queue.add(value);
                     break;
