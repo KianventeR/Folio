@@ -30,7 +30,7 @@ public class SC extends PageReplacementAlgorithm{
 
     // moves the circular queue head per iteration
     public void moveHead(){
-        return (head + 1) % frameSize;
+        head = (head + 1) % frameSize;
     }
 
 }
