@@ -1,4 +1,4 @@
-package src;
+
 public class SC extends PageReplacementAlgorithm{
 
     // this class implements the second chance algorithm (FIFO variant)

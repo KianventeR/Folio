@@ -1,4 +1,4 @@
-package src;
+
 public class IntegerEntry {
     private int key;
     private int freq;

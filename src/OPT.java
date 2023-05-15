@@ -1,4 +1,4 @@
-package src;
+
 public class OPT extends PageReplacementAlgorithm{
 
     // this class implements the optimal replacement algorithm
