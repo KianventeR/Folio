@@ -22,11 +22,9 @@ public class SC extends PageReplacementAlgorithm{
             // if page is found in the pageFrames array don't insert
             if(foundPage(pages[iter])){
                 hits[iter] = true;
-                // find where is the index
-                int index = 0;
+                // find where to give second chance
                 for(int i = 0; i < pageCount; i++){
                     if(pages[iter] == pageFrames[i]){
-                        index = i;
                         refBits[i] = 1; // second chance creation
                         break;
                     }
@@ -46,8 +44,8 @@ public class SC extends PageReplacementAlgorithm{
                         refBits[i] = 0;
                     }
                 }
-                // else insert it to topmost frame
-                pageFrames[pageCount] = pages[iter];
+                // else insert it to the chosen page frame
+                pageFrames[index] = pages[iter];
                 pageCount++;
                 hits[iter] = false;
                 moveHead();
