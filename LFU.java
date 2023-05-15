@@ -18,6 +18,37 @@ public class LFU extends PageReplacementAlgorithm{
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages][frameSize];
         // execute the algorithm
+        // execute the algorithm
+        for(int iter = 0; iter < numOfPages; iter++){
+            // check if array is full 
+            // if array is full, remove least frequently used page first
+            if(pageCount == frameCount - 1){
+                int minVal = queue.poll();
+                // remove the page with least frequency of use
+                for (int i = 0; i < pageCount; i++){
+                    if(pageFrames[i] == minVal){
+                        pageFrames[i] = 0;
+                        break;
+                    }
+                }
+            }
+            // if page is found in the linked list don't insert
+            Integer pageNum = Integer.valueOf(pages[iter]);
+            if(queue.contains(pageNum)){
+                hits[iter] = true;
+            }else{
+                // else insert it to end of linked list
+                queue.add(pageNum);
+                pageFrames[pageCount] = pageNum;
+                pageCount++;
+                hits[iter] = false;
+            }
+            // then save it to the matrix for the iteration
+            for(int i = 0; i < frameSize; i++){
+                framesMatrix[iter] = pageFrames;
+                hitMatrix[iter][i] = hits[i];
+            }
+        }
     }
 
     public boolean[][] getHitMatrix() {
