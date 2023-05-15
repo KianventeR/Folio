@@ -48,8 +48,9 @@ public class SC extends PageReplacementAlgorithm{
                 pageFrames[index] = pages[iter];
                 pageCount++;
                 hits[iter] = false;
-                moveHead();
             }
+            // move the circular queue head. page hit or page fault
+            head = (head + 1) % frameSize;
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter][i] = pageFrames[i];
@@ -64,11 +65,6 @@ public class SC extends PageReplacementAlgorithm{
 
     public int[][] getFramesMatrix() {
         return framesMatrix;
-    }
-
-    // moves the circular queue head per iteration
-    public void moveHead(){
-        head = (head + 1) % frameSize;
     }
 
 }
