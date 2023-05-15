@@ -36,6 +36,10 @@ public class MFU extends PageReplacementAlgorithm{
                 // move the elements to make space for other values
                 for (int i = index; i < frameSize - 1; i++){
                     pageFrames[i] = pageFrames[i+1];
+                    // remove the last element
+                    if(i == frameSize - 1){
+                        pageFrames[i+1] = 0;
+                    }
                 }
             }
             // if page is found in the priority queue don't insert
