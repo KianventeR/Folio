@@ -21,10 +21,10 @@ public class MFU extends PageReplacementAlgorithm{
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // check if array is full 
-            // if array is full, remove least frequently used page first
+            // if array is full, remove most frequently used page first
             if(pageCount == frameCount - 1){
                 int maxVal = queue.poll().getKey();
-                // remove the page with least frequency of use
+                // remove the page with most frequent use
                 int index = 0;
                 for (int i = 0; i < pageCount; i++){
                     if(pageFrames[i] == maxVal){
