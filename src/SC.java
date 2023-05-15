@@ -32,6 +32,14 @@ public class SC extends PageReplacementAlgorithm{
                     }
                 }
             }else{
+                // search for the page to be replaced
+                for(int i = 0; i < pageCount; i++){
+                    // use the second chance 
+                    if(refBits[i] == 1){
+                        refBits[i] -= 1;
+                    }
+
+                }
                 // else insert it to topmost frame
                 pageFrames[pageCount] = pages[iter];
                 pageCount++;
@@ -54,7 +62,7 @@ public class SC extends PageReplacementAlgorithm{
     }
 
     // moves the circular queue head per iteration
-    public void moveHead(){
+    public void moveHead(int offset){
         head = (head + 1) % frameSize;
     }
 
