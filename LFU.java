@@ -52,7 +52,8 @@ public class LFU extends PageReplacementAlgorithm{
             }
             
             if(!isFound){
-                // else insert it to end of linked list
+                // else insert it to end of priority queue
+                // and page frame array
                 queue.add(new IntegerEntry(pageNum, 1));
                 pageFrames[pageCount] = pageNum;
                 pageCount++;
