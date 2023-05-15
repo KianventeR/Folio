@@ -10,6 +10,8 @@ public class SC extends PageReplacementAlgorithm{
     boolean[][] hitMatrix;
     int[][] framesMatrix;
     // circular linked list needed to easily perform SC
+    int head; // moving head to mimic a circular queue
+    int[] refBits; // reference bits for second chance
 
     public SC(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
