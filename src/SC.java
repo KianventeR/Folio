@@ -1,7 +1,7 @@
 package src;
 public class SC extends PageReplacementAlgorithm{
 
-    // this class implements the second chance algorithm
+    // this class implements the second chance algorithm (FIFO variant)
     // input: pages to get from storage
     // output: the hit / miss status
     //         the 2-dimensional hit/miss matrix for each page requested
