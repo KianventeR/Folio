@@ -35,9 +35,10 @@ public class SC extends PageReplacementAlgorithm{
                 int index = head;
                 for(int i = 0; i < pageCount; i++){
                     // remove first page with refBit = 0
-                    if(refBits[index+i] == 0){
-                        pageFrames[index+i] = 0;
-                        refBits[index+i] = 0;
+                    int frame = (index+i) % frameSize;
+                    if(refBits[frame] == 0){
+                        pageFrames[frame] = 0;
+                        refBits[frame] = 0;
                     }
                     // use the second chance for the rest of pages
                     if(refBits[i] == 1){
