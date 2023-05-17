@@ -10,6 +10,7 @@ public class Folio extends javax.swing.JFrame {
     public static MainMenu mainMenu = new MainMenu();
     public static Help help = new Help();
     public static About about = new About();
+    //test
     public static IOPanel IO = new IOPanel();
     public static FullOutput fullOutput = new FullOutput();
 //    public static Safety safe = new Safety();
