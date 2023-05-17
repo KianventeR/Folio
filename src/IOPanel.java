@@ -563,7 +563,7 @@ public class IOPanel extends javax.swing.JPanel {
         results_table.setBorder(null);
         io_output_scroll.setBorder(null);
         if(main_Array.length < 12){
-            io_output_scroll.setBounds(60, 350, main_Array.length*80, 290);
+            io_output_scroll.setBounds(60, 350, main_Array.length*75, 290);
         }
         else{
             io_output_scroll.setBounds(60, 350, 12*80, 290);
