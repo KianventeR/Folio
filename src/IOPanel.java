@@ -535,24 +535,17 @@ public class IOPanel extends javax.swing.JPanel {
         results_table.setDefaultRenderer(Object.class, cellRenderer);
 
         results_table.setForeground(new java.awt.Color(0, 0, 0));
-        results_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                
-            }
-        ));
+        Object[][] data = new Object[0][0];
+        String [] header = new String [main_Array.length];
+
+        for(int i = 0; i < main_Array.length; i++){
+            header[i] = String.valueOf(main_Array[i]);
+        }
+
+        results_table.setModel(new javax.swing.table.DefaultTableModel(data, header));
         
         DefaultTableModel results_model = (DefaultTableModel) results_table.getModel();
-        results_model.setRowCount(current_frames);
+        results_model.setRowCount(current_frames + 1);
         results_model.setColumnCount(main_Array.length);
 
         results_table.setFillsViewportHeight(true);
