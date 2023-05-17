@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -13,7 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class IOPanel extends javax.swing.JPanel {
-    public String Selected;
+    public int Selected;
     public double default_speed = 1;
     public double current_speed = default_speed;
     public IOPanel() {
@@ -618,14 +619,28 @@ public class IOPanel extends javax.swing.JPanel {
 
 
             current_frames = Integer.parseInt(frames);
+            io_frames_value.setText(String.valueOf(current_frames));
+
+            for(int i = 0; i < main_Array.length; i++){
+    
+
+                if(i+1 < main_Array.length){
+                    io_reference_input.setText(io_reference_input.getText() + main_Array[i] + " ");
+                }
+                else{
+                    io_reference_input.setText(io_reference_input.getText() + main_Array[i] + "");
+                }
+            }
             
             Selected = checkSelected(algo);
             System.out.println(Selected);
+
+            io_algorithm_select.setSelectedIndex(Selected);
             
             io_random.setEnabled(false);
             io_frames_add.setEnabled(false);
             io_frames_minus.setEnabled(false);
-            io_algorithm_select.setEnabled(false);
+            io_algorithm_select.setEditable(false);
             io_reference_input.setEditable(false);
 
 
@@ -640,10 +655,28 @@ public class IOPanel extends javax.swing.JPanel {
 
     
 
-    private String checkSelected(String algo) {
-        String selected = "";
+    private int checkSelected(String algo) {
+        int selected = 0;
         if(algo.equals("FIFO")){
-            selected = "First In First Out";
+            selected = 0;
+        }
+        else if(algo.equals("LRU")){
+            selected = 1;
+        }
+        else if(algo.equals("OPT")){
+            selected = 2;
+        }
+        else if(algo.equals("SCA")){
+            selected = 3;
+        }
+        else if(algo.equals("ESCA")){
+            selected = 4;
+        }
+        else if(algo.equals("LFU")){
+            selected = 5;
+        }
+        else if(algo.equals("MFU")){
+            selected = 6;
         }
         return selected;
     }
@@ -669,7 +702,57 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
-        Selected = io_algorithm_select.getSelectedItem().toString();
+        
+        int int_values = 0;
+        String values = io_reference_input.getText();
+        values.trim();
+        System.out.println(values);
+        
+        if(values.charAt(values.length() - 1) == ' '){
+            System.out.println("Invalid input");
+            return;
+        }
+
+        for(int i = 0; i < values.length(); i++){
+            if(values.charAt(i) == ' '){
+                int_values++;
+            }
+            else{
+                continue;
+            }
+
+           
+        }
+        
+       int_values = int_values+1;
+
+       System.out.println(int_values);
+
+       try (Scanner read = new Scanner(values)){
+
+        //main_array loading
+        main_Array = new int[int_values];
+        for(int i = 0; i < int_values; i++){
+            main_Array[i] = read.nextInt();
+        }
+
+       //selected algo
+       Selected = io_algorithm_select.getSelectedIndex();
+
+       //No. of frames
+       System.out.println(current_frames);
+
+
+        
+       } catch (Exception e) {
+
+        
+        System.out.println("errr");
+        // TODO: handle exception
+       }
+       
+
+       
         
         //variables
         //current_frames;

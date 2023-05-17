@@ -4,8 +4,11 @@ public class FullOutput extends javax.swing.JPanel {
     }
 
     public void reset() {
+        
         removeAll();
         initComponents();
+        Folio.IO.removeAll();
+        Folio.IO.initComponents();
     }
 
     private void initComponents() {
