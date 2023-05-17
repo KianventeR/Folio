@@ -16,6 +16,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -521,8 +522,17 @@ public class IOPanel extends javax.swing.JPanel {
             }
         });
        
-        // results_table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        
+       
+
+      
+
+    }
+
+  
+    public void create_table(int[] main_Array, int selected_algo, int current_frames) {
+        results_table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableCellRenderer cellRenderer = new CenterTextRenderer();
+        results_table.setDefaultRenderer(Object.class, cellRenderer);
 
         results_table.setForeground(new java.awt.Color(0, 0, 0));
         results_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -530,31 +540,46 @@ public class IOPanel extends javax.swing.JPanel {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "", "", "", ""
+                
             }
         ));
         
+        DefaultTableModel results_model = (DefaultTableModel) results_table.getModel();
+        results_model.setRowCount(current_frames);
+        results_model.setColumnCount(main_Array.length);
+
+        results_table.setFillsViewportHeight(true);
         results_table.setGridColor(new java.awt.Color(255, 255, 255));
         results_table.setSelectionBackground(new java.awt.Color(211, 211, 211));
         results_table.setSelectionForeground(new java.awt.Color(0, 0, 0));
         results_table.setInheritsPopupMenu(true);
-        results_table.setIntercellSpacing(new java.awt.Dimension(60, 5));
+        results_table.setIntercellSpacing(new java.awt.Dimension(35, 1));
         results_table.setRowHeight(40);
         
-        TableCellRenderer cellRenderer = new CenterTextRenderer();
-        results_table.setDefaultRenderer(Object.class, cellRenderer);
+        
+       
 
         // results_table.setPreferredSize(new Dimension(20, 60));
-
-        io_output_scroll.setBounds(50, 360, 400, 300);
+        results_table.setBorder(null);
+        io_output_scroll.setBorder(null);
+        if(main_Array.length < 12){
+            io_output_scroll.setBounds(60, 350, main_Array.length*80, 290);
+        }
+        else{
+            io_output_scroll.setBounds(60, 350, 12*80, 290);
+        }
+        
+        io_output_scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         io_output_scroll.setViewportView(results_table);
-
     }
 
-  
     public void exitMouseEntered(java.awt.event.MouseEvent evt) {
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_hover.png")));
     }
@@ -819,7 +844,7 @@ public class IOPanel extends javax.swing.JPanel {
 
        try (Scanner read = new Scanner(values)){
 
-        //main_array loading
+        //main_array loading - contains arrays
         main_Array = new int[int_values];
         for(int i = 0; i < int_values; i++){
             main_Array[i] = read.nextInt();
@@ -835,6 +860,9 @@ public class IOPanel extends javax.swing.JPanel {
        //No. of frames
        System.out.println(current_frames);
 
+       
+       //table creation
+       create_table(main_Array, Selected, current_frames);
 
         
        } catch (Exception e) {
