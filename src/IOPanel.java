@@ -1,18 +1,48 @@
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
+class CenterTextRenderer extends DefaultTableCellRenderer {
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                   boolean hasFocus, int row, int column) {
+                                                    
+        Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        final Border border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY);
+        setHorizontalAlignment(SwingConstants.CENTER);
+        // cellComponent.setBackground(Color.gray);
+        ((JComponent) cellComponent).setBorder(border);
+        return cellComponent;
+
+        
+    }
+    
+    
+}
 public class IOPanel extends javax.swing.JPanel {
     public int Selected;
     public double default_speed = 1;
@@ -57,6 +87,7 @@ public class IOPanel extends javax.swing.JPanel {
         frame_lower = 3;
         frame_upper = 10;
         
+        results_table = new javax.swing.JTable();
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         io_save = new javax.swing.JButton();
@@ -373,7 +404,7 @@ public class IOPanel extends javax.swing.JPanel {
         io_output_scroll.setBorder(null);
         io_output_scroll.setOpaque(false);
         add(io_output_scroll);
-        io_output_scroll.setBounds(50, 340, 980, 330);
+        io_output_scroll.setBounds(50, 360, 980, 300);
 
         io_speed_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_speed_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -465,8 +496,65 @@ public class IOPanel extends javax.swing.JPanel {
         io_bg.setOpaque(true);
         add(io_bg);
         io_bg.setBounds(0, 0, 1080, 720);
+
+        results_table.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        results_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                " ", " ", " "
+            }
+        ){
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+       
+        // results_table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        
+
+        results_table.setForeground(new java.awt.Color(0, 0, 0));
+        results_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "", "", "", ""
+            }
+        ));
+        
+        results_table.setGridColor(new java.awt.Color(255, 255, 255));
+        results_table.setSelectionBackground(new java.awt.Color(211, 211, 211));
+        results_table.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        results_table.setInheritsPopupMenu(true);
+        results_table.setIntercellSpacing(new java.awt.Dimension(60, 5));
+        results_table.setRowHeight(40);
+        
+        TableCellRenderer cellRenderer = new CenterTextRenderer();
+        results_table.setDefaultRenderer(Object.class, cellRenderer);
+
+        // results_table.setPreferredSize(new Dimension(20, 60));
+
+        io_output_scroll.setBounds(50, 360, 400, 300);
+        io_output_scroll.setViewportView(results_table);
+
     }
 
+  
     public void exitMouseEntered(java.awt.event.MouseEvent evt) {
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_hover.png")));
     }
@@ -726,6 +814,7 @@ public class IOPanel extends javax.swing.JPanel {
         
        int_values = int_values+1;
 
+
        System.out.println(int_values);
 
        try (Scanner read = new Scanner(values)){
@@ -734,6 +823,10 @@ public class IOPanel extends javax.swing.JPanel {
         main_Array = new int[int_values];
         for(int i = 0; i < int_values; i++){
             main_Array[i] = read.nextInt();
+            if(main_Array[i] > 20){
+                System.out.println("Value exceeding 20");
+                return;
+            }
         }
 
        //selected algo
@@ -884,6 +977,7 @@ public class IOPanel extends javax.swing.JPanel {
     public javax.swing.JLabel io_timer_bg;
     public javax.swing.JLabel io_timer_label;
     public javax.swing.JButton minimize;
+    public javax.swing.JTable results_table;
 
     public int[] random_Array;
     public int[] main_Array;
