@@ -24,6 +24,7 @@ public class ESC extends PageReplacementAlgorithm{
         modifyBits = new int[numOfPages];
         // initialize randomness in modify bits
         for(int i = 0; i < numOfPages; i++){
+            // unique random seed for every run of app
             Random rand = new Random(System.currentTimeMillis());
             // random numbers from 0 to 1 inclusive
             modifyBits[i] = rand.nextInt(2); 
