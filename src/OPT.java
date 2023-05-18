@@ -46,8 +46,10 @@ public class OPT extends PageReplacementAlgorithm{
                             break;
                         }
                     }
+                    // replace the page
                     pageFrames[frameToClear] = pages[iter];
                 }else{
+                    // add the page
                     pageFrames[pageCount] = pages[iter];
                     pageCount++;
                 }
