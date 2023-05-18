@@ -44,14 +44,14 @@ public class PageReplacementAlgorithm{
         return found;
    }
 
-   public boolean foundPage(int page, int start){
-    boolean found = false;
+   public int findPageIndex(int page, int start){
+    int index = -1;
     for(int i = start; i < pageFrames.length; i++){
         if(pageFrames[i] == page){
-            found = true;
+            index = i;
             break;
         }
     }
-    return found;
-}
+    return index;
+    }
 }
