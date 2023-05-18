@@ -30,10 +30,17 @@ public class OPT extends PageReplacementAlgorithm{
                 if(pageCount == frameSize - 1){
                     // if page does not exist, replace the one by priority
                     int frameToClear = -1;
-                    // 2. which will be used the farthest in the future
+                    // 2. which will be used the farthest first in the future
                     int frameFarthest = -1;
                     int frameDistance = -1;
-
+                    // for every frame, find the last occurrence 
+                    for(int i = 0; i < frameSize; i++){
+                        int firstIndex = findPageIndex(pageFrames[i], iter+1);
+                        if(firstIndex > frameDistance){
+                            frameDistance = firstIndex;
+                            frameToClear = i;
+                        }
+                    }
                     // 1. which will never be used in the future
                     Set<Integer> intSet = new HashSet<>();
 
