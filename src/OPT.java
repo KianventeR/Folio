@@ -31,10 +31,10 @@ public class OPT extends PageReplacementAlgorithm{
                     // if page does not exist, replace the one by priority
                     int frameToClear = -1;
                     // 2. which will be used the farthest in the future
+                    int frameFarthest = -1;
 
                     // 1. which will never be used in the future
                     Set<Integer> intSet = new HashSet<>();
-
 
                     for(int i = iter + 1; i < numOfPages; i++){
                     intSet.add(pages[i]);
