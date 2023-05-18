@@ -49,7 +49,7 @@ public class ESC extends PageReplacementAlgorithm{
                     // remove first page with refBit = 0
                     int frame = (index+i) % frameSize;
                     if(refBits[frame] == 0){
-                        pageFrames[frame] = 0;
+                        pageFrames[frame] = -1;
                         refBits[frame] = 0;
                     }
                     // use the second chance for the rest of pages

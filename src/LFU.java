@@ -29,7 +29,7 @@ public class LFU extends PageReplacementAlgorithm{
                 int index = 0;
                 for (int i = 0; i < pageCount; i++){
                     if(pageFrames[i] == minVal){
-                        pageFrames[i] = 0;
+                        pageFrames[i] = -1;
                         index = i;
                         break;
                     }
@@ -39,7 +39,7 @@ public class LFU extends PageReplacementAlgorithm{
                     pageFrames[i] = pageFrames[i+1];
                     // remove the last element
                     if(i == frameSize - 1){
-                        pageFrames[i+1] = 0;
+                        pageFrames[i+1] = -1;
                     }
                 }
                 
