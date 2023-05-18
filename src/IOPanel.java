@@ -856,7 +856,32 @@ public class IOPanel extends javax.swing.JPanel {
        
        //table creation
        create_table(main_Array, Selected, current_frames);
-
+    //    results_table.setEnabled(false);
+        
+    switch(Selected){
+        case 0:
+            System.out.println("FIFO");
+        break;
+        case 1:
+            System.out.println("LRU");
+        break;
+        case 2:
+            System.out.println("OPT");
+        break;
+        case 3:
+            System.out.println("SCA");
+        break;
+        case 4:
+            System.out.println("ESCA");
+        break;
+        case 5:
+            System.out.println("LFU");
+        break;
+        case 6:
+            System.out.println("MFU");
+        break;
+    }
+        
         
        } catch (Exception e) {
 
