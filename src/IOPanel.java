@@ -687,6 +687,8 @@ public class IOPanel extends javax.swing.JPanel {
     public void io_importActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("importing");
 
+        io_reference_input.setText("");
+
         final JFileChooser fc = new JFileChooser();
         fc.showOpenDialog(null);
         File file = fc.getSelectedFile();
@@ -809,10 +811,19 @@ public class IOPanel extends javax.swing.JPanel {
 
     public void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
         
+       
+
         int int_values = 0;
         String values = io_reference_input.getText();
         values.trim();
         System.out.println(values);
+
+        if(io_reference_input.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Page Reference Cannot be Empty!",
+      "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         
         if(values.charAt(values.length() - 1) == ' '){
             System.out.println("Invalid input");
@@ -924,18 +935,161 @@ public class IOPanel extends javax.swing.JPanel {
             break;
         case 2:
             System.out.println("OPT");
+            OPT opt = new OPT(main_Array, main_Array.length, current_frames);
+            hitMatrix = opt.getHitMatrix();
+            framesMatrix = opt.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
+
         break;
         case 3:
             System.out.println("SCA");
+            
+            SC sca = new SC(main_Array, main_Array.length, current_frames);
+            hitMatrix = sca.getHitMatrix();
+            framesMatrix = sca.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
+
         break;
         case 4:
             System.out.println("ESCA");
+
+            ESC esc = new ESC(main_Array, main_Array.length, current_frames);
+            hitMatrix = esc.getHitMatrix();
+            framesMatrix = esc.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
+            
+
         break;
         case 5:
             System.out.println("LFU");
+
+            LFU lfu = new LFU(main_Array, main_Array.length, current_frames);
+            hitMatrix = lfu.getHitMatrix();
+            framesMatrix = lfu.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
         break;
         case 6:
             System.out.println("MFU");
+
+            MFU mfu = new MFU(main_Array, main_Array.length, current_frames);
+            hitMatrix = mfu.getHitMatrix();
+            framesMatrix = mfu.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
         break;
     }
         
