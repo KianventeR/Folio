@@ -72,7 +72,7 @@ public class ESC extends PageReplacementAlgorithm{
                 }
                 // second pass: find the possible victim pages
                 // only run if neither possible victim pages were not found
-                for(int i = 0; (i < pageCount && (frameNumModified == -1 || frameNumNotModified == -1)); i++){
+                for(int i = 0; (i < pageCount && frameNumModified == -1 && frameNumNotModified == -1); i++){
                     // remove first page with refBit = 0
                     int frame = (index+i) % frameSize;
                     // find first occurrence of a victim page with
