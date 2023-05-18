@@ -21,6 +21,13 @@ public class ESC extends PageReplacementAlgorithm{
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages][frameSize];
+        modifyBits = new int[numOfPages];
+        // initialize randomness in modify bits
+        for(int i = 0; i < numOfPages; i++){
+            Random rand = new Random(System.currentTimeMillis());
+            // random numbers from 0 to 1 inclusive
+            modifyBits[i] = rand.nextInt(2); 
+        }
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // if page is found in the pageFrames array don't insert
