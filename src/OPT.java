@@ -10,14 +10,14 @@ public class OPT extends PageReplacementAlgorithm{
     //         the 2-dimensional hit/miss matrix for each page requested
     //         the 2-dimensional page frame matrix showing the page contents
     //         other outputs inherited from the PageReplacementAlgorithm class 
-    boolean[][] hitMatrix;
+    boolean[] hitMatrix;
     int[][] framesMatrix;
     // doubly linked list needed to easily perform OPT
 
     public OPT(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
-        hitMatrix = new boolean[numOfPages][frameSize];
+        hitMatrix = new boolean[numOfPages];
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // if page is found in the pageFrames array don't insert
@@ -64,12 +64,12 @@ public class OPT extends PageReplacementAlgorithm{
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter][i] = pageFrames[i];
-                hitMatrix[iter][i] = hits[i];
+                hitMatrix[iter] = hits[i];
             }
         }
     }
 
-    public boolean[][] getHitMatrix() {
+    public boolean[] getHitMatrix() {
         return hitMatrix;
     }
 

@@ -8,14 +8,14 @@ public class LRU extends PageReplacementAlgorithm{
     //         the 2-dimensional hit/miss matrix for each page requested
     //         the 2-dimensional page frame matrix showing the page contents
     //         other outputs inherited from the PageReplacementAlgorithm class 
-    boolean[][] hitMatrix;
+    boolean[] hitMatrix;
     int[][] framesMatrix;
     LinkedList<Integer> framesList = new LinkedList<>();// doubly linked list needed to easily perform LRU
 
     public LRU(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
-        hitMatrix = new boolean[numOfPages][frameSize];
+        hitMatrix = new boolean[numOfPages];
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // check if array is full 
@@ -37,12 +37,12 @@ public class LRU extends PageReplacementAlgorithm{
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter] = framesList.stream().mapToInt(Integer::intValue).toArray();
                 pageFrames = framesList.stream().mapToInt(Integer::intValue).toArray();
-                hitMatrix[iter][i] = hits[i];
+                hitMatrix[iter] = hits[i];
             }
         }
     }
 
-    public boolean[][] getHitMatrix() {
+    public boolean[] getHitMatrix() {
         return hitMatrix;
     }
 

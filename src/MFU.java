@@ -10,7 +10,7 @@ public class MFU extends PageReplacementAlgorithm{
     //         the 2-dimensional hit/miss matrix for each page requested
     //         the 2-dimensional page frame matrix showing the page contents
     //         other outputs inherited from the PageReplacementAlgorithm class 
-    boolean[][] hitMatrix;
+    boolean[] hitMatrix;
     int[][] framesMatrix;
     // priority queue needed to easily perform MFU
     PriorityQueue<IntegerEntry> queue = new PriorityQueue<>(10, (x,y) -> Integer.compare(y.getFreq(),x.getFreq()));
@@ -18,7 +18,7 @@ public class MFU extends PageReplacementAlgorithm{
     public MFU(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
-        hitMatrix = new boolean[numOfPages][frameSize];
+        hitMatrix = new boolean[numOfPages];
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // check if array is full 
@@ -73,12 +73,12 @@ public class MFU extends PageReplacementAlgorithm{
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter] = pageFrames;
-                hitMatrix[iter][i] = hits[i];
+                hitMatrix[iter] = hits[i];
             }
         }
     }
 
-    public boolean[][] getHitMatrix() {
+    public boolean[] getHitMatrix() {
         return hitMatrix;
     }
 

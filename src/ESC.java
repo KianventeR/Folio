@@ -8,7 +8,7 @@ public class ESC extends PageReplacementAlgorithm{
     //         the 2-dimensional hit/miss matrix for each page requested
     //         the 2-dimensional page frame matrix showing the page contents
     //         other outputs inherited from the PageReplacementAlgorithm class 
-    boolean[][] hitMatrix;
+    boolean[] hitMatrix;
     int[][] framesMatrix;
     
     
@@ -20,7 +20,7 @@ public class ESC extends PageReplacementAlgorithm{
     public ESC(int[] pages, int numOfPages, int frameSize){
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
-        hitMatrix = new boolean[numOfPages][frameSize];
+        hitMatrix = new boolean[numOfPages];
         modifyBits = new int[numOfPages];
         // initialize randomness in modify bits
         for(int i = 0; i < numOfPages; i++){
@@ -107,12 +107,12 @@ public class ESC extends PageReplacementAlgorithm{
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter][i] = pageFrames[i];
-                hitMatrix[iter][i] = hits[i];
+                hitMatrix[iter] = hits[i];
             }
         }
     }
 
-    public boolean[][] getHitMatrix() {
+    public boolean[] getHitMatrix() {
         return hitMatrix;
     }
 
