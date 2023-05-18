@@ -45,17 +45,38 @@ public class ESC extends PageReplacementAlgorithm{
                 // search for the page to be replaced
                 // start at head
                 int index = head;
+                // values for detecting priority for removal
+                int frameNumModified = -1;
+                int frameNumNotModified = -1;
                 for(int i = 0; i < pageCount; i++){
                     // remove first page with refBit = 0
                     int frame = (index+i) % frameSize;
-                    if(refBits[frame] == 0){
-                        pageFrames[frame] = -1;
-                        refBits[frame] = 0;
+                    // find first occurrence of a victim page with
+                    // modify bit equal to zero
+                    if(refBits[frame] == 0 && modifyBits[frame] == 0 && frameNumNotModified == -1){
+                        frameNumNotModified = frame;
+                    }
+                    // find first occurrence of a victim page with
+                    // modify bit not equal to zero
+                    if(refBits[frame] == 0 && modifyBits[frame] == 1 && frameNumModified == -1){
+                        frameNumModified = frame;
                     }
                     // use the second chance for the rest of pages
                     if(refBits[i] == 1){
                         refBits[i] = 0;
                     }
+                }
+                // remove the one with modify bit 1 first
+                // if it exists, else remove the one with 
+                // modify bit 0
+                if(frameNumModified > -1){
+                    pageFrames[frameNumModified] = -1;
+                    refBits[frameNumModified] = 0;
+                    index = frameNumModified;
+                }else if(frameNumNotModified > -1){
+                    pageFrames[frameNumNotModified] = -1;
+                    refBits[frameNumNotModified] = 0;
+                    index = frameNumNotModified;
                 }
                 // else insert it to the chosen page frame
                 pageFrames[index] = pages[iter];
