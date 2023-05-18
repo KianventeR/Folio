@@ -857,13 +857,34 @@ public class IOPanel extends javax.swing.JPanel {
        //table creation
        create_table(main_Array, Selected, current_frames);
     //    results_table.setEnabled(false);
+    
+    boolean[] hitMatrix;
+    int[][] framesMatrix;
         
     switch(Selected){
         case 0:
             System.out.println("FIFO");
+            FIFO fifo = new FIFO(main_Array,main_Array.length,current_frames);
+            hitMatrix = fifo.getHitMatrix();
+            framesMatrix = fifo.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                results_table.setValueAt(hitMatrix[i], current_frames, i);
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                }
+            }
+          
+            
         break;
         case 1:
             System.out.println("LRU");
+            LRU lru = new LRU(main_Array, main_Array.length, current_frames);
         break;
         case 2:
             System.out.println("OPT");
@@ -885,7 +906,7 @@ public class IOPanel extends javax.swing.JPanel {
         
        } catch (Exception e) {
 
-        
+        System.out.println(e);
         System.out.println("errr");
         // TODO: handle exception
        }

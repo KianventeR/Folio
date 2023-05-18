@@ -1,16 +1,26 @@
 
 public class PageReplacementAlgorithm{
    int[] pageFrames;
+   boolean[] hits;
    int pageCount;
    int frameCount;
    int hitCount;
    int missCount;
-   boolean[] hits;
    
    PageReplacementAlgorithm(int frames){
       frameCount = frames;
       pageFrames = new int[frames];
+      for(int i = 0; i < frames; i++){
+        pageFrames[i] = -1;
+      }
       hits = new boolean[frames];
+      pageCount = 0;
+      hitCount = 0;
+      missCount = 0;
+   }
+   
+   public boolean[] getHits() {
+       return hits;
    }
    
    public int[] getPageFrames(){
@@ -28,14 +38,11 @@ public class PageReplacementAlgorithm{
    public int getMissCount(){
        return missCount;
    }
-   
-   public boolean[] getHits(){
-       return hits;
-   }
 
-   public boolean foundPage(int page){
+   public boolean foundPage(int page, int bound){
         boolean found = false;
-        for(int i = 0; i < pageFrames.length; i++){
+        int upperBound = (bound < pageFrames.length) ? bound : pageFrames.length;
+        for(int i = 0; i < upperBound; i++){
             if(pageFrames[i] == page){
                 found = true;
                 break;

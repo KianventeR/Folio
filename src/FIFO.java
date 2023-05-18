@@ -16,24 +16,25 @@ public class FIFO extends PageReplacementAlgorithm{
         hitMatrix = new boolean[numOfPages];
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
-            // check if array is full 
-            // if array is full, removeTop first
-            if(pageCount == frameCount - 1){
-                removeTop(pageFrames);
-            }
             // if page is found in the pageFrames array don't insert
-            if(foundPage(pages[iter])){
-                hits[iter] = true;
+            
+            if(foundPage(pages[iter],iter)){
+                hits[0] = true;
+                hitCount++;
             }else{
                 // else insert it to topmost frame
-                pageFrames[pageCount] = pages[iter];
-                pageCount++;
-                hits[iter] = false;
+                if(pageCount < (frameSize - 1)){
+                    pageCount++;
+                }
+                removeBottom(pageFrames);
+                pageFrames[0] = pages[iter];
+                hits[0] = false;
+                missCount++;
             }
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter][i] = pageFrames[i];
-                hitMatrix[iter] = hits[i];
+                hitMatrix[iter] = hits[0];
             }
         }
     }
@@ -46,16 +47,13 @@ public class FIFO extends PageReplacementAlgorithm{
         return framesMatrix;
     }
     // for first in first out functionality
-    public void removeTop(int[] frames){
+    public void removeBottom(int[] frames){
         int[] tempArray = frames.clone();
-        for(int i = 0; i < frames.length - 1; i++){
-            if(i == frames.length - 1){
-                // set negative one as the temporary empty value
-                frames[i] = -1;
-            }else{
-                frames[i] = tempArray[i+1];
-            }
+        for(int i = frames.length -1; i > 0; i--){
+            // push up contents to proper places
+            frames[i] = tempArray[i-1];
         }
+        frames[0] = -1; // remove bottom
     }
 
 }

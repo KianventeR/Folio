@@ -20,8 +20,8 @@ public class SC extends PageReplacementAlgorithm{
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // if page is found in the pageFrames array don't insert
-            if(foundPage(pages[iter])){
-                hits[iter] = true;
+            if(foundPage(pages[iter],iter)){
+                hitMatrix[iter] = true;
                 // find where to give second chance
                 for(int i = 0; i < pageCount; i++){
                     if(pages[iter] == pageFrames[i]){
@@ -61,15 +61,16 @@ public class SC extends PageReplacementAlgorithm{
                 // else insert it to the chosen page frame
                 pageFrames[frameChosen] = pages[iter];
                 refBits[frameChosen] = 0;
-                pageCount++;
-                hits[iter] = false;
+                if(pageCount < (frameSize - 1)){
+                    pageCount++;
+                }
+                hitMatrix[iter] = false;
             }
             // move the circular queue head. page hit or page fault
             head = (head + 1) % frameSize;
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter][i] = pageFrames[i];
-                hitMatrix[iter] = hits[i];
             }
         }
     }

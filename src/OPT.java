@@ -22,8 +22,8 @@ public class OPT extends PageReplacementAlgorithm{
         for(int iter = 0; iter < numOfPages; iter++){
             // if page is found in the pageFrames array don't insert
             // if page exists, just use it
-            if(foundPage(pages[iter])){
-                hits[iter] = true;
+            if(foundPage(pages[iter],iter)){
+                hitMatrix[iter] = true;
             }else{
                 if(pageCount == frameSize - 1){
                     // if page does not exist, replace the one by priority
@@ -57,14 +57,15 @@ public class OPT extends PageReplacementAlgorithm{
                 }else{
                     // add the page
                     pageFrames[pageCount] = pages[iter];
-                    pageCount++;
+                    if(pageCount < (frameSize - 1)){
+                        pageCount++;
+                    }
                 }
-                hits[iter] = false;
+                hitMatrix[iter] = false;
             }
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter][i] = pageFrames[i];
-                hitMatrix[iter] = hits[i];
             }
         }
     }

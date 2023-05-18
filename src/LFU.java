@@ -51,7 +51,7 @@ public class LFU extends PageReplacementAlgorithm{
             while(values.hasNext()){
                 IntegerEntry value = ((IntegerEntry) values.next());
                 if( value.getKey() == pageNum){
-                    hits[iter] = true;
+                    hitMatrix[iter] = true;
                     isFound = true;
                     // remove the element from queue
                     queue.remove(value);
@@ -68,13 +68,14 @@ public class LFU extends PageReplacementAlgorithm{
                 // and page frame array
                 queue.add(new IntegerEntry(pageNum, 1));
                 pageFrames[pageCount] = pageNum;
-                pageCount++;
-                hits[iter] = false;
+                if(pageCount < (frameSize - 1)){
+                    pageCount++;
+                }
+                hitMatrix[iter] = false;
             }
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter] = pageFrames;
-                hitMatrix[iter] = hits[i];
             }
         }
     }

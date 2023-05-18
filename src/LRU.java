@@ -26,18 +26,19 @@ public class LRU extends PageReplacementAlgorithm{
             // if page is found in the linked list don't insert
             Integer pageNum = Integer.valueOf(pages[iter]);
             if(framesList.indexOf(pageNum) != -1){
-                hits[iter] = true;
+                hitMatrix[iter] = true;
             }else{
                 // else insert it to end of linked list
                 framesList.addLast(pageNum);
-                pageCount++;
-                hits[iter] = false;
+                if(pageCount < (frameSize - 1)){
+                    pageCount++;
+                }
+                hitMatrix[iter] = false;
             }
             // then save it to the matrix for the iteration
             for(int i = 0; i < frameSize; i++){
                 framesMatrix[iter] = framesList.stream().mapToInt(Integer::intValue).toArray();
                 pageFrames = framesList.stream().mapToInt(Integer::intValue).toArray();
-                hitMatrix[iter] = hits[i];
             }
         }
     }
