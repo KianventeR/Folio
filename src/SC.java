@@ -33,20 +33,34 @@ public class SC extends PageReplacementAlgorithm{
                 // search for the page to be replaced
                 // start at head
                 int index = head;
+                // first pass: search for frame with refBit = 0
+                int frameChosen = -1;
                 for(int i = 0; i < pageCount; i++){
-                    // remove first page with refBit = 0
                     int frame = (index+i) % frameSize;
                     if(refBits[frame] == 0){
-                        pageFrames[frame] = -1;
-                        refBits[frame] = 0;
+                        frameChosen = frame;
+                        break;
                     }
+                }
+                // first pass fails, now decrease all second chances
+                for(int i = 0; i < pageCount; i++){
                     // use the second chance for the rest of pages
                     if(refBits[i] == 1){
                         refBits[i] = 0;
                     }
                 }
+                // second pass: search for frame with refBit = 0 
+                // only run this if frameChosen has no valid value
+                for(int i = 0; (i < pageCount && frameChosen == -1); i++){
+                    int frame = (index+i) % frameSize;
+                    if(refBits[frame] == 0){
+                        frameChosen = frame;
+                        break;
+                    }
+                }
                 // else insert it to the chosen page frame
-                pageFrames[index] = pages[iter];
+                pageFrames[frameChosen] = pages[iter];
+                refBits[frameChosen] = 0;
                 pageCount++;
                 hits[iter] = false;
             }
