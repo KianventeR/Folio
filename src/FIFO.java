@@ -50,8 +50,8 @@ public class FIFO extends PageReplacementAlgorithm{
         int[] tempArray = frames.clone();
         for(int i = 0; i < frames.length - 1; i++){
             if(i == frames.length - 1){
-                // set zero as the temporary empty value
-                frames[i] = 0;
+                // set negative one as the temporary empty value
+                frames[i] = -1;
             }else{
                 frames[i] = tempArray[i+1];
             }

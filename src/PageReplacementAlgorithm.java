@@ -43,4 +43,15 @@ public class PageReplacementAlgorithm{
         }
         return found;
    }
+
+   public int findPageIndex(int page, int start){
+    int index = -1;
+    for(int i = start; i < pageFrames.length; i++){
+        if(pageFrames[i] == page){
+            index = i;
+            break;
+        }
+    }
+    return index;
+    }
 }

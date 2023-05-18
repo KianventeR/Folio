@@ -1,3 +1,8 @@
+package src;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class OPT extends PageReplacementAlgorithm{
 
@@ -16,6 +21,54 @@ public class OPT extends PageReplacementAlgorithm{
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages][frameSize];
         // execute the algorithm
+        for(int iter = 0; iter < numOfPages; iter++){
+            // if page is found in the pageFrames array don't insert
+            // if page exists, just use it
+            if(foundPage(pages[iter])){
+                hits[iter] = true;
+            }else{
+                if(pageCount == frameSize - 1){
+                    // if page does not exist, replace the one by priority
+                    int frameToClear = -1;
+                    // 2. which will be used the farthest first in the future
+                    int frameFarthest = -1;
+                    int frameDistance = -1;
+                    // for every frame, find the last occurrence 
+                    for(int i = 0; i < frameSize; i++){
+                        int firstIndex = findPageIndex(pageFrames[i], iter+1);
+                        if(firstIndex > frameDistance){
+                            frameDistance = firstIndex;
+                            frameToClear = i;
+                        }
+                    }
+                    // 1. which will never be used in the future
+                    Set<Integer> intSet = new HashSet<>();
+
+                    for(int i = iter + 1; i < numOfPages; i++){
+                        intSet.add(pages[i]);
+                    }
+                    // check if never used
+                    for(int i = 0; i < pageCount; i++){
+                        if(!intSet.contains(pageFrames[i])){
+                            frameToClear = i;
+                            break;
+                        }
+                    }
+                    // replace the page
+                    pageFrames[frameToClear] = pages[iter];
+                }else{
+                    // add the page
+                    pageFrames[pageCount] = pages[iter];
+                    pageCount++;
+                }
+                hits[iter] = false;
+            }
+            // then save it to the matrix for the iteration
+            for(int i = 0; i < frameSize; i++){
+                framesMatrix[iter][i] = pageFrames[i];
+                hitMatrix[iter][i] = hits[i];
+            }
+        }
     }
 
     public boolean[][] getHitMatrix() {
