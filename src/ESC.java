@@ -11,6 +11,7 @@ public class ESC extends PageReplacementAlgorithm{
     boolean[][] hitMatrix;
     int[][] framesMatrix;
     int[] modifyBits; 
+    int[] refBits; // reference bits for second chance
     // circular linked list needed to easily perform ESC
 
     public ESC(int[] pages, int numOfPages, int frameSize){
