@@ -32,6 +32,7 @@ public class OPT extends PageReplacementAlgorithm{
                     int frameToClear = -1;
                     // 2. which will be used the farthest in the future
                     int frameFarthest = -1;
+                    int frameDistance = -1;
 
                     // 1. which will never be used in the future
                     Set<Integer> intSet = new HashSet<>();
