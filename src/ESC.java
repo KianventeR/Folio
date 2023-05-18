@@ -48,6 +48,7 @@ public class ESC extends PageReplacementAlgorithm{
                 // values for detecting priority for removal
                 int frameNumModified = -1;
                 int frameNumNotModified = -1;
+                // first pass: find the possible victim pages
                 for(int i = 0; i < pageCount; i++){
                     // remove first page with refBit = 0
                     int frame = (index+i) % frameSize;
@@ -61,9 +62,28 @@ public class ESC extends PageReplacementAlgorithm{
                     if(refBits[frame] == 0 && modifyBits[frame] == 1 && frameNumModified == -1){
                         frameNumModified = frame;
                     }
+                }
+                // first pass fails or not, now decrease all second chances
+                for(int i = 0; i < pageCount; i++){
                     // use the second chance for the rest of pages
                     if(refBits[i] == 1){
                         refBits[i] = 0;
+                    }
+                }
+                // second pass: find the possible victim pages
+                // only run if neither possible victim pages were not found
+                for(int i = 0; (i < pageCount && (frameNumModified == -1 || frameNumNotModified == -1)); i++){
+                    // remove first page with refBit = 0
+                    int frame = (index+i) % frameSize;
+                    // find first occurrence of a victim page with
+                    // modify bit equal to zero
+                    if(refBits[frame] == 0 && modifyBits[iter] == 0 && frameNumNotModified == -1){
+                        frameNumNotModified = frame;
+                    }
+                    // find first occurrence of a victim page with
+                    // modify bit not equal to zero
+                    if(refBits[frame] == 0 && modifyBits[iter] == 1 && frameNumModified == -1){
+                        frameNumModified = frame;
                     }
                 }
                 // remove the one with modify bit 1 first
@@ -71,15 +91,14 @@ public class ESC extends PageReplacementAlgorithm{
                 // modify bit 0
                 if(frameNumModified > -1){
                     pageFrames[frameNumModified] = -1;
-                    refBits[frameNumModified] = 0;
                     index = frameNumModified;
                 }else if(frameNumNotModified > -1){
                     pageFrames[frameNumNotModified] = -1;
-                    refBits[frameNumNotModified] = 0;
                     index = frameNumNotModified;
                 }
                 // else insert it to the chosen page frame
                 pageFrames[index] = pages[iter];
+                refBits[index] = 0;
                 pageCount++;
                 hits[iter] = false;
             }
