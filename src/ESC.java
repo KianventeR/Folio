@@ -1,4 +1,5 @@
-package src;
+import java.util.Random;
+
 public class ESC extends PageReplacementAlgorithm{
 
     // this class implements the enhanced second chance algorithm
