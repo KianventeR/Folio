@@ -724,7 +724,11 @@ public class IOPanel extends javax.swing.JPanel {
                 main_Array[i] = import_ArrayList.get(i);
             }
 
-
+            if(main_Array.length > 40 || Integer.parseInt(frames) > 10){
+                JOptionPane.showMessageDialog(null, "Invalid File",
+                "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             current_frames = Integer.parseInt(frames);
             io_frames_value.setText(String.valueOf(current_frames));
