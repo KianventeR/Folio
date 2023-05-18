@@ -16,6 +16,10 @@ public class OPT extends PageReplacementAlgorithm{
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages][frameSize];
         // execute the algorithm
+        // if page exists, just use it
+        // if page does not exist, replace the one by priority
+        // 1. which will never be used in the future
+        // 2. which will be used the farthest in the future
     }
 
     public boolean[][] getHitMatrix() {
