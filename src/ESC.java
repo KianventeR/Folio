@@ -10,6 +10,7 @@ public class ESC extends PageReplacementAlgorithm{
     //         other outputs inherited from the PageReplacementAlgorithm class 
     boolean[][] hitMatrix;
     int[][] framesMatrix;
+    int[] modifyBits; 
     // circular linked list needed to easily perform ESC
 
     public ESC(int[] pages, int numOfPages, int frameSize){
@@ -25,6 +26,10 @@ public class ESC extends PageReplacementAlgorithm{
 
     public int[][] getFramesMatrix() {
         return framesMatrix;
+    }
+
+    public int[] getModifyBits() {
+        return modifyBits;
     }
 
 }
