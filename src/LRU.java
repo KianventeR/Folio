@@ -18,28 +18,39 @@ public class LRU extends PageReplacementAlgorithm{
         hitMatrix = new boolean[numOfPages];
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
-            // check if array is full 
-            // if array is full, remove least recently used page first
-            if(pageCount == frameCount - 1){
-                framesList.remove();
-            }
+            
             // if page is found in the linked list don't insert
             Integer pageNum = Integer.valueOf(pages[iter]);
             if(framesList.indexOf(pageNum) != -1){
                 hitMatrix[iter] = true;
-            }else{
-                // else insert it to end of linked list
+                // remove first occurrence
+                framesList.removeFirstOccurrence(pageNum);
+                // insert to end of linked list
                 framesList.addLast(pageNum);
-                if(pageCount < (frameSize - 1)){
+            }else{
+                
+                if(pageCount == frameCount){
+                    framesList.remove();
+                }
+                // check if array is full 
+                // if array is full, remove least recently used page first
+                if(pageCount < frameSize){
                     pageCount++;
                 }
+                // else insert it to end of linked list
+                framesList.addLast(pageNum);
+                
                 hitMatrix[iter] = false;
             }
             // then save it to the matrix for the iteration
-            for(int i = 0; i < frameSize; i++){
-                framesMatrix[iter] = framesList.stream().mapToInt(Integer::intValue).toArray();
-                pageFrames = framesList.stream().mapToInt(Integer::intValue).toArray();
+            int fListLength = framesList.size();
+            for(int j = 0; j < fListLength; j++){
+                pageFrames[j] = framesList.get(fListLength-j-1);
             }
+            for(int j = fListLength; j < frameSize; j++){
+                pageFrames[j] = -1;
+            }
+            framesMatrix[iter] = pageFrames.clone();
         }
     }
 
