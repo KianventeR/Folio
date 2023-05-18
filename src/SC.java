@@ -42,7 +42,7 @@ public class SC extends PageReplacementAlgorithm{
                         break;
                     }
                 }
-                // first pass fails, now decrease all second chances
+                // first pass fails or not, now decrease all second chances
                 for(int i = 0; i < pageCount; i++){
                     // use the second chance for the rest of pages
                     if(refBits[i] == 1){
