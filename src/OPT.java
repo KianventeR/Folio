@@ -37,7 +37,7 @@ public class OPT extends PageReplacementAlgorithm{
                     Set<Integer> intSet = new HashSet<>();
 
                     for(int i = iter + 1; i < numOfPages; i++){
-                    intSet.add(pages[i]);
+                        intSet.add(pages[i]);
                     }
                     // check if never used
                     for(int i = 0; i < pageCount; i++){
