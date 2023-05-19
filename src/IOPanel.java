@@ -910,7 +910,14 @@ public class IOPanel extends javax.swing.JPanel {
             framesMatrix = fifo.getFramesMatrix();
             //framesMatrix[numofpages][framesize]
             System.out.println(framesMatrix.length + "no of frames");
+
+            // for(int i = 0; i < main_Array.length; i++){
+                
+            // }
+            
+            //matrix + hits
             for(int i = 0; i < main_Array.length; i++){
+
                 System.out.println(hitMatrix[i]);
                 if(hitMatrix[i] == false){
                     results_table.setValueAt("Miss", current_frames, i);
@@ -918,9 +925,7 @@ public class IOPanel extends javax.swing.JPanel {
                 else{
                     results_table.setValueAt("Hit", current_frames, i);
                 }
-            }
-
-            for(int i = 0; i < main_Array.length; i++){
+                
                 for(int j = 0; j < current_frames; j++){
                     if(framesMatrix[i][j] == -1){
                         results_table.setValueAt(" ", (current_frames - 1)-j, i);
@@ -930,6 +935,7 @@ public class IOPanel extends javax.swing.JPanel {
                     }
                 }
             }
+
             break;
         case 1:
             System.out.println("LRU");
