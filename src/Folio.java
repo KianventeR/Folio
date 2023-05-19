@@ -40,7 +40,7 @@ public class Folio extends javax.swing.JFrame {
         mainFrame.setLocationRelativeTo(null);
         
         card.show(mainPanel, "1");
-//        Music.bgMusic();
+        Music.bgMusic();
         
         new java.util.Timer().schedule(new java.util.TimerTask() {
             @Override

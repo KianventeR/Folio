@@ -561,13 +561,7 @@ public class IOPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-       
-       
-
-      
-
     }
-
   
     public void create_table(int[] main_Array, int selected_algo, int current_frames) {
         results_table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -1148,7 +1142,6 @@ public class IOPanel extends javax.swing.JPanel {
         else{
             System.out.println("cannot add more than 2");
         }
-        
     }
 
     public void io_frames_addMouseEntered(java.awt.event.MouseEvent evt) {
