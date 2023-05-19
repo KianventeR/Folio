@@ -28,8 +28,6 @@ public class Folio extends javax.swing.JFrame {
         mainPanel.add(about, "4");
         mainPanel.add(IO, "5");
         mainPanel.add(fullOutput, "6");
-//        mainPanel.add(safe, "7");
-//        mainPanel.add(output, "8");
         
         mainFrame.add(mainPanel);
         mainFrame.pack();

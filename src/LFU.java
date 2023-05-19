@@ -42,7 +42,6 @@ public class LFU extends PageReplacementAlgorithm{
                         pageFrames[i+1] = -1;
                     }
                 }
-                
             }
             // if page is found in the priority queue don't insert
             int pageNum = pages[iter];

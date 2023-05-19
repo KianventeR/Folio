@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
     "java.project.sourcePaths": ["src"],
-=======
-    "java.project.sourcePaths": [
-        "src"
-    ],
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
+    "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"

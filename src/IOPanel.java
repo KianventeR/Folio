@@ -2,14 +2,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.lang.reflect.Array;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -18,7 +19,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -28,12 +28,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 
 class CenterTextRenderer extends DefaultTableCellRenderer {
     @Override
@@ -62,37 +62,23 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public static void saveTableAsImage(JTable table, String filename) {
-        // Get the size of the table
         Dimension tableSize = table.getSize();
-
-        // Create a BufferedImage with the same size as the table
         BufferedImage image = new BufferedImage(tableSize.width, tableSize.height + 40, BufferedImage.TYPE_INT_RGB);
-
-        // Get the graphics object of the image
         Graphics2D graphics = image.createGraphics();
 
-        // Set the background color of the image
         graphics.setColor(table.getBackground());
         graphics.fillRect(0, 0, tableSize.width, tableSize.height + 40);
 
-        // Paint the table header onto the image
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.print(graphics);
 
         int headerHeight = tableHeader.getHeight();
         graphics.translate(0, headerHeight);
-        System.out.println(headerHeight);
-
-        // Paint the table to the image
         table.print(graphics);
-
-        // Dispose the graphics object
         graphics.dispose();
 
-        // Save the image to a file
         try {
             ImageIO.write(image, "png", new File(filename));
-            System.out.println("Table saved as " + filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,7 +105,6 @@ public class IOPanel extends javax.swing.JPanel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     }
     
-
     public void initComponents() {
         length_upper = 40;
         length_lower = 10;
@@ -160,8 +145,6 @@ public class IOPanel extends javax.swing.JPanel {
         io_frames_bg = new javax.swing.JLabel();
         io_output_bg = new javax.swing.JLabel();
         io_bg = new javax.swing.JLabel();
-
-        
 
         setPreferredSize(new java.awt.Dimension(1080, 720));
         setLayout(null);
@@ -664,6 +647,27 @@ public class IOPanel extends javax.swing.JPanel {
     public void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
         saveTableAsImage(results_table, "panel_image.png");
+        String imagePath = "panel_image.png";
+        String pdfPath = "panel.pdf"; 
+
+        try {
+            BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
+            int imageWidth = bufferedImage.getWidth() + 70;
+            int imageHeight = bufferedImage.getHeight() + 70;
+
+            Document document = new Document();
+            document.setPageSize(new com.itextpdf.text.Rectangle(imageWidth, imageHeight));
+            PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+            document.open();
+
+            Image image = Image.getInstance(bufferedImage, null);
+            document.add(image);
+
+            document.close();
+            System.out.println("Image converted to PDF successfully.");
+        } catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        }
     }
 
     public void io_randomMouseEntered(java.awt.event.MouseEvent evt) {
@@ -911,7 +915,6 @@ public class IOPanel extends javax.swing.JPanel {
                 else{
                     results_table.setValueAt("Hit", current_frames, i);
                 }
-                
             }
 
             for(int i = 0; i < main_Array.length; i++){
@@ -1164,7 +1167,6 @@ public class IOPanel extends javax.swing.JPanel {
             System.out.println("cannot add more than 10");
             System.out.println(current_frames);
         }
-        
     }
 
     public void io_frames_minusMouseEntered(java.awt.event.MouseEvent evt) {
@@ -1177,11 +1179,10 @@ public class IOPanel extends javax.swing.JPanel {
 
     public void io_frames_minusActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
-        if(current_frames <= 3){
+        if(current_frames <= 3) {
             System.out.println("removing frames");
             System.out.println("cannot subtract less than 3");
-        }
-        else{
+        } else {
             current_frames--;
             io_frames_value.setText(String.valueOf(current_frames));
             System.out.println(current_frames);
