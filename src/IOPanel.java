@@ -1,7 +1,60 @@
+<<<<<<< HEAD
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class IOPanel extends javax.swing.JPanel {
+=======
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+
+class CenterTextRenderer extends DefaultTableCellRenderer {
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                   boolean hasFocus, int row, int column) {
+                                                    
+        Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        final Border border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY);
+        setHorizontalAlignment(SwingConstants.CENTER);
+        // cellComponent.setBackground(Color.gray);
+        ((JComponent) cellComponent).setBorder(border);
+        return cellComponent;
+
+        
+    }
+    
+    
+}
+public class IOPanel extends javax.swing.JPanel {
+    public int Selected;
+    public double default_speed = 1;
+    public double current_speed = default_speed;
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
     public IOPanel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -12,7 +65,41 @@ public class IOPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+<<<<<<< HEAD
     private void initComponents() {
+=======
+    public void reset(){
+        default_speed = 1; 
+        current_speed = default_speed;
+        default_frames = 3;
+        current_frames = default_frames;
+        removeAll();
+        initComponents();
+        Folio.fullOutput.reset();
+    }
+    public void adjustScrollBar(javax.swing.JComboBox<String> box) {
+        if (box.getItemCount() == 0) return;
+        Object comp = box.getUI().getAccessibleChild(box, 0);
+        if (!(comp instanceof JPopupMenu)) {
+            return;
+        }
+        JPopupMenu popup = (JPopupMenu) comp;
+        JScrollPane scrollPane = (JScrollPane) popup.getComponent(0);
+        scrollPane.setHorizontalScrollBar(new JScrollBar(JScrollBar.HORIZONTAL));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    }
+    
+
+    public void initComponents() {
+        length_upper = 40;
+        length_lower = 10;
+        lower_value = 0;
+        upper_value = 20;
+        frame_lower = 3;
+        frame_upper = 10;
+        
+        results_table = new javax.swing.JTable();
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         io_save = new javax.swing.JButton();
@@ -25,6 +112,11 @@ public class IOPanel extends javax.swing.JPanel {
         io_speed_minus = new javax.swing.JButton();
         io_import = new javax.swing.JButton();
         io_random = new javax.swing.JButton();
+<<<<<<< HEAD
+=======
+        io_page_label = new javax.swing.JLabel();
+        io_page_bg = new javax.swing.JLabel();
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         io_timer_label = new javax.swing.JLabel();
         io_timer_bg = new javax.swing.JLabel();
         io_output_scroll = new javax.swing.JScrollPane();
@@ -43,6 +135,11 @@ public class IOPanel extends javax.swing.JPanel {
         io_output_bg = new javax.swing.JLabel();
         io_bg = new javax.swing.JLabel();
 
+<<<<<<< HEAD
+=======
+        
+
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         setPreferredSize(new java.awt.Dimension(1080, 720));
         setLayout(null);
 
@@ -298,6 +395,21 @@ public class IOPanel extends javax.swing.JPanel {
         add(io_random);
         io_random.setBounds(160, 230, 130, 40);
 
+<<<<<<< HEAD
+=======
+        io_page_label.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); // NOI18N
+        io_page_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        io_page_label.setText("0");
+        add(io_page_label);
+        io_page_label.setBounds(232, 310, 60, 30);
+
+        io_page_bg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        io_page_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/page_highlight.png"))); // NOI18N
+        io_page_bg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(io_page_bg);
+        io_page_bg.setBounds(160, 300, 150, 50);
+
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         io_timer_label.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_timer_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         io_timer_label.setText("0");
@@ -313,11 +425,19 @@ public class IOPanel extends javax.swing.JPanel {
         io_output_scroll.setBorder(null);
         io_output_scroll.setOpaque(false);
         add(io_output_scroll);
+<<<<<<< HEAD
         io_output_scroll.setBounds(50, 340, 980, 330);
 
         io_speed_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_speed_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         io_speed_value.setText("1");
+=======
+        io_output_scroll.setBounds(50, 360, 980, 300);
+
+        io_speed_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
+        io_speed_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        io_speed_value.setText(String.valueOf(current_speed) + "x");
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         add(io_speed_value);
         io_speed_value.setBounds(178, 190, 40, 30);
 
@@ -353,11 +473,21 @@ public class IOPanel extends javax.swing.JPanel {
         add(io_reference_bg);
         io_reference_bg.setBounds(40, 130, 920, 50);
 
+<<<<<<< HEAD
         io_algorithm_select.setFont(new java.awt.Font("Poppins ExtraBold", 0, 14)); 
         io_algorithm_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         io_algorithm_select.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         io_algorithm_select.setFocusable(false);
         io_algorithm_select.setOpaque(false);
+=======
+        io_algorithm_select.setFont(new java.awt.Font("Poppins Regular", 0, 12)); 
+        io_algorithm_select.setAutoscrolls(getAutoscrolls());
+        io_algorithm_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"First In First Out", "Least Recently Used", "Optimal Page Replacement", "Second Chance Algorithm", "Enhanced Second Chance Algorithm", "Least Frequently Used", "Most Frequently Used" }));
+        io_algorithm_select.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        io_algorithm_select.setFocusable(false);
+        io_algorithm_select.setOpaque(false);
+        adjustScrollBar(io_algorithm_select);
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         add(io_algorithm_select);
         io_algorithm_select.setBounds(326, 90, 160, 30);
 
@@ -375,7 +505,11 @@ public class IOPanel extends javax.swing.JPanel {
 
         io_frames_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_frames_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+<<<<<<< HEAD
         io_frames_value.setText("3");
+=======
+        io_frames_value.setText(String.valueOf(default_frames));
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         add(io_frames_value);
         io_frames_value.setBounds(620, 90, 50, 30);
 
@@ -403,6 +537,7 @@ public class IOPanel extends javax.swing.JPanel {
         io_bg.setOpaque(true);
         add(io_bg);
         io_bg.setBounds(0, 0, 1080, 720);
+<<<<<<< HEAD
     }
 
     private void exitMouseEntered(java.awt.event.MouseEvent evt) {
@@ -578,4 +713,752 @@ public class IOPanel extends javax.swing.JPanel {
     private javax.swing.JLabel io_timer_bg;
     private javax.swing.JLabel io_timer_label;
     private javax.swing.JButton minimize;
+=======
+
+        results_table.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        results_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                " ", " ", " "
+            }
+        ){
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class,
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+       
+       
+
+      
+
+    }
+
+  
+    public void create_table(int[] main_Array, int selected_algo, int current_frames) {
+        results_table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TableCellRenderer cellRenderer = new CenterTextRenderer();
+        results_table.setDefaultRenderer(Object.class, cellRenderer);
+
+        results_table.setForeground(new java.awt.Color(0, 0, 0));
+        Object[][] data = new Object[0][0];
+        String [] header = new String [main_Array.length];
+
+        for(int i = 0; i < main_Array.length; i++){
+            header[i] = String.valueOf(main_Array[i]);
+        }
+
+        results_table.setModel(new javax.swing.table.DefaultTableModel(data, header));
+        
+        DefaultTableModel results_model = (DefaultTableModel) results_table.getModel();
+        results_model.setRowCount(current_frames + 1);
+        results_model.setColumnCount(main_Array.length);
+
+        results_table.setFillsViewportHeight(true);
+        results_table.setGridColor(new java.awt.Color(255, 255, 255));
+        results_table.setSelectionBackground(new java.awt.Color(211, 211, 211));
+        results_table.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        results_table.setInheritsPopupMenu(true);
+        results_table.setIntercellSpacing(new java.awt.Dimension(35, 1));
+        results_table.setRowHeight(40);
+        
+        
+       
+
+        // results_table.setPreferredSize(new Dimension(20, 60));
+        results_table.setBorder(null);
+        io_output_scroll.setBorder(null);
+        if(main_Array.length < 12){
+            io_output_scroll.setBounds(60, 350, main_Array.length*75, 290);
+        }
+        else{
+            io_output_scroll.setBounds(60, 350, 12*80, 290);
+        }
+        
+        io_output_scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        io_output_scroll.setViewportView(results_table);
+    }
+
+    public void exitMouseEntered(java.awt.event.MouseEvent evt) {
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_hover.png")));
+    }
+
+    public void exitMouseExited(java.awt.event.MouseEvent evt) {
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close.png")));
+    }
+
+    public void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        System.exit(0);
+    }
+
+    public void minimizeMouseEntered(java.awt.event.MouseEvent evt) {
+        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_hover.png")));
+    }
+
+    public void minimizeMouseExited(java.awt.event.MouseEvent evt) {
+        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min.png")));
+    }
+
+    public void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+        Folio.mainFrame.setState(java.awt.Frame.ICONIFIED);
+    }
+
+    public void io_returnMouseEntered(java.awt.event.MouseEvent evt) {
+        io_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_hover.png")));
+    }
+
+    public void io_returnMouseExited(java.awt.event.MouseEvent evt) {
+        io_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return.png")));
+    }
+
+    public void io_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        reset();
+        Folio.card.show(Folio.mainPanel, "2");
+    }
+
+    public void io_saveMouseEntered(java.awt.event.MouseEvent evt) {
+        io_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/save_hover.png")));
+    }
+
+    public void io_saveMouseExited(java.awt.event.MouseEvent evt) {
+        io_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/save.png")));
+    }
+
+    public void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
+
+    public void io_randomMouseEntered(java.awt.event.MouseEvent evt) {
+        io_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/random_hover.png")));
+    }
+
+    public void io_randomMouseExited(java.awt.event.MouseEvent evt) {
+        io_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/random.png")));
+    }
+
+    public void io_randomActionPerformed(java.awt.event.ActionEvent evt) {
+
+        
+        seed = (int) System.currentTimeMillis();
+        Random rand = new Random(seed);
+
+
+        int random_length = rand.nextInt(length_upper-length_lower) + length_lower;
+        int random_frame = rand.nextInt(frame_upper-frame_lower) + frame_lower;
+        int random_value = rand.nextInt(upper_value-lower_value) + lower_value;
+
+        System.out.println(random_length + " Length");
+        System.out.println(random_frame + " frame");
+        System.out.println(random_value + " value");
+
+        current_frames = random_frame;
+
+        io_frames_value.setText(String.valueOf(current_frames));
+
+        random_Array = new int[random_length];
+
+        for(int i = 0; i < random_length; i++){
+            random_Array[i] = random_value;
+            random_value = rand.nextInt(upper_value-lower_value) + lower_value;
+            
+        }
+        String array_string ="";
+       for(int i = 0; i < random_Array.length; i++){
+        if(i+1 < random_Array.length){
+            array_string = array_string + String.valueOf(random_Array[i]) + " ";
+        }
+        else{
+            array_string = array_string + String.valueOf(random_Array[i]) + "";
+        }
+       }
+       
+    //    System.out.println(array_string);
+
+       io_reference_input.setText(array_string);
+
+       main_Array = new int[random_Array.length];
+       main_Array = random_Array.clone();
+
+
+    }
+
+    public void io_importMouseEntered(java.awt.event.MouseEvent evt) {
+        io_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/import_hover.png")));
+    }
+
+    public void io_importMouseExited(java.awt.event.MouseEvent evt) {
+        io_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/import.png")));
+    }
+
+    public void io_importActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("importing");
+
+        io_reference_input.setText("");
+
+        final JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+        File file = fc.getSelectedFile();
+
+        
+     try (Scanner read = new Scanner(file)){
+        String frames = " ";
+        String algo = " ";
+        String page_reference = "";
+     
+    
+
+            for(int i = 0; i < 4; i++){
+                
+                if(i < 2){
+                    frames = read.next();
+                }
+                else{
+                    algo = read.next();
+                }
+            }
+            read.next();
+            import_ArrayList = new ArrayList<Integer>();
+            while(read.hasNext()){
+                import_ArrayList.add(read.nextInt());  
+            }
+          
+            System.out.println(import_ArrayList);
+
+            main_Array = new int [import_ArrayList.size()];
+
+            for(int i = 0; i < import_ArrayList.size(); i++){
+                main_Array[i] = import_ArrayList.get(i);
+            }
+
+            if(main_Array.length > 40 || Integer.parseInt(frames) > 10){
+                JOptionPane.showMessageDialog(null, "Invalid File",
+                "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            current_frames = Integer.parseInt(frames);
+            io_frames_value.setText(String.valueOf(current_frames));
+
+            for(int i = 0; i < main_Array.length; i++){
+    
+
+                if(i+1 < main_Array.length){
+                    io_reference_input.setText(io_reference_input.getText() + main_Array[i] + " ");
+                }
+                else{
+                    io_reference_input.setText(io_reference_input.getText() + main_Array[i] + "");
+                }
+            }
+            
+            Selected = checkSelected(algo);
+            System.out.println(Selected);
+
+            io_algorithm_select.setSelectedIndex(Selected);
+            
+            io_random.setEnabled(false);
+            io_frames_add.setEnabled(false);
+            io_frames_minus.setEnabled(false);
+            io_algorithm_select.setEditable(false);
+            io_reference_input.setEditable(false);
+
+
+       
+        
+     } catch (Exception e) {
+        System.out.println("errpr");
+        // TODO: handle exception
+     }
+        
+    }
+
+    
+
+    private int checkSelected(String algo) {
+        int selected = 0;
+        if(algo.equals("FIFO")){
+            selected = 0;
+        }
+        else if(algo.equals("LRU")){
+            selected = 1;
+        }
+        else if(algo.equals("OPT")){
+            selected = 2;
+        }
+        else if(algo.equals("SCA")){
+            selected = 3;
+        }
+        else if(algo.equals("ESCA")){
+            selected = 4;
+        }
+        else if(algo.equals("LFU")){
+            selected = 5;
+        }
+        else if(algo.equals("MFU")){
+            selected = 6;
+        }
+        return selected;
+    }
+
+    public void io_simulateAllMouseEntered(java.awt.event.MouseEvent evt) {
+        io_simulateAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulateAll_hover.png")));
+    }
+
+    public void io_simulateAllMouseExited(java.awt.event.MouseEvent evt) {
+        io_simulateAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulateAll.png")));
+    }
+
+    public void io_simulateAllActionPerformed(java.awt.event.ActionEvent evt) {
+        Folio.card.show(Folio.mainPanel, "6");
+    }
+
+    public void io_simulateMouseEntered(java.awt.event.MouseEvent evt) {
+        io_simulate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulate_hover.png")));
+    }
+
+    public void io_simulateMouseExited(java.awt.event.MouseEvent evt) {
+        io_simulate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulate.png")));
+    }
+
+    public void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
+        
+       
+
+        int int_values = 0;
+        String values = io_reference_input.getText();
+        values.trim();
+        System.out.println(values);
+
+        if(io_reference_input.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Page Reference Cannot be Empty!",
+      "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
+        if(values.charAt(values.length() - 1) == ' '){
+            System.out.println("Invalid input");
+            return;
+        }
+
+        for(int i = 0; i < values.length(); i++){
+            if(values.charAt(i) == ' '){
+                int_values++;
+            }
+            else{
+                continue;
+            }
+
+           
+        }
+        
+       int_values = int_values+1;
+
+
+       System.out.println(int_values);
+
+       try (Scanner read = new Scanner(values)){
+
+        //main_array loading - contains arrays
+        main_Array = new int[int_values];
+        for(int i = 0; i < int_values; i++){
+            main_Array[i] = read.nextInt();
+            if(main_Array[i] > 20){
+                System.out.println("Value exceeding 20");
+                return;
+            }
+        }
+
+       //selected algo
+       Selected = io_algorithm_select.getSelectedIndex();
+
+       //No. of frames
+       System.out.println(current_frames);
+
+       
+       //table creation
+       create_table(main_Array, Selected, current_frames);
+    //    results_table.setEnabled(false);
+    
+    boolean[] hitMatrix;
+    int[][] framesMatrix;
+        
+    switch(Selected){
+        case 0:
+            System.out.println("FIFO");
+            FIFO fifo = new FIFO(main_Array,main_Array.length,current_frames);
+            hitMatrix = fifo.getHitMatrix();
+            framesMatrix = fifo.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+          
+            
+        break;
+        case 1:
+            System.out.println("LRU");
+            LRU lru = new LRU(main_Array, main_Array.length, current_frames);
+            hitMatrix = lru.getHitMatrix();
+            framesMatrix = lru.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+            break;
+        case 2:
+            System.out.println("OPT");
+            OPT opt = new OPT(main_Array, main_Array.length, current_frames);
+            hitMatrix = opt.getHitMatrix();
+            framesMatrix = opt.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
+
+        break;
+        case 3:
+            System.out.println("SCA");
+            
+            SC sca = new SC(main_Array, main_Array.length, current_frames);
+            hitMatrix = sca.getHitMatrix();
+            framesMatrix = sca.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
+
+        break;
+        case 4:
+            System.out.println("ESCA");
+
+            ESC esc = new ESC(main_Array, main_Array.length, current_frames);
+            hitMatrix = esc.getHitMatrix();
+            framesMatrix = esc.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
+            
+
+        break;
+        case 5:
+            System.out.println("LFU");
+
+            LFU lfu = new LFU(main_Array, main_Array.length, current_frames);
+            hitMatrix = lfu.getHitMatrix();
+            framesMatrix = lfu.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
+        break;
+        case 6:
+            System.out.println("MFU");
+
+            MFU mfu = new MFU(main_Array, main_Array.length, current_frames);
+            hitMatrix = mfu.getHitMatrix();
+            framesMatrix = mfu.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            for(int i = 0; i < main_Array.length; i++){
+                System.out.println(hitMatrix[i]);
+                if(hitMatrix[i] == false){
+                    results_table.setValueAt("Miss", current_frames, i);
+                }
+                else{
+                    results_table.setValueAt("Hit", current_frames, i);
+                }
+                
+            }
+
+            for(int i = 0; i < main_Array.length; i++){
+                for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[i][j] == -1){
+                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
+                    }
+                    else{
+                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
+                    }
+                }
+            }
+
+        break;
+    }
+        
+        
+       } catch (Exception e) {
+
+        System.out.println(e);
+        System.out.println("errr");
+        // TODO: handle exception
+       }
+       
+
+       
+        
+        //variables
+        //current_frames;
+        //main_Array;
+        //current_speed
+
+        
+        
+        
+    }
+
+    public void io_speed_minusMouseEntered(java.awt.event.MouseEvent evt) {
+        io_speed_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus_hover.png")));
+    }
+
+    public void io_speed_minusMouseExited(java.awt.event.MouseEvent evt) {
+        io_speed_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus.png")));
+    }
+
+    public void io_speed_minusActionPerformed(java.awt.event.ActionEvent evt) {
+        if(current_speed > 0.5){
+            current_speed = current_speed - 0.5;
+            io_speed_value.setText(String.valueOf(current_speed)+"x");
+        }
+        else{
+            System.out.println("cannot subtract more than 0.5");
+        }
+        
+    }
+
+    public void io_speed_addMouseEntered(java.awt.event.MouseEvent evt) {
+        io_speed_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add_hover.png")));
+    }
+
+    public void io_speed_addMouseExited(java.awt.event.MouseEvent evt) {
+        io_speed_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add.png")));
+    }
+
+    public void io_speed_addActionPerformed(java.awt.event.ActionEvent evt) {
+        
+        if(current_speed < 2.0){
+            current_speed = current_speed + 0.5;
+            io_speed_value.setText(String.valueOf(current_speed)+"x");
+        }
+        else{
+            System.out.println("cannot add more than 2");
+        }
+        
+    }
+
+    public void io_frames_addMouseEntered(java.awt.event.MouseEvent evt) {
+        io_frames_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add_hover.png")));
+    }
+
+    public void io_frames_addMouseExited(java.awt.event.MouseEvent evt) {
+        io_frames_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add.png")));
+    }
+
+    public void io_frames_addActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("adding frames");
+        if(current_frames >= 3 && current_frames < 10){
+            current_frames++;
+            io_frames_value.setText(String.valueOf(current_frames));
+            System.out.println(current_frames);
+        }
+        else{
+            System.out.println("cannot add more than 10");
+            System.out.println(current_frames);
+        }
+        
+    }
+
+    public void io_frames_minusMouseEntered(java.awt.event.MouseEvent evt) {
+        io_frames_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus_hover.png")));
+    }
+
+    public void io_frames_minusMouseExited(java.awt.event.MouseEvent evt) {
+        io_frames_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus.png")));
+    }
+
+    public void io_frames_minusActionPerformed(java.awt.event.ActionEvent evt) {
+
+        if(current_frames <= 3){
+            System.out.println("removing frames");
+            System.out.println("cannot subtract less than 3");
+        }
+        else{
+            current_frames--;
+            io_frames_value.setText(String.valueOf(current_frames));
+            System.out.println(current_frames);
+           
+        }
+        
+    }
+    
+    
+    int default_frames = 3;
+    int current_frames = default_frames;
+    int length_upper, length_lower, seed, frame_lower, frame_upper, lower_value, upper_value;
+        
+    public javax.swing.JButton exit;
+    public javax.swing.JLabel io_algorithm_bg;
+    public javax.swing.JLabel io_algorithm_label;
+    public javax.swing.JComboBox<String> io_algorithm_select;
+    public javax.swing.JLabel io_bg;
+    public javax.swing.JButton io_frames_add;
+    public javax.swing.JLabel io_frames_bg;
+    public javax.swing.JLabel io_frames_label;
+    public javax.swing.JButton io_frames_minus;
+    public javax.swing.JLabel io_frames_value;
+    public javax.swing.JButton io_import;
+    public javax.swing.JLabel io_output_bg;
+    public javax.swing.JScrollPane io_output_scroll;
+    public javax.swing.JLabel io_page_bg;
+    public javax.swing.JLabel io_page_label;
+    public javax.swing.JButton io_random;
+    public javax.swing.JLabel io_reference_bg;
+    public javax.swing.JTextField io_reference_input;
+    public javax.swing.JLabel io_reference_label;
+    public javax.swing.JButton io_return;
+    public javax.swing.JButton io_save;
+    public javax.swing.JButton io_simulate;
+    public javax.swing.JButton io_simulateAll;
+    public javax.swing.JButton io_speed_add;
+    public javax.swing.JLabel io_speed_bg;
+    public javax.swing.JLabel io_speed_label;
+    public javax.swing.JButton io_speed_minus;
+    public javax.swing.JLabel io_speed_value;
+    public javax.swing.JLabel io_timer_bg;
+    public javax.swing.JLabel io_timer_label;
+    public javax.swing.JButton minimize;
+    public javax.swing.JTable results_table;
+
+    public int[] random_Array;
+    public int[] main_Array;
+    public ArrayList<Integer> import_ArrayList;
+>>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
 }
