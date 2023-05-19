@@ -17,6 +17,7 @@ public class SC extends PageReplacementAlgorithm{
         super(frameSize);
         framesMatrix = new int[numOfPages][frameSize];
         hitMatrix = new boolean[numOfPages];
+        refBits = new int[frameSize];
         // execute the algorithm
         for(int iter = 0; iter < numOfPages; iter++){
             // if page is found in the pageFrames array don't insert
@@ -32,36 +33,42 @@ public class SC extends PageReplacementAlgorithm{
             }else{
                 // search for the page to be replaced
                 // start at head
-                int index = head;
-                // first pass: search for frame with refBit = 0
-                int frameChosen = -1;
-                for(int i = 0; i < pageCount; i++){
-                    int frame = (index+i) % frameSize;
-                    if(refBits[frame] == 0){
-                        frameChosen = frame;
-                        break;
+                if(pageCount == frameSize){
+                    int index = head;
+                    // first pass: search for frame with refBit = 0
+                    int frameChosen = -1;
+                    for(int i = 0; i < pageCount; i++){
+                        int frame = (index+i) % frameSize;
+                        if(refBits[frame] == 0){
+                            frameChosen = frame;
+                            break;
+                        }
                     }
-                }
-                // first pass fails or not, now decrease all second chances
-                for(int i = 0; i < pageCount; i++){
-                    // use the second chance for the rest of pages
-                    if(refBits[i] == 1){
-                        refBits[i] = 0;
+                    // first pass fails or not, now decrease all second chances
+                    for(int i = 0; i < pageCount; i++){
+                        // use the second chance for the rest of pages
+                        if(refBits[i] == 1){
+                            refBits[i] = 0;
+                        }
                     }
-                }
-                // second pass: search for frame with refBit = 0 
-                // only run this if frameChosen has no valid value
-                for(int i = 0; (i < pageCount && frameChosen == -1); i++){
-                    int frame = (index+i) % frameSize;
-                    if(refBits[frame] == 0){
-                        frameChosen = frame;
-                        break;
+                    // second pass: search for frame with refBit = 0 
+                    // only run this if frameChosen has no valid value
+                    for(int i = 0; (i < pageCount && frameChosen == -1); i++){
+                        int frame = (index+i) % frameSize;
+                        if(refBits[frame] == 0){
+                            frameChosen = frame;
+                            break;
+                        }
                     }
+                    // else insert it to the chosen page frame
+                    pageFrames[frameChosen] = pages[iter];
+                    refBits[frameChosen] = 0;
+                }else{
+                    pageFrames[pageCount] = pages[iter];
+                    refBits[pageCount] = 0;
                 }
-                // else insert it to the chosen page frame
-                pageFrames[frameChosen] = pages[iter];
-                refBits[frameChosen] = 0;
-                if(pageCount < (frameSize - 1)){
+                
+                if(pageCount < frameSize){
                     pageCount++;
                 }
                 hitMatrix[iter] = false;

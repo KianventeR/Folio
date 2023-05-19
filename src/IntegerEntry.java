@@ -1,5 +1,5 @@
 
-public class IntegerEntry {
+public class IntegerEntry implements Comparable<IntegerEntry> {
     private int key;
     private int freq;
 
