@@ -1078,6 +1078,15 @@ public class IOPanel extends javax.swing.JPanel {
             int faults = 0;
             int col = 0;
             public void actionPerformed(ActionEvent evt){
+                io_frames_add.setEnabled(false);
+                io_frames_minus.setEnabled(false);
+                io_reference_input.setEditable(false);
+                io_speed_add.setEnabled(false);
+                io_speed_minus.setEnabled(false);
+                io_algorithm_select.setEnabled(false);
+                io_simulate.setEnabled(false);
+                io_simulateAll.setEnabled(false);
+
                 results_table.setEnabled(false);
                 io_timer_label.setText(String.valueOf(col));
                 io_page_label.setText(String.valueOf(main_Array[col]));
@@ -1116,6 +1125,14 @@ public class IOPanel extends javax.swing.JPanel {
                     col++;
                 } 
                 if(col == main_Array.length){
+                    io_frames_add.setEnabled(true);
+                    io_frames_minus.setEnabled(true);
+                    io_reference_input.setEditable(true);
+                    io_speed_add.setEnabled(true);
+                    io_speed_minus.setEnabled(true);
+                    io_algorithm_select.setEnabled(true);
+                    io_simulate.setEnabled(true);
+                    io_simulateAll.setEnabled(true);
                     timer.stop();
                 }
                 
