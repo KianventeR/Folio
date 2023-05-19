@@ -7,6 +7,7 @@ public class MainMenu extends javax.swing.JPanel {
         menu_start = new javax.swing.JButton();
         menu_help = new javax.swing.JButton();
         menu_about = new javax.swing.JButton();
+        menu_vol = new javax.swing.JButton();
         menu_exit = new javax.swing.JButton();
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
@@ -80,6 +81,28 @@ public class MainMenu extends javax.swing.JPanel {
         });
         add(menu_about);
         menu_about.setBounds(200, 380, 240, 70);
+
+        menu_vol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/mute.png"))); // NOI18N
+        menu_vol.setBorder(null);
+        menu_vol.setBorderPainted(false);
+        menu_vol.setContentAreaFilled(false);
+        menu_vol.setFocusPainted(false);
+        menu_vol.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        menu_vol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                menu_volMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                menu_volMouseExited(evt);
+            }
+        });
+        menu_vol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_volActionPerformed(evt);
+            }
+        });
+        add(menu_vol);
+        menu_vol.setBounds(980, 630, 70, 70);
 
         menu_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/exit.png"))); 
         menu_exit.setBorder(null);
@@ -245,6 +268,35 @@ public class MainMenu extends javax.swing.JPanel {
         Folio.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 
+    private void menu_volMouseEntered(java.awt.event.MouseEvent evt) {                                      
+        if(Folio.sound == true) {
+            menu_vol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/mute_hover.png")));
+        } else {
+            menu_vol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/muteX_hover.png")));
+        }
+    }                                     
+
+    private void menu_volMouseExited(java.awt.event.MouseEvent evt) {                                     
+        if(Folio.sound == true) {
+            menu_vol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/mute.png")));
+        } else {
+            menu_vol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/muteX.png")));
+        }
+    }                                    
+
+    private void menu_volActionPerformed(java.awt.event.ActionEvent evt) {      
+        Music.sfx();                                   
+        if(Folio.sound == true) {
+            Folio.sound = false;
+            Music.bgMusic.pause();
+            menu_vol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/muteX.png")));
+        } else {
+            Folio.sound = true;
+            Music.bgMusic.play();
+            menu_vol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/mute.png")));
+        }
+    }       
+
     private javax.swing.JButton exit;
     private javax.swing.JButton menu_about;
     private javax.swing.JLabel menu_bg;
@@ -254,5 +306,6 @@ public class MainMenu extends javax.swing.JPanel {
     private javax.swing.JButton menu_start;
     private javax.swing.JLabel menu_title;
     private javax.swing.JLabel menu_title1;
+    private javax.swing.JButton menu_vol;
     private javax.swing.JButton minimize;
 }
