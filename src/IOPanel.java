@@ -43,11 +43,18 @@ class CenterTextRenderer extends DefaultTableCellRenderer {
     
     private int desiredRow = 0;
     private int desiredColumn = 0;
+    int rows = 0;
 
-    public CenterTextRenderer(int desiredRow, int desiredColumn) {
+    public CenterTextRenderer(int desiredRow, int desiredColumn, int rows) {
+        
         this.desiredRow =  desiredRow;
         this.desiredColumn = desiredColumn;
+        this.rows = rows;
     }
+   
+
+   
+    
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) { 
@@ -69,6 +76,10 @@ class CenterTextRenderer extends DefaultTableCellRenderer {
             // Reset the background color to the default
             cellComponent.setBackground(table.getBackground());
         }
+        if(row == rows){
+            ((JComponent) cellComponent).setBorder(null);
+        }
+
         return cellComponent;
     }
 }
@@ -84,6 +95,7 @@ public class IOPanel extends javax.swing.JPanel {
         
     public int desiredRow;
     public int desiredColumn;
+    boolean flag = false;
     public int Selected;
     public double default_speed = 1;
     public double current_speed = default_speed;
@@ -119,9 +131,10 @@ public class IOPanel extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-
+    
     public void reset(){
-        if(timer.isRunning()){
+       
+        if(flag == true){
             timer.stop();
         }
         default_speed = 1; 
@@ -152,6 +165,7 @@ public class IOPanel extends javax.swing.JPanel {
         frame_lower = 3;
         frame_upper = 10;
         
+        fault_value = new javax.swing.JLabel();
         results_table = new javax.swing.JTable();
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
@@ -188,6 +202,14 @@ public class IOPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1080, 720));
         setLayout(null);
 
+        fault_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16));
+        fault_value.setText("Page Faults: ");
+        fault_value.setBounds(65, 610, 200, 80);
+        fault_value.setBackground(Color.cyan);
+        
+        add(fault_value);
+
+        
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close.png"))); 
         exit.setBorder(null);
         exit.setBorderPainted(false);
@@ -583,12 +605,16 @@ public class IOPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+
+      
     }
   
     public void create_table(int[] main_Array, int selected_algo, int current_frames) {
         results_table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        TableCellRenderer cellRenderer = new CenterTextRenderer(0, 0);
+        TableCellRenderer cellRenderer = new CenterTextRenderer(-1, -1, current_frames);
         results_table.setDefaultRenderer(Object.class, cellRenderer);
+        
+        
 
         results_table.setForeground(new java.awt.Color(0, 0, 0));
         Object[][] data = new Object[0][0];
@@ -873,6 +899,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_simulateAllActionPerformed(java.awt.event.ActionEvent evt) {
+        flag = true;
         Music.sfx();
         Folio.card.show(Folio.mainPanel, "6");
     }
@@ -916,6 +943,7 @@ public class IOPanel extends javax.swing.JPanel {
 
         System.out.println(int_values);
         try (Scanner read = new Scanner(values)){
+            flag = true;
             //main_array loading - contains arrays
             main_Array = new int[int_values];
             for(int i = 0; i < int_values; i++){
@@ -951,6 +979,74 @@ public class IOPanel extends javax.swing.JPanel {
             //framesMatrix[numofpages][framesize]
             System.out.println(framesMatrix.length + "no of frames");
 
+            initiate_print(hitMatrix, framesMatrix);
+
+            break;
+        case 1:
+            System.out.println("LRU");
+            LRU lru = new LRU(main_Array, main_Array.length, current_frames);
+            hitMatrix = lru.getHitMatrix();
+            framesMatrix = lru.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            initiate_print(hitMatrix, framesMatrix);
+
+            break;
+        case 2:
+            System.out.println("OPT");
+            OPT opt = new OPT(main_Array, main_Array.length, current_frames);
+            hitMatrix = opt.getHitMatrix();
+            framesMatrix = opt.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            initiate_print(hitMatrix, framesMatrix);
+            break;
+        case 4:
+            System.out.println("ESCA");
+
+            ESC esc = new ESC(main_Array, main_Array.length, current_frames);
+            hitMatrix = esc.getHitMatrix();
+            framesMatrix = esc.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            initiate_print(hitMatrix, framesMatrix);
+            break;
+        case 5:
+            System.out.println("LFU");
+
+            LFU lfu = new LFU(main_Array, main_Array.length, current_frames);
+            hitMatrix = lfu.getHitMatrix();
+            framesMatrix = lfu.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            initiate_print(hitMatrix, framesMatrix);
+            break;
+        case 6:
+            System.out.println("MFU");
+
+            MFU mfu = new MFU(main_Array, main_Array.length, current_frames);
+            hitMatrix = mfu.getHitMatrix();
+            framesMatrix = mfu.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            initiate_print(hitMatrix, framesMatrix);
+
+        break;
+    }
+       } catch (Exception e) {
+        System.out.println(e);
+        System.out.println("errr");
+        // TODO: handle exception
+       }
+        //variables
+        //current_frames;
+        //main_Array;
+        //current_speed
+    }
+
+    private void initiate_print(boolean[] hitMatrix, int[][] framesMatrix) {
+
+        
             // for(int i = 0; i < main_Array.length; i++){
                 
             // }
@@ -976,289 +1072,58 @@ public class IOPanel extends javax.swing.JPanel {
             //     }
             // }
 
-            
-            
-            timer = new Timer((int) (500/current_speed), new ActionListener() {
+        timer = new Timer((int) (500/current_speed), new ActionListener() {
                 
-                //matrix + hits
-                int col = 0;
-                public void actionPerformed(ActionEvent evt){
-                    results_table.setEnabled(false);
-                    io_timer_label.setText(String.valueOf(col));
-                    io_page_label.setText(String.valueOf(main_Array[col]));
-                    if(col < main_Array.length){
+            //matrix + hits
+            int faults = 0;
+            int col = 0;
+            public void actionPerformed(ActionEvent evt){
+                results_table.setEnabled(false);
+                io_timer_label.setText(String.valueOf(col));
+                io_page_label.setText(String.valueOf(main_Array[col]));
+                if(col < main_Array.length){
 
-                        System.out.println(hitMatrix[col]);
-                        if(hitMatrix[col] == false){
-                            results_table.setValueAt("Miss", current_frames, col);
+                    System.out.println(hitMatrix[col]);
+                    if(hitMatrix[col] == false){
+                        results_table.setValueAt("Miss", current_frames, col);
+                        faults++;
+                        fault_value.setText("Page Faults: " + faults);
+                    }
+                    else{
+                        results_table.setValueAt("Hit", current_frames, col);
+                    }
+            
+                    for(int row = 0; row < current_frames; row++){
+                        if(framesMatrix[col][row] == -1){
+                            results_table.setValueAt(" ", (current_frames - 1)-row, col);
                         }
                         else{
-                            results_table.setValueAt("Hit", current_frames, col);
+                            if(main_Array[col] == framesMatrix[col][row]){
+                               // edit table highlight here 
+                               System.out.println("higlight at " + results_table.getValueAt((current_frames - 1)-row, col));
+                               desiredRow = (current_frames - 1)-row;
+                               desiredColumn = col;
+                               
+                               TableCellRenderer cellRenderer = new CenterTextRenderer(desiredRow, desiredColumn, current_frames);
+                               results_table.setDefaultRenderer(Object.class, cellRenderer);
+                               io_output_scroll.setViewportView(results_table);
+                               
+                               
+                            }
+                            results_table.setValueAt(framesMatrix[col][row], (current_frames - 1)-row, col);
                         }
+                    }
+                    col++;
+                } 
+                if(col == main_Array.length){
+                    timer.stop();
+                }
                 
-                        for(int row = 0; row < current_frames; row++){
-                            if(framesMatrix[col][row] == -1){
-                                results_table.setValueAt(" ", (current_frames - 1)-row, col);
-                            }
-                            else{
-                                if(main_Array[col] == framesMatrix[col][row]){
-                                   // edit table highlight here 
-                                   System.out.println("higlight at " + results_table.getValueAt((current_frames - 1)-row, col));
-                                   desiredRow = (current_frames - 1)-row;
-                                   desiredColumn = col;
-                                   
-                                   TableCellRenderer cellRenderer = new CenterTextRenderer(desiredRow, desiredColumn);
-                                   results_table.setDefaultRenderer(Object.class, cellRenderer);
-                                   io_output_scroll.setViewportView(results_table);
-                                   
-                                   
-                                }
-                                results_table.setValueAt(framesMatrix[col][row], (current_frames - 1)-row, col);
-                            }
-                        }
-                        col++;
-                    } 
-                    if(col == main_Array.length){
-                        timer.stop();
-                    }
-                    
-                }
-            });
-            if(!timer.isRunning()){
-                timer.start();
             }
-
-            
-            break;
-        case 1:
-            System.out.println("LRU");
-            LRU lru = new LRU(main_Array, main_Array.length, current_frames);
-            hitMatrix = lru.getHitMatrix();
-            framesMatrix = lru.getFramesMatrix();
-            //framesMatrix[numofpages][framesize]
-            System.out.println(framesMatrix.length + "no of frames");
-            // for(int i = 0; i < main_Array.length; i++){
-            //     System.out.println(hitMatrix[i]);
-            //     if(hitMatrix[i] == false){
-            //         results_table.setValueAt("Miss", current_frames, i);
-            //     }
-            //     else{
-            //         results_table.setValueAt("Hit", current_frames, i);
-            //     }
-            // }
-            // for(int i = 0; i < main_Array.length; i++){
-            //     for(int j = 0; j < current_frames; j++){
-            //         if(framesMatrix[i][j] == -1){
-            //             results_table.setValueAt(" ", (current_frames - 1)-j, i);
-            //         }
-            //         else{
-            //         results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
-            //         }
-            //     }
-            // }
-
-            timer = new Timer((int) (500/current_speed), new ActionListener() {
-                
-                //matrix + hits
-                int col = 0;
-                public void actionPerformed(ActionEvent evt){
-                    results_table.setEnabled(false);
-                    io_timer_label.setText(String.valueOf(col));
-                    io_page_label.setText(String.valueOf(main_Array[col]));
-                    if(col < main_Array.length){
-
-                        System.out.println(hitMatrix[col]);
-                        if(hitMatrix[col] == false){
-                            results_table.setValueAt("Miss", current_frames, col);
-                        }
-                        else{
-                            results_table.setValueAt("Hit", current_frames, col);
-                        }
-                
-                        for(int row = 0; row < current_frames; row++){
-                            if(framesMatrix[col][row] == -1){
-                                results_table.setValueAt(" ", (current_frames - 1)-row, col);
-                            }
-                            else{
-                                if(main_Array[col] == framesMatrix[col][row]){
-                                   // edit table highlight here 
-                                   System.out.println("higlight at " + results_table.getValueAt((current_frames - 1)-row, col));
-                                   desiredRow = (current_frames - 1)-row;
-                                   desiredColumn = col;
-                                   
-                                   TableCellRenderer cellRenderer = new CenterTextRenderer(desiredRow, desiredColumn);
-                                   results_table.setDefaultRenderer(Object.class, cellRenderer);
-                                   io_output_scroll.setViewportView(results_table);
-                                   
-                                   
-                                }
-                                results_table.setValueAt(framesMatrix[col][row], (current_frames - 1)-row, col);
-                            }
-                        }
-                        col++;
-                    } 
-                    if(col == main_Array.length){
-                        timer.stop();
-                    }
-                    
-                }
-            });
-            if(!timer.isRunning()){
-                timer.start();
-            }
-
-            break;
-        case 2:
-            System.out.println("OPT");
-            OPT opt = new OPT(main_Array, main_Array.length, current_frames);
-            hitMatrix = opt.getHitMatrix();
-            framesMatrix = opt.getFramesMatrix();
-            //framesMatrix[numofpages][framesize]
-            System.out.println(framesMatrix.length + "no of frames");
-            for(int i = 0; i < main_Array.length; i++){
-                System.out.println(hitMatrix[i]);
-                if(hitMatrix[i] == false){
-                    results_table.setValueAt("Miss", current_frames, i);
-                }
-                else{
-                    results_table.setValueAt("Hit", current_frames, i);
-                }
-            }
-            for(int i = 0; i < main_Array.length; i++){
-                for(int j = 0; j < current_frames; j++){
-                    if(framesMatrix[i][j] == -1){
-                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
-                    }
-                    else{
-                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
-                    }
-                }
-            }
-        break;
-        case 3:
-            System.out.println("SCA");
-            SC sca = new SC(main_Array, main_Array.length, current_frames);
-            hitMatrix = sca.getHitMatrix();
-            framesMatrix = sca.getFramesMatrix();
-            //framesMatrix[numofpages][framesize]
-            System.out.println(framesMatrix.length + "no of frames");
-            for(int i = 0; i < main_Array.length; i++){
-                System.out.println(hitMatrix[i]);
-                if(hitMatrix[i] == false){
-                    results_table.setValueAt("Miss", current_frames, i);
-                }
-                else{
-                    results_table.setValueAt("Hit", current_frames, i);
-                }   
-            }
-            for(int i = 0; i < main_Array.length; i++){
-                for(int j = 0; j < current_frames; j++){
-                    if(framesMatrix[i][j] == -1){
-                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
-                    }
-                    else{
-                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
-                    }
-                }
-            }
-            break;
-        case 4:
-            System.out.println("ESCA");
-
-            ESC esc = new ESC(main_Array, main_Array.length, current_frames);
-            hitMatrix = esc.getHitMatrix();
-            framesMatrix = esc.getFramesMatrix();
-            //framesMatrix[numofpages][framesize]
-            System.out.println(framesMatrix.length + "no of frames");
-            for(int i = 0; i < main_Array.length; i++){
-                System.out.println(hitMatrix[i]);
-                if(hitMatrix[i] == false){
-                    results_table.setValueAt("Miss", current_frames, i);
-                }
-                else{
-                    results_table.setValueAt("Hit", current_frames, i);
-                }
-            }
-
-            for(int i = 0; i < main_Array.length; i++){
-                for(int j = 0; j < current_frames; j++){
-                    if(framesMatrix[i][j] == -1){
-                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
-                    }
-                    else{
-                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
-                    }
-                }
-            }
-            break;
-        case 5:
-            System.out.println("LFU");
-
-            LFU lfu = new LFU(main_Array, main_Array.length, current_frames);
-            hitMatrix = lfu.getHitMatrix();
-            framesMatrix = lfu.getFramesMatrix();
-            //framesMatrix[numofpages][framesize]
-            System.out.println(framesMatrix.length + "no of frames");
-            for(int i = 0; i < main_Array.length; i++){
-                System.out.println(hitMatrix[i]);
-                if(hitMatrix[i] == false){
-                    results_table.setValueAt("Miss", current_frames, i);
-                }
-                else{
-                    results_table.setValueAt("Hit", current_frames, i);
-                }
-            }
-
-            for(int i = 0; i < main_Array.length; i++){
-                for(int j = 0; j < current_frames; j++){
-                    if(framesMatrix[i][j] == -1){
-                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
-                    }
-                    else{
-                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
-                    }
-                }
-            }
-            break;
-        case 6:
-            System.out.println("MFU");
-
-            MFU mfu = new MFU(main_Array, main_Array.length, current_frames);
-            hitMatrix = mfu.getHitMatrix();
-            framesMatrix = mfu.getFramesMatrix();
-            //framesMatrix[numofpages][framesize]
-            System.out.println(framesMatrix.length + "no of frames");
-            for(int i = 0; i < main_Array.length; i++){
-                System.out.println(hitMatrix[i]);
-                if(hitMatrix[i] == false){
-                    results_table.setValueAt("Miss", current_frames, i);
-                }
-                else{
-                    results_table.setValueAt("Hit", current_frames, i);
-                }
-            }
-
-            for(int i = 0; i < main_Array.length; i++){
-                for(int j = 0; j < current_frames; j++){
-                    if(framesMatrix[i][j] == -1){
-                        results_table.setValueAt(" ", (current_frames - 1)-j, i);
-                    }
-                    else{
-                    results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
-                    }
-                }
-            }
-        break;
-    }
-       } catch (Exception e) {
-        System.out.println(e);
-        System.out.println("errr");
-        // TODO: handle exception
-       }
-        //variables
-        //current_frames;
-        //main_Array;
-        //current_speed
+        });
+        if(!timer.isRunning()){
+            timer.start();
+        }
     }
 
     public void io_speed_minusMouseEntered(java.awt.event.MouseEvent evt) {
@@ -1376,6 +1241,7 @@ public class IOPanel extends javax.swing.JPanel {
     public javax.swing.JLabel io_speed_value;
     public javax.swing.JLabel io_timer_bg;
     public javax.swing.JLabel io_timer_label;
+    public javax.swing.JLabel fault_value;
     public javax.swing.JButton minimize;
     public javax.swing.JTable results_table;
     public Timer timer;
