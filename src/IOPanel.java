@@ -875,7 +875,7 @@ public class IOPanel extends javax.swing.JPanel {
         else if(algo.equals("OPT")){
             selected = 2;
         }
-        else if(algo.equals("SCA")){
+        else if(algo.equals("SC")){
             selected = 3;
         }
         else if(algo.equals("ESCA")){
@@ -997,6 +997,16 @@ public class IOPanel extends javax.swing.JPanel {
             OPT opt = new OPT(main_Array, main_Array.length, current_frames);
             hitMatrix = opt.getHitMatrix();
             framesMatrix = opt.getFramesMatrix();
+            //framesMatrix[numofpages][framesize]
+            System.out.println(framesMatrix.length + "no of frames");
+            initiate_print(hitMatrix, framesMatrix);
+            break;
+
+        case 3:
+            System.out.println("SC");
+            SC sc = new SC(main_Array, main_Array.length, current_frames);
+            hitMatrix = sc.getHitMatrix();
+            framesMatrix = sc.getFramesMatrix();
             //framesMatrix[numofpages][framesize]
             System.out.println(framesMatrix.length + "no of frames");
             initiate_print(hitMatrix, framesMatrix);
