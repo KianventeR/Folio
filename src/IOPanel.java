@@ -66,14 +66,14 @@ public class IOPanel extends javax.swing.JPanel {
         Dimension tableSize = table.getSize();
 
         // Create a BufferedImage with the same size as the table
-        BufferedImage image = new BufferedImage(tableSize.width, tableSize.height + 25, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(tableSize.width, tableSize.height + 40, BufferedImage.TYPE_INT_RGB);
 
         // Get the graphics object of the image
         Graphics2D graphics = image.createGraphics();
 
         // Set the background color of the image
         graphics.setColor(table.getBackground());
-        graphics.fillRect(0, 0, tableSize.width, tableSize.height + 25);
+        graphics.fillRect(0, 0, tableSize.width, tableSize.height + 40);
 
         // Paint the table header onto the image
         JTableHeader tableHeader = table.getTableHeader();
