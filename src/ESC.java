@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ESC extends PageReplacementAlgorithm{
@@ -114,8 +115,18 @@ public class ESC extends PageReplacementAlgorithm{
             // move the circular queue head. page hit or page fault
             head = (head + 1) % frameSize;
             // then save it to the matrix for the iteration
+            ArrayList<Integer> framesList = new ArrayList<>();
             for(int i = 0; i < frameSize; i++){
-                framesMatrix[iter][i] = pageFrames[i];
+                if(pageFrames[i] > -1){
+                    framesList.add(Integer.valueOf(pageFrames[i]));
+                }
+            }
+            int fListLength = framesList.size();
+            for(int j = 0; j < fListLength; j++){
+                framesMatrix[iter][j] = framesList.get(fListLength-j-1);
+            }
+            for(int j = fListLength; j < frameSize; j++){
+                framesMatrix[iter][j] = -1;
             }
         }
     }

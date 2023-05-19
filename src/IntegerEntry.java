@@ -24,4 +24,9 @@ public class IntegerEntry implements Comparable<IntegerEntry> {
         return freq;
     }
 
+    @Override
+    public int compareTo(IntegerEntry anotherEntry) {
+        return this.getFreq() - anotherEntry.getFreq();
+    }
+
 }
