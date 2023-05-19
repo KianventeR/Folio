@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-public class IOPanel extends javax.swing.JPanel {
-=======
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -17,11 +12,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -29,32 +26,31 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-class CenterTextRenderer extends DefaultTableCellRenderer {
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+class CenterTextRenderer extends DefaultTableCellRenderer {
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                   boolean hasFocus, int row, int column) {
-                                                    
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {                          
         Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         final Border border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY);
         setHorizontalAlignment(SwingConstants.CENTER);
         // cellComponent.setBackground(Color.gray);
         ((JComponent) cellComponent).setBorder(border);
         return cellComponent;
-
-        
     }
-    
-    
 }
+
 public class IOPanel extends javax.swing.JPanel {
     public int Selected;
     public double default_speed = 1;
     public double current_speed = default_speed;
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
     public IOPanel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -65,9 +61,43 @@ public class IOPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-<<<<<<< HEAD
-    private void initComponents() {
-=======
+    private static void saveTableAsImage(JTable table, String filename) {
+        // Get the size of the table
+        Dimension tableSize = table.getSize();
+
+        // Create a BufferedImage with the same size as the table
+        BufferedImage image = new BufferedImage(tableSize.width, tableSize.height + 25, BufferedImage.TYPE_INT_RGB);
+
+        // Get the graphics object of the image
+        Graphics2D graphics = image.createGraphics();
+
+        // Set the background color of the image
+        graphics.setColor(table.getBackground());
+        graphics.fillRect(0, 0, tableSize.width, tableSize.height + 25);
+
+        // Paint the table header onto the image
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.print(graphics);
+
+        int headerHeight = tableHeader.getHeight();
+        graphics.translate(0, headerHeight);
+        System.out.println(headerHeight);
+
+        // Paint the table to the image
+        table.print(graphics);
+
+        // Dispose the graphics object
+        graphics.dispose();
+
+        // Save the image to a file
+        try {
+            ImageIO.write(image, "png", new File(filename));
+            System.out.println("Table saved as " + filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void reset(){
         default_speed = 1; 
         current_speed = default_speed;
@@ -99,7 +129,6 @@ public class IOPanel extends javax.swing.JPanel {
         frame_upper = 10;
         
         results_table = new javax.swing.JTable();
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         exit = new javax.swing.JButton();
         minimize = new javax.swing.JButton();
         io_save = new javax.swing.JButton();
@@ -112,11 +141,8 @@ public class IOPanel extends javax.swing.JPanel {
         io_speed_minus = new javax.swing.JButton();
         io_import = new javax.swing.JButton();
         io_random = new javax.swing.JButton();
-<<<<<<< HEAD
-=======
         io_page_label = new javax.swing.JLabel();
         io_page_bg = new javax.swing.JLabel();
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         io_timer_label = new javax.swing.JLabel();
         io_timer_bg = new javax.swing.JLabel();
         io_output_scroll = new javax.swing.JScrollPane();
@@ -135,11 +161,8 @@ public class IOPanel extends javax.swing.JPanel {
         io_output_bg = new javax.swing.JLabel();
         io_bg = new javax.swing.JLabel();
 
-<<<<<<< HEAD
-=======
         
 
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         setPreferredSize(new java.awt.Dimension(1080, 720));
         setLayout(null);
 
@@ -395,8 +418,6 @@ public class IOPanel extends javax.swing.JPanel {
         add(io_random);
         io_random.setBounds(160, 230, 130, 40);
 
-<<<<<<< HEAD
-=======
         io_page_label.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); // NOI18N
         io_page_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         io_page_label.setText("0");
@@ -409,7 +430,6 @@ public class IOPanel extends javax.swing.JPanel {
         add(io_page_bg);
         io_page_bg.setBounds(160, 300, 150, 50);
 
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         io_timer_label.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_timer_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         io_timer_label.setText("0");
@@ -425,19 +445,11 @@ public class IOPanel extends javax.swing.JPanel {
         io_output_scroll.setBorder(null);
         io_output_scroll.setOpaque(false);
         add(io_output_scroll);
-<<<<<<< HEAD
-        io_output_scroll.setBounds(50, 340, 980, 330);
-
-        io_speed_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
-        io_speed_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        io_speed_value.setText("1");
-=======
         io_output_scroll.setBounds(50, 360, 980, 300);
 
         io_speed_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_speed_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         io_speed_value.setText(String.valueOf(current_speed) + "x");
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         add(io_speed_value);
         io_speed_value.setBounds(178, 190, 40, 30);
 
@@ -473,13 +485,6 @@ public class IOPanel extends javax.swing.JPanel {
         add(io_reference_bg);
         io_reference_bg.setBounds(40, 130, 920, 50);
 
-<<<<<<< HEAD
-        io_algorithm_select.setFont(new java.awt.Font("Poppins ExtraBold", 0, 14)); 
-        io_algorithm_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        io_algorithm_select.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        io_algorithm_select.setFocusable(false);
-        io_algorithm_select.setOpaque(false);
-=======
         io_algorithm_select.setFont(new java.awt.Font("Poppins Regular", 0, 12)); 
         io_algorithm_select.setAutoscrolls(getAutoscrolls());
         io_algorithm_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"First In First Out", "Least Recently Used", "Optimal Page Replacement", "Second Chance Algorithm", "Enhanced Second Chance Algorithm", "Least Frequently Used", "Most Frequently Used" }));
@@ -487,7 +492,6 @@ public class IOPanel extends javax.swing.JPanel {
         io_algorithm_select.setFocusable(false);
         io_algorithm_select.setOpaque(false);
         adjustScrollBar(io_algorithm_select);
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         add(io_algorithm_select);
         io_algorithm_select.setBounds(326, 90, 160, 30);
 
@@ -505,11 +509,7 @@ public class IOPanel extends javax.swing.JPanel {
 
         io_frames_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_frames_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-<<<<<<< HEAD
-        io_frames_value.setText("3");
-=======
         io_frames_value.setText(String.valueOf(default_frames));
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
         add(io_frames_value);
         io_frames_value.setBounds(620, 90, 50, 30);
 
@@ -537,183 +537,6 @@ public class IOPanel extends javax.swing.JPanel {
         io_bg.setOpaque(true);
         add(io_bg);
         io_bg.setBounds(0, 0, 1080, 720);
-<<<<<<< HEAD
-    }
-
-    private void exitMouseEntered(java.awt.event.MouseEvent evt) {
-        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close_hover.png")));
-    }
-
-    private void exitMouseExited(java.awt.event.MouseEvent evt) {
-        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/close.png")));
-    }
-
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {
-        System.exit(0);
-    }
-
-    private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {
-        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min_hover.png")));
-    }
-
-    private void minimizeMouseExited(java.awt.event.MouseEvent evt) {
-        minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/min.png")));
-    }
-
-    private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
-        Folio.mainFrame.setState(java.awt.Frame.ICONIFIED);
-    }
-
-    private void io_returnMouseEntered(java.awt.event.MouseEvent evt) {
-        io_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return_hover.png")));
-    }
-
-    private void io_returnMouseExited(java.awt.event.MouseEvent evt) {
-        io_return.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/return.png")));
-    }
-
-    private void io_returnActionPerformed(java.awt.event.ActionEvent evt) {
-        Folio.card.show(Folio.mainPanel, "2");
-    }
-
-    private void io_saveMouseEntered(java.awt.event.MouseEvent evt) {
-        io_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/save_hover.png")));
-    }
-
-    private void io_saveMouseExited(java.awt.event.MouseEvent evt) {
-        io_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/save.png")));
-    }
-
-    private void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
-
-    private void io_randomMouseEntered(java.awt.event.MouseEvent evt) {
-        io_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/random_hover.png")));
-    }
-
-    private void io_randomMouseExited(java.awt.event.MouseEvent evt) {
-        io_random.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/random.png")));
-    }
-
-    private void io_randomActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
-
-    private void io_importMouseEntered(java.awt.event.MouseEvent evt) {
-        io_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/import_hover.png")));
-    }
-
-    private void io_importMouseExited(java.awt.event.MouseEvent evt) {
-        io_import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/import.png")));
-    }
-
-    private void io_importActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
-
-    private void io_simulateAllMouseEntered(java.awt.event.MouseEvent evt) {
-        io_simulateAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulateAll_hover.png")));
-    }
-
-    private void io_simulateAllMouseExited(java.awt.event.MouseEvent evt) {
-        io_simulateAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulateAll.png")));
-    }
-
-    private void io_simulateAllActionPerformed(java.awt.event.ActionEvent evt) {
-        Folio.card.show(Folio.mainPanel, "6");
-    }
-
-    private void io_simulateMouseEntered(java.awt.event.MouseEvent evt) {
-        io_simulate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulate_hover.png")));
-    }
-
-    private void io_simulateMouseExited(java.awt.event.MouseEvent evt) {
-        io_simulate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/simulate.png")));
-    }
-
-    private void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
-
-    private void io_speed_minusMouseEntered(java.awt.event.MouseEvent evt) {
-        io_speed_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus_hover.png")));
-    }
-
-    private void io_speed_minusMouseExited(java.awt.event.MouseEvent evt) {
-        io_speed_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus.png")));
-    }
-
-    private void io_speed_minusActionPerformed(java.awt.event.ActionEvent evt) {
-        //
-    }
-
-    private void io_speed_addMouseEntered(java.awt.event.MouseEvent evt) {
-        io_speed_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add_hover.png")));
-    }
-
-    private void io_speed_addMouseExited(java.awt.event.MouseEvent evt) {
-        io_speed_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add.png")));
-    }
-
-    private void io_speed_addActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
-
-    private void io_frames_addMouseEntered(java.awt.event.MouseEvent evt) {
-        io_frames_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add_hover.png")));
-    }
-
-    private void io_frames_addMouseExited(java.awt.event.MouseEvent evt) {
-        io_frames_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/add.png")));
-    }
-
-    private void io_frames_addActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
-
-    private void io_frames_minusMouseEntered(java.awt.event.MouseEvent evt) {
-        io_frames_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus_hover.png")));
-    }
-
-    private void io_frames_minusMouseExited(java.awt.event.MouseEvent evt) {
-        io_frames_minus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/minus.png")));
-    }
-
-    private void io_frames_minusActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
-
-    private javax.swing.JButton exit;
-    private javax.swing.JLabel io_algorithm_bg;
-    private javax.swing.JLabel io_algorithm_label;
-    private javax.swing.JComboBox<String> io_algorithm_select;
-    private javax.swing.JLabel io_bg;
-    private javax.swing.JButton io_frames_add;
-    private javax.swing.JLabel io_frames_bg;
-    private javax.swing.JLabel io_frames_label;
-    private javax.swing.JButton io_frames_minus;
-    private javax.swing.JLabel io_frames_value;
-    private javax.swing.JButton io_import;
-    private javax.swing.JLabel io_output_bg;
-    private javax.swing.JScrollPane io_output_scroll;
-    private javax.swing.JButton io_random;
-    private javax.swing.JLabel io_reference_bg;
-    private javax.swing.JTextField io_reference_input;
-    private javax.swing.JLabel io_reference_label;
-    private javax.swing.JButton io_return;
-    private javax.swing.JButton io_save;
-    private javax.swing.JButton io_simulate;
-    private javax.swing.JButton io_simulateAll;
-    private javax.swing.JButton io_speed_add;
-    private javax.swing.JLabel io_speed_bg;
-    private javax.swing.JLabel io_speed_label;
-    private javax.swing.JButton io_speed_minus;
-    private javax.swing.JLabel io_speed_value;
-    private javax.swing.JLabel io_timer_bg;
-    private javax.swing.JLabel io_timer_label;
-    private javax.swing.JButton minimize;
-=======
 
         results_table.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         results_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -772,6 +595,12 @@ public class IOPanel extends javax.swing.JPanel {
         results_table.setInheritsPopupMenu(true);
         results_table.setIntercellSpacing(new java.awt.Dimension(35, 1));
         results_table.setRowHeight(40);
+
+        results_table.getTableHeader().setReorderingAllowed(false);
+        results_table.getTableHeader().setResizingAllowed(false);
+        JTableHeader results_header = results_table.getTableHeader();
+        TableCellRenderer renderer = results_header.getDefaultRenderer();
+        ((JLabel) renderer).setHorizontalAlignment(SwingConstants.CENTER);
         
         
        
@@ -780,10 +609,10 @@ public class IOPanel extends javax.swing.JPanel {
         results_table.setBorder(null);
         io_output_scroll.setBorder(null);
         if(main_Array.length < 12){
-            io_output_scroll.setBounds(60, 350, main_Array.length*75, 290);
+            io_output_scroll.setBounds(60, 360, main_Array.length*75, 265);
         }
         else{
-            io_output_scroll.setBounds(60, 350, 12*80, 290);
+            io_output_scroll.setBounds(60, 360, 12*80, 265);
         }
         
         io_output_scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -836,7 +665,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
-        
+        saveTableAsImage(results_table, "panel_image.png");
     }
 
     public void io_randomMouseEntered(java.awt.event.MouseEvent evt) {
@@ -1460,5 +1289,4 @@ public class IOPanel extends javax.swing.JPanel {
     public int[] random_Array;
     public int[] main_Array;
     public ArrayList<Integer> import_ArrayList;
->>>>>>> b96b7fe160fedbb2038fa0e1756602bcf1c0b8b7
 }
