@@ -93,6 +93,7 @@ public class About extends javax.swing.JPanel {
     }
 
     private void about_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.card.show(Folio.mainPanel, "2");
     }
 
@@ -105,6 +106,7 @@ public class About extends javax.swing.JPanel {
     }
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
@@ -117,6 +119,7 @@ public class About extends javax.swing.JPanel {
     }
 
     private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 

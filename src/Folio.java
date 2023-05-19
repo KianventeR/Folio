@@ -5,20 +5,17 @@ public class Folio extends javax.swing.JFrame {
     public static JFrame mainFrame = new JFrame();
     public static JPanel mainPanel = new JPanel();
     public static CardLayout card = new CardLayout();
-    
+
     public static SplashScreen splashScreen = new SplashScreen();
     public static MainMenu mainMenu = new MainMenu();
     public static Help help = new Help();
     public static About about = new About();
-    //test
     public static IOPanel IO = new IOPanel();
     public static FullOutput fullOutput = new FullOutput();
 //    public static Safety safe = new Safety();
 //    public static Output output = new Output();
     
 //    public static boolean sound = true;
-
-// d9587d86
     
     public Folio() {
         mainFrame.setSize(1080, 720);

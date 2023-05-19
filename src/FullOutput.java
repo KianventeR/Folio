@@ -161,6 +161,7 @@ public class FullOutput extends javax.swing.JPanel {
     }
 
     private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 
@@ -173,6 +174,7 @@ public class FullOutput extends javax.swing.JPanel {
     }
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
@@ -185,6 +187,7 @@ public class FullOutput extends javax.swing.JPanel {
     }
 
     private void io_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         reset();
         Folio.card.show(Folio.mainPanel, "2");
     }
@@ -198,7 +201,9 @@ public class FullOutput extends javax.swing.JPanel {
     }
 
     private void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
-        
+        Music.sfx();
+        // Insert didi an table variable
+        // IOPanel.saveTableAsImage(results_table, "panel_image.png");
     }
 
     private javax.swing.JButton exit;

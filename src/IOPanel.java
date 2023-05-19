@@ -61,7 +61,7 @@ public class IOPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    private static void saveTableAsImage(JTable table, String filename) {
+    public static void saveTableAsImage(JTable table, String filename) {
         // Get the size of the table
         Dimension tableSize = table.getSize();
 
@@ -628,6 +628,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
@@ -640,6 +641,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 
@@ -652,6 +654,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_returnActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         reset();
         Folio.card.show(Folio.mainPanel, "2");
     }
@@ -665,6 +668,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         saveTableAsImage(results_table, "panel_image.png");
     }
 
@@ -677,8 +681,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_randomActionPerformed(java.awt.event.ActionEvent evt) {
-
-        
+        Music.sfx();
         seed = (int) System.currentTimeMillis();
         Random rand = new Random(seed);
 
@@ -715,11 +718,8 @@ public class IOPanel extends javax.swing.JPanel {
     //    System.out.println(array_string);
 
        io_reference_input.setText(array_string);
-
        main_Array = new int[random_Array.length];
        main_Array = random_Array.clone();
-
-
     }
 
     public void io_importMouseEntered(java.awt.event.MouseEvent evt) {
@@ -731,6 +731,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_importActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.out.println("importing");
 
         io_reference_input.setText("");
@@ -745,10 +746,7 @@ public class IOPanel extends javax.swing.JPanel {
         String algo = " ";
         String page_reference = "";
      
-    
-
             for(int i = 0; i < 4; i++){
-                
                 if(i < 2){
                     frames = read.next();
                 }
@@ -780,8 +778,6 @@ public class IOPanel extends javax.swing.JPanel {
             io_frames_value.setText(String.valueOf(current_frames));
 
             for(int i = 0; i < main_Array.length; i++){
-    
-
                 if(i+1 < main_Array.length){
                     io_reference_input.setText(io_reference_input.getText() + main_Array[i] + " ");
                 }
@@ -794,24 +790,15 @@ public class IOPanel extends javax.swing.JPanel {
             System.out.println(Selected);
 
             io_algorithm_select.setSelectedIndex(Selected);
-            
             io_random.setEnabled(false);
             io_frames_add.setEnabled(false);
             io_frames_minus.setEnabled(false);
             io_algorithm_select.setEditable(false);
             io_reference_input.setEditable(false);
-
-
-       
-        
-     } catch (Exception e) {
-        System.out.println("errpr");
-        // TODO: handle exception
-     }
-        
+        } catch (Exception e) {
+            System.out.println("errpr");
+        }
     }
-
-    
 
     private int checkSelected(String algo) {
         int selected = 0;
@@ -848,6 +835,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_simulateAllActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.card.show(Folio.mainPanel, "6");
     }
 
@@ -860,9 +848,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
-        
-       
-
+        Music.sfx();
         int int_values = 0;
         String values = io_reference_input.getText();
         values.trim();
@@ -887,36 +873,29 @@ public class IOPanel extends javax.swing.JPanel {
             else{
                 continue;
             }
-
-           
         }
-        
-       int_values = int_values+1;
+        int_values = int_values+1;
 
-
-       System.out.println(int_values);
-
-       try (Scanner read = new Scanner(values)){
-
-        //main_array loading - contains arrays
-        main_Array = new int[int_values];
-        for(int i = 0; i < int_values; i++){
-            main_Array[i] = read.nextInt();
-            if(main_Array[i] > 20){
-                System.out.println("Value exceeding 20");
-                return;
+        System.out.println(int_values);
+        try (Scanner read = new Scanner(values)){
+            //main_array loading - contains arrays
+            main_Array = new int[int_values];
+            for(int i = 0; i < int_values; i++){
+                main_Array[i] = read.nextInt();
+                if(main_Array[i] > 20){
+                    System.out.println("Value exceeding 20");
+                    return;
+                }
             }
-        }
 
-       //selected algo
-       Selected = io_algorithm_select.getSelectedIndex();
+        //selected algo
+        Selected = io_algorithm_select.getSelectedIndex();
 
-       //No. of frames
-       System.out.println(current_frames);
+        //No. of frames
+        System.out.println(current_frames);
 
-       
-       //table creation
-       create_table(main_Array, Selected, current_frames);
+        //table creation
+        create_table(main_Array, Selected, current_frames);
     //    results_table.setEnabled(false);
     
     boolean[] hitMatrix;
@@ -951,9 +930,7 @@ public class IOPanel extends javax.swing.JPanel {
                     }
                 }
             }
-          
-            
-        break;
+            break;
         case 1:
             System.out.println("LRU");
             LRU lru = new LRU(main_Array, main_Array.length, current_frames);
@@ -969,9 +946,7 @@ public class IOPanel extends javax.swing.JPanel {
                 else{
                     results_table.setValueAt("Hit", current_frames, i);
                 }
-                
             }
-
             for(int i = 0; i < main_Array.length; i++){
                 for(int j = 0; j < current_frames; j++){
                     if(framesMatrix[i][j] == -1){
@@ -998,9 +973,7 @@ public class IOPanel extends javax.swing.JPanel {
                 else{
                     results_table.setValueAt("Hit", current_frames, i);
                 }
-                
             }
-
             for(int i = 0; i < main_Array.length; i++){
                 for(int j = 0; j < current_frames; j++){
                     if(framesMatrix[i][j] == -1){
@@ -1011,12 +984,9 @@ public class IOPanel extends javax.swing.JPanel {
                     }
                 }
             }
-
-
         break;
         case 3:
             System.out.println("SCA");
-            
             SC sca = new SC(main_Array, main_Array.length, current_frames);
             hitMatrix = sca.getHitMatrix();
             framesMatrix = sca.getFramesMatrix();
@@ -1029,10 +999,8 @@ public class IOPanel extends javax.swing.JPanel {
                 }
                 else{
                     results_table.setValueAt("Hit", current_frames, i);
-                }
-                
+                }   
             }
-
             for(int i = 0; i < main_Array.length; i++){
                 for(int j = 0; j < current_frames; j++){
                     if(framesMatrix[i][j] == -1){
@@ -1043,9 +1011,7 @@ public class IOPanel extends javax.swing.JPanel {
                     }
                 }
             }
-
-
-        break;
+            break;
         case 4:
             System.out.println("ESCA");
 
@@ -1062,7 +1028,6 @@ public class IOPanel extends javax.swing.JPanel {
                 else{
                     results_table.setValueAt("Hit", current_frames, i);
                 }
-                
             }
 
             for(int i = 0; i < main_Array.length; i++){
@@ -1075,10 +1040,7 @@ public class IOPanel extends javax.swing.JPanel {
                     }
                 }
             }
-
-            
-
-        break;
+            break;
         case 5:
             System.out.println("LFU");
 
@@ -1095,7 +1057,6 @@ public class IOPanel extends javax.swing.JPanel {
                 else{
                     results_table.setValueAt("Hit", current_frames, i);
                 }
-                
             }
 
             for(int i = 0; i < main_Array.length; i++){
@@ -1108,8 +1069,7 @@ public class IOPanel extends javax.swing.JPanel {
                     }
                 }
             }
-
-        break;
+            break;
         case 6:
             System.out.println("MFU");
 
@@ -1126,7 +1086,6 @@ public class IOPanel extends javax.swing.JPanel {
                 else{
                     results_table.setValueAt("Hit", current_frames, i);
                 }
-                
             }
 
             for(int i = 0; i < main_Array.length; i++){
@@ -1139,29 +1098,17 @@ public class IOPanel extends javax.swing.JPanel {
                     }
                 }
             }
-
         break;
     }
-        
-        
        } catch (Exception e) {
-
         System.out.println(e);
         System.out.println("errr");
         // TODO: handle exception
        }
-       
-
-       
-        
         //variables
         //current_frames;
         //main_Array;
         //current_speed
-
-        
-        
-        
     }
 
     public void io_speed_minusMouseEntered(java.awt.event.MouseEvent evt) {
@@ -1173,6 +1120,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_speed_minusActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         if(current_speed > 0.5){
             current_speed = current_speed - 0.5;
             io_speed_value.setText(String.valueOf(current_speed)+"x");
@@ -1192,7 +1140,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_speed_addActionPerformed(java.awt.event.ActionEvent evt) {
-        
+        Music.sfx();
         if(current_speed < 2.0){
             current_speed = current_speed + 0.5;
             io_speed_value.setText(String.valueOf(current_speed)+"x");
@@ -1212,6 +1160,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_frames_addActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.out.println("adding frames");
         if(current_frames >= 3 && current_frames < 10){
             current_frames++;
@@ -1234,7 +1183,7 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_frames_minusActionPerformed(java.awt.event.ActionEvent evt) {
-
+        Music.sfx();
         if(current_frames <= 3){
             System.out.println("removing frames");
             System.out.println("cannot subtract less than 3");
@@ -1243,11 +1192,8 @@ public class IOPanel extends javax.swing.JPanel {
             current_frames--;
             io_frames_value.setText(String.valueOf(current_frames));
             System.out.println(current_frames);
-           
         }
-        
     }
-    
     
     int default_frames = 3;
     int current_frames = default_frames;

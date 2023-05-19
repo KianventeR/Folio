@@ -176,6 +176,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void menu_helpActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.card.show(Folio.mainPanel, "3");
     }
 
@@ -188,6 +189,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void menu_startActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.card.show(Folio.mainPanel, "5");
     }
 
@@ -200,6 +202,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void menu_aboutActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.card.show(Folio.mainPanel, "4");
     }
 
@@ -212,6 +215,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void menu_exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
@@ -224,6 +228,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         System.exit(0);
     }
 
@@ -236,6 +241,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
 
     private void minimizeActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
         Folio.mainFrame.setState(java.awt.Frame.ICONIFIED);
     }
 
