@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class OPT extends PageReplacementAlgorithm{
@@ -25,28 +26,30 @@ public class OPT extends PageReplacementAlgorithm{
             if(foundPage(pages[iter],iter)){
                 hitMatrix[iter] = true;
             }else{
-                if(pageCount == frameSize - 1){
+                if(pageCount == frameSize){
                     // if page does not exist, replace the one by priority
                     int frameToClear = -1;
-                    // 2. which will be used the farthest first in the future
-                    int frameFarthest = -1;
-                    int frameDistance = -1;
+                    // 2. which will be used the farthest in the future
+                
                     // for every frame, find the last occurrence 
-                    for(int i = 0; i < frameSize; i++){
-                        int firstIndex = findPageIndex(pageFrames[i], iter+1);
-                        if(firstIndex > frameDistance){
-                            frameDistance = firstIndex;
-                            frameToClear = i;
+                    for(int i = iter + 1; i < numOfPages; i++){
+                        // find if the page exists in the page frames
+                        int firstIndex = findPageIndex(pages[i], 0);
+                        if(firstIndex > -1){
+                            frameToClear = firstIndex;
                         }
                     }
                     // 1. which will never be used in the future
                     Set<Integer> intSet = new HashSet<>();
-
+                    System.out.println("OPT Set");
                     for(int i = iter + 1; i < numOfPages; i++){
-                        intSet.add(pages[i]);
+                        int pageNum = pages[i];
+                        System.out.print(pageNum+" ");
+                        intSet.add(pageNum);
                     }
+                    System.out.println();
                     // check if never used
-                    for(int i = 0; i < pageCount; i++){
+                    for(int i = 0; i < frameSize; i++){
                         if(!intSet.contains(pageFrames[i])){
                             frameToClear = i;
                             break;
@@ -57,15 +60,25 @@ public class OPT extends PageReplacementAlgorithm{
                 }else{
                     // add the page
                     pageFrames[pageCount] = pages[iter];
-                    if(pageCount < (frameSize - 1)){
+                    if(pageCount < frameSize){
                         pageCount++;
                     }
                 }
                 hitMatrix[iter] = false;
             }
             // then save it to the matrix for the iteration
+            ArrayList<Integer> framesList = new ArrayList<>();
             for(int i = 0; i < frameSize; i++){
-                framesMatrix[iter][i] = pageFrames[i];
+                if(pageFrames[i] > -1){
+                    framesList.add(Integer.valueOf(pageFrames[i]));
+                }
+            }
+            int fListLength = framesList.size();
+            for(int j = 0; j < fListLength; j++){
+                framesMatrix[iter][j] = framesList.get(fListLength-j-1);
+            }
+            for(int j = fListLength; j < frameSize; j++){
+                framesMatrix[iter][j] = -1;
             }
         }
     }

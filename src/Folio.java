@@ -19,7 +19,7 @@ public class Folio extends javax.swing.JFrame {
         mainFrame.setSize(1080, 720);
         mainFrame.setTitle("Folio");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setUndecorated(true);
+        mainFrame.setUndecorated(false);
         
         mainPanel.setLayout(card);
         mainPanel.add(splashScreen, "1");

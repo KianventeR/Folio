@@ -29,11 +29,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfWriter;
+// import com.itextpdf.text.Document;
+// import com.itextpdf.text.DocumentException;
+// import com.itextpdf.text.Image;
+// import com.itextpdf.text.PageSize;
+// import com.itextpdf.text.pdf.PdfWriter;
 
 class CenterTextRenderer extends DefaultTableCellRenderer {
     @Override
@@ -650,24 +650,24 @@ public class IOPanel extends javax.swing.JPanel {
         String imagePath = "panel_image.png";
         String pdfPath = "panel.pdf"; 
 
-        try {
-            BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
-            int imageWidth = bufferedImage.getWidth() + 70;
-            int imageHeight = bufferedImage.getHeight() + 70;
+        // try {
+        //     BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
+        //     int imageWidth = bufferedImage.getWidth() + 70;
+        //     int imageHeight = bufferedImage.getHeight() + 70;
 
-            Document document = new Document();
-            document.setPageSize(new com.itextpdf.text.Rectangle(imageWidth, imageHeight));
-            PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
-            document.open();
+        //     Document document = new Document();
+        //     document.setPageSize(new com.itextpdf.text.Rectangle(imageWidth, imageHeight));
+        //     PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+        //     document.open();
 
-            Image image = Image.getInstance(bufferedImage, null);
-            document.add(image);
+        //     Image image = Image.getInstance(bufferedImage, null);
+        //     document.add(image);
 
-            document.close();
-            System.out.println("Image converted to PDF successfully.");
-        } catch (IOException | DocumentException e) {
-            e.printStackTrace();
-        }
+        //     document.close();
+        //     System.out.println("Image converted to PDF successfully.");
+        // } catch (IOException | DocumentException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     public void io_randomMouseEntered(java.awt.event.MouseEvent evt) {
@@ -898,7 +898,10 @@ public class IOPanel extends javax.swing.JPanel {
     
     boolean[] hitMatrix;
     int[][] framesMatrix;
-        
+        System.out.println(current_speed);
+    
+    //
+    
     switch(Selected){
         case 0:
             System.out.println("FIFO");

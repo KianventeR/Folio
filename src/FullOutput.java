@@ -136,7 +136,7 @@ public class FullOutput extends javax.swing.JPanel {
         io_output_scroll.setBorder(null);
         io_output_scroll.setOpaque(false);
         add(io_output_scroll);
-        io_output_scroll.setBounds(60, 90, 960, 570);
+        io_output_scroll.setBounds(60, 90, 400, 100);
 
         io_output_bg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         io_output_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/algorithm_bg_full.png"))); 
