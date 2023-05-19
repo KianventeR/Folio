@@ -3,7 +3,7 @@
 This program is a Page Replacement Algorithm Simulator developed by 3 third-year Computer Science students (FMS STUDIOS) as a group project for CMSC 125. It is also built using Java language and the GUI is constructed using Netbeans IDE.
 ## Acknowledgements
 
- - [Soundtrack Music](https://open.spotify.com/) by [---](https://open.spotify.com/)
+ - [Retro Funk 20.03.2022 1714](https://freesound.org/people/sonically_sound/sounds/624874/) by [sonically_sound](https://freesound.org/people/sonically_sound/)
 
 
 ## Deployment
