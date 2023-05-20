@@ -1129,20 +1129,20 @@ public class IOPanel extends javax.swing.JPanel {
             
                     for(int row = 0; row < current_frames; row++){
                         if(framesMatrix[col][row] == -1){
-                            results_table.setValueAt(" ", (current_frames - 1)-row, col);
+                            results_table.setValueAt(" ", row, col);
                         }
                         else{
                             if(main_Array[col] == framesMatrix[col][row]){
                                // edit table highlight here 
-                               System.out.println("higlight at " + results_table.getValueAt((current_frames - 1)-row, col));
-                               desiredRow = (current_frames - 1)-row;
+                               System.out.println("higlight at " + results_table.getValueAt(row, col));
+                               desiredRow = row;
                                desiredColumn = col;
                                
                                TableCellRenderer cellRenderer = new CenterTextRenderer(desiredRow, desiredColumn, current_frames);
                                results_table.setDefaultRenderer(Object.class, cellRenderer);
                                io_output_scroll.setViewportView(results_table);
                             }
-                            results_table.setValueAt(framesMatrix[col][row], (current_frames - 1)-row, col);
+                            results_table.setValueAt(framesMatrix[col][row],row, col);
                         }
                     }
                     col++;

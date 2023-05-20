@@ -23,11 +23,13 @@ public class FIFO extends PageReplacementAlgorithm{
                 hitCount++;
             }else{
                 // else insert it to topmost frame
-                if(pageCount < (frameSize - 1)){
+                if(pageCount < frameSize){
+                    pageFrames[pageCount] = pages[iter];
                     pageCount++;
+                }else{
+                    removeBottom(pageFrames);
+                    pageFrames[0] = pages[iter];
                 }
-                removeTop(pageFrames);
-                pageFrames[frameCount-1] = pages[iter];
                 hits[0] = false;
                 missCount++;
             }
@@ -47,13 +49,13 @@ public class FIFO extends PageReplacementAlgorithm{
         return framesMatrix;
     }
     // for first in first out functionality
-    public void removeTop(int[] frames){
+    public void removeBottom(int[] frames){
         int[] tempArray = frames.clone();
         for(int i = 0; i < (frameCount - 1); i++){
             // push down contents to proper places
             frames[i] = tempArray[i+1];
         }
-        frames[frameCount-1] = -1; // remove bottom
+        frames[0] = -1; // remove bottom
     }
 
 }
