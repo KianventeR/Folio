@@ -33,11 +33,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
-// import com.itextpdf.text.Document;
-// import com.itextpdf.text.DocumentException;
-// import com.itextpdf.text.Image;
-// import com.itextpdf.text.PageSize;
-// import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 
 class CenterTextRenderer extends DefaultTableCellRenderer {
     
@@ -255,6 +255,7 @@ public class IOPanel extends javax.swing.JPanel {
         io_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/save.png"))); 
         io_save.setBorder(null);
         io_save.setBorderPainted(false);
+        io_save.setEnabled(false);
         io_save.setContentAreaFilled(false);
         io_save.setFocusPainted(false);
         io_save.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -511,7 +512,6 @@ public class IOPanel extends javax.swing.JPanel {
 
         io_reference_input.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); 
         io_reference_input.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        io_reference_input.setToolTipText("");
         io_reference_input.setBorder(null);
         io_reference_input.setOpaque(false);
         add(io_reference_input);
@@ -652,7 +652,7 @@ public class IOPanel extends javax.swing.JPanel {
         
         io_output_scroll.setBorder(null);
         if(main_Array.length < 12){
-            io_output_scroll.setBounds(60, 360, main_Array.length*75, 265);
+            io_output_scroll.setBounds(60, 360, main_Array.length*77 - 8, 265);
         }
         else{
             io_output_scroll.setBounds(60, 360, 12*80, 265);
@@ -712,28 +712,41 @@ public class IOPanel extends javax.swing.JPanel {
 
     public void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
-        saveTableAsImage(results_table, "panel_image.png");
-        String imagePath = "panel_image.png";
-        String pdfPath = "panel.pdf"; 
+        int fileNumber = 1;
 
-        // try {
-        //     BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
-        //     int imageWidth = bufferedImage.getWidth() + 70;
-        //     int imageHeight = bufferedImage.getHeight() + 70;
+        String fileName = "image_" + String.format("%03d", fileNumber) + ".png";
+        File file = new File(fileName);
+        
+        // Check if the file already exists
+        while (file.exists()) {
+            fileNumber++; // Increment the file number
+            
+            // Generate a new file name
+            fileName = "image_" + String.format("%03d", fileNumber) + ".png";
+            file = new File(fileName);
+        }
+        saveTableAsImage(results_table, fileName);
 
-        //     Document document = new Document();
-        //     document.setPageSize(new com.itextpdf.text.Rectangle(imageWidth, imageHeight));
-        //     PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
-        //     document.open();
+        String pdfPath = "pdf_" + String.format("%03d", fileNumber) + ".pdf"; 
 
-        //     Image image = Image.getInstance(bufferedImage, null);
-        //     document.add(image);
+        try {
+            BufferedImage bufferedImage = ImageIO.read(new File(fileName));
+            int imageWidth = bufferedImage.getWidth() + 70;
+            int imageHeight = bufferedImage.getHeight() + 70;
 
-        //     document.close();
-        //     System.out.println("Image converted to PDF successfully.");
-        // } catch (IOException | DocumentException e) {
-        //     e.printStackTrace();
-        // }
+            Document document = new Document();
+            document.setPageSize(new com.itextpdf.text.Rectangle(imageWidth, imageHeight));
+            PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+            document.open();
+
+            Image image = Image.getInstance(bufferedImage, null);
+            document.add(image);
+
+            document.close();
+            System.out.println("Image converted to PDF successfully.");
+        } catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        }
     }
 
     public void io_randomMouseEntered(java.awt.event.MouseEvent evt) {
@@ -808,7 +821,6 @@ public class IOPanel extends javax.swing.JPanel {
      try (Scanner read = new Scanner(file)){
         String frames = " ";
         String algo = " ";
-        String page_reference = "";
      
             for(int i = 0; i < 4; i++){
                 if(i < 2){
@@ -833,7 +845,7 @@ public class IOPanel extends javax.swing.JPanel {
             }
 
             if(main_Array.length > 40 || Integer.parseInt(frames) > 10){
-                JOptionPane.showMessageDialog(null, "Invalid File",
+                JOptionPane.showMessageDialog(null, "Invalid File.",
                 "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -927,7 +939,8 @@ public class IOPanel extends javax.swing.JPanel {
         
         
         if(values.charAt(values.length() - 1) == ' '){
-            System.out.println("Invalid input");
+            JOptionPane.showMessageDialog(null, "Page Reference contains invalid input/s.",
+        "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -949,7 +962,8 @@ public class IOPanel extends javax.swing.JPanel {
             for(int i = 0; i < int_values; i++){
                 main_Array[i] = read.nextInt();
                 if(main_Array[i] > 20){
-                    System.out.println("Value exceeding 20");
+                        JOptionPane.showMessageDialog(null, "Page Reference contains value/s exceeding 20.",
+                "Invalid Input", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -1043,10 +1057,9 @@ public class IOPanel extends javax.swing.JPanel {
 
         break;
     }
-       } catch (Exception e) {
-        System.out.println(e);
-        System.out.println("errr");
-        // TODO: handle exception
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Page Reference input contains invalid characters.",
+        "Invalid Input", JOptionPane.ERROR_MESSAGE);
        }
         //variables
         //current_frames;
@@ -1088,6 +1101,8 @@ public class IOPanel extends javax.swing.JPanel {
             int faults = 0;
             int col = 0;
             public void actionPerformed(ActionEvent evt){
+                io_import.setEnabled(false);
+                io_random.setEnabled(false);
                 io_frames_add.setEnabled(false);
                 io_frames_minus.setEnabled(false);
                 io_reference_input.setEditable(false);
@@ -1126,8 +1141,6 @@ public class IOPanel extends javax.swing.JPanel {
                                TableCellRenderer cellRenderer = new CenterTextRenderer(desiredRow, desiredColumn, current_frames);
                                results_table.setDefaultRenderer(Object.class, cellRenderer);
                                io_output_scroll.setViewportView(results_table);
-                               
-                               
                             }
                             results_table.setValueAt(framesMatrix[col][row], (current_frames - 1)-row, col);
                         }
@@ -1135,6 +1148,9 @@ public class IOPanel extends javax.swing.JPanel {
                     col++;
                 } 
                 if(col == main_Array.length){
+                    io_import.setEnabled(true);
+                    io_random.setEnabled(true);
+                    io_save.setEnabled(true);
                     io_frames_add.setEnabled(true);
                     io_frames_minus.setEnabled(true);
                     io_reference_input.setEditable(true);

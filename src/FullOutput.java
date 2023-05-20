@@ -1,3 +1,15 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfWriter;
+
 public class FullOutput extends javax.swing.JPanel {
     public FullOutput() {
         initComponents();
@@ -69,6 +81,7 @@ public class FullOutput extends javax.swing.JPanel {
 
         io_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/buttons/save.png"))); 
         io_save.setBorder(null);
+        io_save.setEnabled(false);
         io_save.setBorderPainted(false);
         io_save.setContentAreaFilled(false);
         io_save.setFocusPainted(false);
@@ -201,18 +214,52 @@ public class FullOutput extends javax.swing.JPanel {
 
     private void io_saveActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
-        // Insert didi an table variable
-        // IOPanel.saveTableAsImage(results_table, "panel_image.png");
+        Music.sfx();
+        int fileNumber = 1;
+
+        String fileName = "image_" + String.format("%03d", fileNumber) + ".png";
+        File file = new File(fileName);
+        
+        // Check if the file already exists
+        while (file.exists()) {
+            fileNumber++; // Increment the file number
+            
+            // Generate a new file name
+            fileName = "image_" + String.format("%03d", fileNumber) + ".png";
+            file = new File(fileName);
+        }
+        // saveTableAsImage(results_table, fileName);
+
+        String pdfPath = "pdf_" + String.format("%03d", fileNumber) + ".pdf"; 
+
+        try {
+            BufferedImage bufferedImage = ImageIO.read(new File(fileName));
+            int imageWidth = bufferedImage.getWidth() + 70;
+            int imageHeight = bufferedImage.getHeight() + 70;
+
+            Document document = new Document();
+            document.setPageSize(new com.itextpdf.text.Rectangle(imageWidth, imageHeight));
+            PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+            document.open();
+
+            Image image = Image.getInstance(bufferedImage, null);
+            document.add(image);
+
+            document.close();
+            System.out.println("Image converted to PDF successfully.");
+        } catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        }
     }
 
     private javax.swing.JButton exit;
     private javax.swing.JLabel io_bg;
     private javax.swing.JLabel io_output_bg;
-    private javax.swing.JScrollPane io_output_scroll;
+    public javax.swing.JScrollPane io_output_scroll;
     private javax.swing.JLabel io_page_bg;
     private javax.swing.JLabel io_page_label;
     private javax.swing.JButton io_return;
-    private javax.swing.JButton io_save;
+    public javax.swing.JButton io_save;
     private javax.swing.JLabel io_timer_bg;
     private javax.swing.JLabel io_timer_label;
     private javax.swing.JButton minimize;
