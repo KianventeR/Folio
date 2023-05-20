@@ -85,7 +85,7 @@ public class SC extends PageReplacementAlgorithm{
             }
             int fListLength = framesList.size();
             for(int j = 0; j < fListLength; j++){
-                framesMatrix[iter][j] = framesList.get(fListLength-j-1);
+                framesMatrix[iter][j] = framesList.get(j);
             }
             for(int j = fListLength; j < frameSize; j++){
                 framesMatrix[iter][j] = -1;

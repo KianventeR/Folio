@@ -45,7 +45,7 @@ public class LRU extends PageReplacementAlgorithm{
             // then save it to the matrix for the iteration
             int fListLength = framesList.size();
             for(int j = 0; j < fListLength; j++){
-                pageFrames[j] = framesList.get(fListLength-j-1);
+                pageFrames[j] = framesList.get(j);
             }
             for(int j = fListLength; j < frameSize; j++){
                 pageFrames[j] = -1;
