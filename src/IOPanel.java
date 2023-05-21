@@ -987,9 +987,60 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_simulateAllActionPerformed(java.awt.event.ActionEvent evt) {
-        flag = true;
-        Music.sfx();
-        Folio.card.show(Folio.mainPanel, "6");
+        int int_values = 0;
+        String values = io_reference_input.getText();
+        values.trim();
+        System.out.println(values);
+
+        if (io_reference_input.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Page Reference Cannot be Empty!",
+                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (values.charAt(values.length() - 1) == ' ') {
+            JOptionPane.showMessageDialog(null, "Page Reference contains invalid input/s.",
+                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        for (int i = 0; i < values.length(); i++) {
+            if (values.charAt(i) == ' ') {
+                int_values++;
+            } else {
+                continue;
+            }
+        }
+        int_values = int_values + 1;
+
+        System.out.println(int_values);
+        try (Scanner read = new Scanner(values)) {
+            flag = true;
+            // main_array loading - contains arrays
+            main_Array = new int[int_values];
+            for (int i = 0; i < int_values; i++) {
+                main_Array[i] = read.nextInt();
+                if (main_Array[i] > 20) {
+                    JOptionPane.showMessageDialog(null, "Page Reference contains value/s exceeding 20.",
+                            "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            flag = true;
+            Folio.fullOutput.results_model.setColumnCount(main_Array.length);
+            Folio.fullOutput.create_tables();
+            Folio.card.show(Folio.mainPanel, "6");
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Page Reference input contains invalid characters.",
+                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+      
+        
+        
     }
 
     public void io_simulateMouseEntered(java.awt.event.MouseEvent evt) {
