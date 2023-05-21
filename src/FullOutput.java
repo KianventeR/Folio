@@ -115,6 +115,8 @@ public class FullOutput extends javax.swing.JPanel {
 
     }
     String[] global_header;
+    boolean[] hitMatrix;
+    int[][] framesMatrix;
     public void create_tables() {
         // initComponents();
         mainPanel.setBounds(60, 90, 960, 560);
@@ -129,21 +131,71 @@ public class FullOutput extends javax.swing.JPanel {
             
 
 
-            int[] results = new int[7];
+            
 
 
-            // FIFO fifo = 
+            FIFO fifo = new FIFO(Folio.IO.main_Array, Folio.IO.main_Array.length, Folio.IO.current_frames);
+            LRU lru = new LRU(Folio.IO.main_Array, Folio.IO.main_Array.length, Folio.IO.current_frames);
+            OPT opt = new OPT(Folio.IO.main_Array, Folio.IO.main_Array.length, Folio.IO.current_frames);
+            SC sc = new SC(Folio.IO.main_Array, Folio.IO.main_Array.length, Folio.IO.current_frames);
+            ESC esc = new ESC(Folio.IO.main_Array, Folio.IO.main_Array.length, Folio.IO.current_frames);    
+            LFU lfu = new LFU(Folio.IO.main_Array, Folio.IO.main_Array.length, Folio.IO.current_frames);
+            MFU mfu = new MFU(Folio.IO.main_Array, Folio.IO.main_Array.length, Folio.IO.current_frames);
+
+          
+            // int [] results = {
+            //     fifo.getFramesMatrix().hashCode(), 
+            //     lfu.getFramesMatrix().hashCode(), 
+            //     opt.getFramesMatrix().hashCode(),
+            //     sc.getFramesMatrix().hashCode(),
+            //     esc.getFramesMatrix().hashCode(),
+            //     lfu.getFramesMatrix().hashCode(),
+            //     mfu.getFramesMatrix().hashCode() 
+            
+            // };
+
+
 
             for(int x = 0; x < global_header.length; x++){
-                
+               
                 global_header[x] = String.valueOf(Folio.IO.main_Array[x]);
             }
-
+            // char[][] hitMatrix;
             for (int i = 0; i < 7; i++) {
                 
+                switch(i){
+                    case 0:
+                    hitMatrix = fifo.getHitMatrix();
+                    framesMatrix = fifo.getFramesMatrix();
+                    break;
+                    case 1:
+                    hitMatrix = lru.getHitMatrix();
+                    framesMatrix = lru.getFramesMatrix();
+                    break;
+                    case 2:
+                    hitMatrix = opt.getHitMatrix();
+                    framesMatrix = opt.getFramesMatrix();
+                    break;
+                    case 3:
+                    hitMatrix = sc.getHitMatrix();
+                    framesMatrix = sc.getFramesMatrix();
+                    break;
+                    case 4:
+                    hitMatrix = esc.getHitMatrix();
+                    framesMatrix = esc.getFramesMatrix();
+                    break;
+                    case 5:
+                    hitMatrix = lfu.getHitMatrix();
+                    framesMatrix = lfu.getFramesMatrix();
+                    break;
+                    case 6:
+                    hitMatrix = mfu.getHitMatrix();
+                    framesMatrix = mfu.getFramesMatrix();
+                    break;
+                }
+
                 String[] header = global_header;
-                Object[][] rowData = {
-                };
+                Object[][] rowData = {};
               
 
                 
@@ -162,7 +214,7 @@ public class FullOutput extends javax.swing.JPanel {
                 table.setModel(new javax.swing.table.DefaultTableModel(rowData, header));
                 DefaultTableModel proxy_model = (DefaultTableModel) table.getModel();
                 proxy_model.setColumnCount(results_model.getColumnCount());
-                proxy_model.setRowCount(Folio.IO.current_frames);
+                proxy_model.setRowCount(Folio.IO.current_frames + 1);
 
 
     
@@ -176,7 +228,32 @@ public class FullOutput extends javax.swing.JPanel {
                 table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
 
                 // Create a scroll pane for the table
+
+                for(int a = 0; a < Folio.IO.main_Array.length; a++){
+
+                    
+                    System.out.println(hitMatrix[a] + " " + i);
+                    int current_frames = Folio.IO.current_frames;
+                    if(hitMatrix[a] == false){
+                    table.setValueAt("Miss", current_frames, a);
+                    }
+                    else{
+                        table.setValueAt("Hit", current_frames, a);
+                    }
+            
+                    for(int j = 0; j < current_frames; j++){
+                    if(framesMatrix[a][j] == -1){
+                        table.setValueAt(" ", (current_frames - 1)-j, a);
+                    }
+                    else{
+                        table.setValueAt(framesMatrix[a][j], (current_frames - 1)-j, a);
+                    }
+                    }
+                    }
+
                 JScrollPane tableScrollPane = new JScrollPane(table);
+
+                
 
                 // Set the preferred size of the scroll pane
                 // tableScrollPane.setPreferredSize(new Dimension(300, 200));

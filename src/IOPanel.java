@@ -999,6 +999,7 @@ public class IOPanel extends javax.swing.JPanel {
         }
 
         if (values.charAt(values.length() - 1) == ' ') {
+            
             JOptionPane.showMessageDialog(null, "Page Reference contains invalid input/s.",
                     "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return;
@@ -1033,6 +1034,7 @@ public class IOPanel extends javax.swing.JPanel {
             Folio.card.show(Folio.mainPanel, "6");
         }
         catch (Exception e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Page Reference input contains invalid characters.",
                     "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
