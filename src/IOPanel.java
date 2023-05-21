@@ -1221,6 +1221,8 @@ public class IOPanel extends javax.swing.JPanel {
                     col++;
                 }
                 if (col == main_Array.length) {
+                    
+
                     io_import.setEnabled(true);
                     io_random.setEnabled(true);
                     io_save.setEnabled(true);
@@ -1233,6 +1235,10 @@ public class IOPanel extends javax.swing.JPanel {
                     io_simulate.setEnabled(true);
                     io_simulateAll.setEnabled(true);
                     timer.stop();
+                    TableCellRenderer cellRenderer = new CenterTextRenderer(-1, desiredColumn,
+                    current_frames);
+                    results_table.setDefaultRenderer(Object.class, cellRenderer);
+                    io_output_scroll.setViewportView(results_table);
                 }
 
             }
@@ -1240,6 +1246,8 @@ public class IOPanel extends javax.swing.JPanel {
         if (!timer.isRunning()) {
             timer.start();
         }
+
+       
     }
 
     public void io_speed_minusMouseEntered(java.awt.event.MouseEvent evt) {
