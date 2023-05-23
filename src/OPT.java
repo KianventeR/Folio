@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Set;
@@ -41,13 +40,12 @@ public class OPT extends PageReplacementAlgorithm{
                     }
                     // 1. which will never be used in the future
                     Set<Integer> intSet = new HashSet<>();
-                    System.out.println("OPT Set");
                     for(int i = iter + 1; i < numOfPages; i++){
                         int pageNum = pages[i];
-                        System.out.print(pageNum+" ");
+                        
                         intSet.add(pageNum);
                     }
-                    System.out.println();
+                    
                     // check if never used
                     for(int i = 0; i < frameSize; i++){
                         if(!intSet.contains(pageFrames[i])){

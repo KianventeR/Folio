@@ -26,21 +26,22 @@ You can also run the jar and/or exe files by simply opening either of the files.
 
 1. You can import a `.txt` file to extract inputs for the different CPU Scheduling Algorithms
 2. format should be the following: where the `Frame` is the number of page frames. `Algorithm` is the acronym of the page replacement algorithm chosen. The following valid acronyms and their meaning are given below;
-FIFO - first in, first out
-LRU - least recenrtly used
-OPT - optimal page replacement
-SC - second chance
-ESC - enhanced second chance
-MFU - most frequently used
-LFU - least frequently used
+- FIFO - first in, first out
+- LRU - least recenrtly used
+- OPT - optimal page replacement
+- SC - second chance
+- ESC - enhanced second chance
+- MFU - most frequently used
+- LFU - least frequently used
 
 Lastly, the `Page_Reference` is the reference string which gives the pages to simulate. Numbers should be any number from 0 to 10, inclusive.
 
 Example:
-
+```
 Frames: 4
 Algorithm: LRU
 Page_Reference: 7 0 1 2 0 3 0 4 2 3 0 3 2 3
+```
 
 ## Authors
 
@@ -53,4 +54,5 @@ Page_Reference: 7 0 1 2 0 3 0 4 2 3 0 3 2 3
 
 The program requires:
 
-- Atleast [JDK 16.0.1](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html)
+- [JDK 16.0.1](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html)
+- [iTextPDF](https://github.com/itext/itextpdf/releases?after=5.5.13.2)

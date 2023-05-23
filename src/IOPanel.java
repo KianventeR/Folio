@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageFilter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,17 +37,15 @@ import javax.swing.table.TableCellRenderer;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
 class CenterTextRenderer extends DefaultTableCellRenderer {
 
-    private int desiredRow = 0;
-    private int desiredColumn = 0;
+    public int desiredRow = 0;
+    public int desiredColumn = 0;
     int rows = 0;
 
     public CenterTextRenderer(int desiredRow, int desiredColumn, int rows) {
-
         this.desiredRow = desiredRow;
         this.desiredColumn = desiredColumn;
         this.rows = rows;
@@ -59,10 +56,10 @@ class CenterTextRenderer extends DefaultTableCellRenderer {
             int row, int column) {
 
         Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        final Border border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY);
+        // final Border border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY);
         setHorizontalAlignment(SwingConstants.CENTER);
         // cellComponent.setBackground(Color.gray);
-        ((JComponent) cellComponent).setBorder(border);
+        // ((JComponent) cellComponent).setBorder(border);
 
         if (desiredColumn == 0 && desiredRow == 0) {
             cellComponent.setBackground(table.getBackground());
@@ -469,14 +466,14 @@ public class IOPanel extends javax.swing.JPanel {
         add(io_random);
         io_random.setBounds(160, 230, 130, 40);
 
-        io_page_label.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); // NOI18N
+        io_page_label.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16)); 
         io_page_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         io_page_label.setText("0");
         add(io_page_label);
         io_page_label.setBounds(232, 310, 60, 30);
 
         io_page_bg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        io_page_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/page_highlight.png"))); // NOI18N
+        io_page_bg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/page_highlight.png"))); 
         io_page_bg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(io_page_bg);
         io_page_bg.setBounds(160, 300, 150, 50);
@@ -494,9 +491,10 @@ public class IOPanel extends javax.swing.JPanel {
         io_timer_bg.setBounds(40, 300, 120, 50);
 
         io_output_scroll.setBorder(null);
+        io_output_scroll.getViewport().setBackground(Color.WHITE);
         io_output_scroll.setOpaque(false);
         add(io_output_scroll);
-        io_output_scroll.setBounds(50, 360, 980, 300);
+        io_output_scroll.setBounds(60, 360, 12 * 80, 265);
 
         io_speed_value.setFont(new java.awt.Font("Poppins ExtraBold", 0, 16));
         io_speed_value.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -540,7 +538,7 @@ public class IOPanel extends javax.swing.JPanel {
         io_algorithm_select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "First In First Out",
                 "Least Recently Used", "Optimal Page Replacement", "Second Chance Algorithm",
                 "Enhanced Second Chance Algorithm", "Least Frequently Used", "Most Frequently Used" }));
-        io_algorithm_select.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        io_algorithm_select.setBorder(null);
         io_algorithm_select.setFocusable(false);
         io_algorithm_select.setOpaque(false);
         adjustScrollBar(io_algorithm_select);
@@ -590,7 +588,7 @@ public class IOPanel extends javax.swing.JPanel {
         add(io_bg);
         io_bg.setBounds(0, 0, 1080, 720);
 
-        results_table.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        results_table.setFont(new java.awt.Font("Poppins Regular", 0, 11)); 
         results_table.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][] {
                         { null, null, null },
@@ -625,7 +623,6 @@ public class IOPanel extends javax.swing.JPanel {
         TableCellRenderer cellRenderer = new CenterTextRenderer(-1, -1, current_frames);
         results_table.setDefaultRenderer(Object.class, cellRenderer);
 
-        results_table.setForeground(new java.awt.Color(0, 0, 0));
         Object[][] data = new Object[0][0];
         String[] header = new String[main_Array.length];
 
@@ -642,28 +639,24 @@ public class IOPanel extends javax.swing.JPanel {
         results_table.setFillsViewportHeight(true);
         results_table.setGridColor(new java.awt.Color(255, 255, 255));
         results_table.setSelectionBackground(new java.awt.Color(211, 211, 211));
-        results_table.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        results_table.setBackground(Color.WHITE);
         results_table.setInheritsPopupMenu(true);
         results_table.setIntercellSpacing(new java.awt.Dimension(35, 1));
         results_table.setRowHeight(40);
-
         results_table.getTableHeader().setReorderingAllowed(false);
         results_table.getTableHeader().setResizingAllowed(false);
+        results_table.getTableHeader().setBackground(Color.WHITE);
+        results_table.setBorder(null);
+
         JTableHeader results_header = results_table.getTableHeader();
         TableCellRenderer renderer = results_header.getDefaultRenderer();
         ((JLabel) renderer).setHorizontalAlignment(SwingConstants.CENTER);
 
-        // results_table.setPreferredSize(new Dimension(20, 60));
-        results_table.setBorder(null);
-
-        io_output_scroll.setBorder(null);
         if (main_Array.length < 12) {
-            io_output_scroll.setBounds(60, 360, main_Array.length * 77 - 8, 265);
+            io_output_scroll.setBounds(60, 360, main_Array.length * 79, 265);
         } else {
-            io_output_scroll.setBounds(60, 360, 12 * 80, 265);
+            io_output_scroll.setBounds(60, 360, 12 * 79, 265);
         }
-
-        io_output_scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         io_output_scroll.setViewportView(results_table);
     }
 
@@ -734,14 +727,13 @@ public class IOPanel extends javax.swing.JPanel {
 
             // Process the selected file filter
             String filterDescription = selectedFilter.getDescription();
-            String[] filterExtensions = selectedFilter.getExtensions();
 
-            System.out.println("Save as file: " + filterDescription);
+            
 
             if (filterDescription.equals(".pdf")) {
                 int fileNumber = 1;
 
-                String fileName = "image_" + String.format("%03d", fileNumber) + ".png";
+                String fileName = filterDescription + ".png";
                 File file = new File(fileName);
 
                 // Check if the file already exists
@@ -749,7 +741,7 @@ public class IOPanel extends javax.swing.JPanel {
                     fileNumber++; // Increment the file number
 
                     // Generate a new file name
-                    fileName = "image_" + String.format("%03d", fileNumber) + ".png";
+                    fileName = filterDescription + String.format("%03d", fileNumber) + ".png";
                     file = new File(fileName);
                 }
                 saveTableAsImage(results_table, fileName);
@@ -770,7 +762,10 @@ public class IOPanel extends javax.swing.JPanel {
                     document.add(image);
 
                     document.close();
-                    System.out.println("Image converted to PDF successfully.");
+                    
+                    File imageFile = new File(fileName);
+                    imageFile.delete();
+
                 } catch (IOException | DocumentException e) {
                     e.printStackTrace();
                 }
@@ -788,7 +783,7 @@ public class IOPanel extends javax.swing.JPanel {
                     fileNumber++; // Increment the file number
 
                     // Generate a new file name
-                    fileName = "image_" + String.format("%03d", fileNumber) + ".png";
+                    fileName = fileToSave.getAbsolutePath() + String.format("%03d", fileNumber) + ".png";
                     file = new File(fileName);
                 }
                 saveTableAsImage(results_table, fileName);
@@ -796,7 +791,7 @@ public class IOPanel extends javax.swing.JPanel {
             }
         }
 
-        // System.out.println(System.getProperty("user.home"));
+        // 
 
         // int fileNumber = 1;
 
@@ -829,7 +824,7 @@ public class IOPanel extends javax.swing.JPanel {
         //     document.add(image);
 
         //     document.close();
-        //     System.out.println("Image converted to PDF successfully.");
+        //     
         // } catch (IOException | DocumentException e) {
         //     e.printStackTrace();
         // }
@@ -852,9 +847,9 @@ public class IOPanel extends javax.swing.JPanel {
         int random_frame = rand.nextInt(frame_upper - frame_lower) + frame_lower;
         int random_value = rand.nextInt(upper_value - lower_value) + lower_value;
 
-        System.out.println(random_length + " Length");
-        System.out.println(random_frame + " frame");
-        System.out.println(random_value + " value");
+        
+        
+        
 
         current_frames = random_frame;
 
@@ -876,7 +871,7 @@ public class IOPanel extends javax.swing.JPanel {
             }
         }
 
-        // System.out.println(array_string);
+        // 
 
         io_reference_input.setText(array_string);
         main_Array = new int[random_Array.length];
@@ -893,7 +888,7 @@ public class IOPanel extends javax.swing.JPanel {
 
     public void io_importActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
-        System.out.println("importing");
+        
 
         io_reference_input.setText("");
 
@@ -918,7 +913,7 @@ public class IOPanel extends javax.swing.JPanel {
                 import_ArrayList.add(read.nextInt());
             }
 
-            System.out.println(import_ArrayList);
+            
 
             main_Array = new int[import_ArrayList.size()];
 
@@ -944,7 +939,7 @@ public class IOPanel extends javax.swing.JPanel {
             }
 
             Selected = checkSelected(algo);
-            System.out.println(Selected);
+            
 
             io_algorithm_select.setSelectedIndex(Selected);
             io_random.setEnabled(false);
@@ -953,7 +948,7 @@ public class IOPanel extends javax.swing.JPanel {
             io_algorithm_select.setEditable(false);
             io_reference_input.setEditable(false);
         } catch (Exception e) {
-            System.out.println("errpr");
+            
         }
     }
 
@@ -987,10 +982,12 @@ public class IOPanel extends javax.swing.JPanel {
     }
 
     public void io_simulateAllActionPerformed(java.awt.event.ActionEvent evt) {
+        Music.sfx();
+
         int int_values = 0;
         String values = io_reference_input.getText();
         values.trim();
-        System.out.println(values);
+        
 
         if (io_reference_input.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Page Reference Cannot be Empty!",
@@ -1014,7 +1011,7 @@ public class IOPanel extends javax.swing.JPanel {
         }
         int_values = int_values + 1;
 
-        System.out.println(int_values);
+        
         try (Scanner read = new Scanner(values)) {
             flag = true;
             // main_array loading - contains arrays
@@ -1034,15 +1031,10 @@ public class IOPanel extends javax.swing.JPanel {
             Folio.card.show(Folio.mainPanel, "6");
         }
         catch (Exception e) {
-            System.out.println(e);
+            
             JOptionPane.showMessageDialog(null, "Page Reference input contains invalid characters.",
                     "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
-
-
-      
-        
-        
     }
 
     public void io_simulateMouseEntered(java.awt.event.MouseEvent evt) {
@@ -1055,10 +1047,22 @@ public class IOPanel extends javax.swing.JPanel {
 
     public void io_simulateActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
+
+        io_import.setEnabled(false);
+        io_random.setEnabled(false);
+        io_frames_add.setEnabled(false);
+        io_frames_minus.setEnabled(false);
+        io_reference_input.setEditable(false);
+        io_speed_add.setEnabled(false);
+        io_speed_minus.setEnabled(false);
+        io_algorithm_select.setEnabled(false);
+        io_simulate.setEnabled(false);
+        io_simulateAll.setEnabled(false);
+        results_table.setEnabled(false);
+
         int int_values = 0;
         String values = io_reference_input.getText();
         values.trim();
-        System.out.println(values);
 
         if (io_reference_input.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Page Reference Cannot be Empty!",
@@ -1080,8 +1084,7 @@ public class IOPanel extends javax.swing.JPanel {
             }
         }
         int_values = int_values + 1;
-
-        System.out.println(int_values);
+        
         try (Scanner read = new Scanner(values)) {
             flag = true;
             // main_array loading - contains arrays
@@ -1094,157 +1097,85 @@ public class IOPanel extends javax.swing.JPanel {
                     return;
                 }
             }
-
             // selected algo
             Selected = io_algorithm_select.getSelectedIndex();
 
-            // No. of frames
-            System.out.println(current_frames);
-
             // table creation
             create_table(main_Array, Selected, current_frames);
-            // results_table.setEnabled(false);
 
             boolean[] hitMatrix;
             int[][] framesMatrix;
-            System.out.println(current_speed);
-
-            //
-
+            
             switch (Selected) {
                 case 0:
-                    System.out.println("FIFO");
                     FIFO fifo = new FIFO(main_Array, main_Array.length, current_frames);
                     hitMatrix = fifo.getHitMatrix();
                     framesMatrix = fifo.getFramesMatrix();
                     // framesMatrix[numofpages][framesize]
-                    System.out.println(framesMatrix.length + "no of frames");
+                    
 
                     initiate_print(hitMatrix, framesMatrix);
 
                     break;
                 case 1:
-                    System.out.println("LRU");
                     LRU lru = new LRU(main_Array, main_Array.length, current_frames);
                     hitMatrix = lru.getHitMatrix();
                     framesMatrix = lru.getFramesMatrix();
                     // framesMatrix[numofpages][framesize]
-                    System.out.println(framesMatrix.length + "no of frames");
                     initiate_print(hitMatrix, framesMatrix);
-
                     break;
                 case 2:
-                    System.out.println("OPT");
                     OPT opt = new OPT(main_Array, main_Array.length, current_frames);
                     hitMatrix = opt.getHitMatrix();
                     framesMatrix = opt.getFramesMatrix();
                     // framesMatrix[numofpages][framesize]
-                    System.out.println(framesMatrix.length + "no of frames");
                     initiate_print(hitMatrix, framesMatrix);
                     break;
-
                 case 3:
-                    System.out.println("SC");
                     SC sc = new SC(main_Array, main_Array.length, current_frames);
                     hitMatrix = sc.getHitMatrix();
                     framesMatrix = sc.getFramesMatrix();
                     // framesMatrix[numofpages][framesize]
-                    System.out.println(framesMatrix.length + "no of frames");
                     initiate_print(hitMatrix, framesMatrix);
                     break;
                 case 4:
-                    System.out.println("ESCA");
-
                     ESC esc = new ESC(main_Array, main_Array.length, current_frames);
                     hitMatrix = esc.getHitMatrix();
                     framesMatrix = esc.getFramesMatrix();
                     // framesMatrix[numofpages][framesize]
-                    System.out.println(framesMatrix.length + "no of frames");
                     initiate_print(hitMatrix, framesMatrix);
                     break;
                 case 5:
-                    System.out.println("LFU");
-
                     LFU lfu = new LFU(main_Array, main_Array.length, current_frames);
                     hitMatrix = lfu.getHitMatrix();
                     framesMatrix = lfu.getFramesMatrix();
                     // framesMatrix[numofpages][framesize]
-                    System.out.println(framesMatrix.length + "no of frames");
                     initiate_print(hitMatrix, framesMatrix);
                     break;
                 case 6:
-                    System.out.println("MFU");
-
                     MFU mfu = new MFU(main_Array, main_Array.length, current_frames);
                     hitMatrix = mfu.getHitMatrix();
                     framesMatrix = mfu.getFramesMatrix();
                     // framesMatrix[numofpages][framesize]
-                    System.out.println(framesMatrix.length + "no of frames");
                     initiate_print(hitMatrix, framesMatrix);
-
                     break;
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Page Reference input contains invalid characters.",
-                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Page Reference input contains invalid characters.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
-        // variables
-        // current_frames;
-        // main_Array;
-        // current_speed
     }
 
     private void initiate_print(boolean[] hitMatrix, int[][] framesMatrix) {
-
-        // for(int i = 0; i < main_Array.length; i++){
-
-        // }
-
-        // matrix + hits
-        // for(int i = 0; i < main_Array.length; i++){
-
-        // System.out.println(hitMatrix[i]);
-        // if(hitMatrix[i] == false){
-        // results_table.setValueAt("Miss", current_frames, i);
-        // }
-        // else{
-        // results_table.setValueAt("Hit", current_frames, i);
-        // }
-
-        // for(int j = 0; j < current_frames; j++){
-        // if(framesMatrix[i][j] == -1){
-        // results_table.setValueAt(" ", (current_frames - 1)-j, i);
-        // }
-        // else{
-        // results_table.setValueAt(framesMatrix[i][j], (current_frames - 1)-j, i);
-        // }
-        // }
-        // }
-
         timer = new Timer((int) (500 / current_speed), new ActionListener() {
-
             // matrix + hits
             int faults = 0;
             int col = 0;
 
             public void actionPerformed(ActionEvent evt) {
-                io_import.setEnabled(false);
-                io_random.setEnabled(false);
-                io_frames_add.setEnabled(false);
-                io_frames_minus.setEnabled(false);
-                io_reference_input.setEditable(false);
-                io_speed_add.setEnabled(false);
-                io_speed_minus.setEnabled(false);
-                io_algorithm_select.setEnabled(false);
-                io_simulate.setEnabled(false);
-                io_simulateAll.setEnabled(false);
-
-                results_table.setEnabled(false);
                 io_timer_label.setText(String.valueOf(col));
                 io_page_label.setText(String.valueOf(main_Array[col]));
                 if (col < main_Array.length) {
 
-                    System.out.println(hitMatrix[col]);
                     if (hitMatrix[col] == false) {
                         results_table.setValueAt("Miss", current_frames, col);
                         faults++;
@@ -1259,7 +1190,7 @@ public class IOPanel extends javax.swing.JPanel {
                         } else {
                             if (main_Array[col] == framesMatrix[col][row]) {
                                 // edit table highlight here
-                                System.out.println("higlight at " + results_table.getValueAt(row, col));
+                                
                                 desiredRow = (current_frames - 1) - row;
                                 desiredColumn = col;
 
@@ -1274,8 +1205,6 @@ public class IOPanel extends javax.swing.JPanel {
                     col++;
                 }
                 if (col == main_Array.length) {
-                    
-
                     io_import.setEnabled(true);
                     io_random.setEnabled(true);
                     io_save.setEnabled(true);
@@ -1293,14 +1222,11 @@ public class IOPanel extends javax.swing.JPanel {
                     results_table.setDefaultRenderer(Object.class, cellRenderer);
                     io_output_scroll.setViewportView(results_table);
                 }
-
             }
         });
         if (!timer.isRunning()) {
             timer.start();
         }
-
-       
     }
 
     public void io_speed_minusMouseEntered(java.awt.event.MouseEvent evt) {
@@ -1317,9 +1243,8 @@ public class IOPanel extends javax.swing.JPanel {
             current_speed = current_speed - 0.5;
             io_speed_value.setText(String.valueOf(current_speed) + "x");
         } else {
-            System.out.println("cannot subtract more than 0.5");
+            
         }
-
     }
 
     public void io_speed_addMouseEntered(java.awt.event.MouseEvent evt) {
@@ -1336,7 +1261,7 @@ public class IOPanel extends javax.swing.JPanel {
             current_speed = current_speed + 0.5;
             io_speed_value.setText(String.valueOf(current_speed) + "x");
         } else {
-            System.out.println("cannot add more than 2");
+            
         }
     }
 
@@ -1350,14 +1275,14 @@ public class IOPanel extends javax.swing.JPanel {
 
     public void io_frames_addActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
-        System.out.println("adding frames");
+        
         if (current_frames >= 3 && current_frames < 10) {
             current_frames++;
             io_frames_value.setText(String.valueOf(current_frames));
-            System.out.println(current_frames);
+            
         } else {
-            System.out.println("cannot add more than 10");
-            System.out.println(current_frames);
+            
+            
         }
     }
 
@@ -1373,12 +1298,12 @@ public class IOPanel extends javax.swing.JPanel {
     public void io_frames_minusActionPerformed(java.awt.event.ActionEvent evt) {
         Music.sfx();
         if (current_frames <= 3) {
-            System.out.println("removing frames");
-            System.out.println("cannot subtract less than 3");
+            
+            
         } else {
             current_frames--;
             io_frames_value.setText(String.valueOf(current_frames));
-            System.out.println(current_frames);
+            
         }
     }
 

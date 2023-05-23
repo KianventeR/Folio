@@ -16,6 +16,33 @@ public class Folio extends javax.swing.JFrame {
    public static boolean sound = true;
     
     public Folio() {
+        try {
+            java.awt.Font poppins_semibold = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    getClass().getClassLoader().getResourceAsStream("Poppins-SemiBold.ttf"));
+            java.awt.GraphicsEnvironment ge = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(poppins_semibold);
+        } catch (java.io.IOException | java.awt.FontFormatException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            java.awt.Font poppins_extrabold = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    getClass().getClassLoader().getResourceAsStream("Poppins-ExtraBold.ttf"));
+            java.awt.GraphicsEnvironment ge = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(poppins_extrabold);
+        } catch (java.io.IOException | java.awt.FontFormatException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            java.awt.Font poppins_regular = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    getClass().getClassLoader().getResourceAsStream("Poppins-Regular.ttf"));
+            java.awt.GraphicsEnvironment ge = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(poppins_regular);
+        } catch (java.io.IOException | java.awt.FontFormatException e) {
+            e.printStackTrace();
+        }
+
         mainFrame.setSize(1080, 720);
         mainFrame.setTitle("Folio");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
